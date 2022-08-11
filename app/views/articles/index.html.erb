@@ -1,12 +1,16 @@
 <h1>Articles</h1>
 
+Our blog has <%= Article.public_count %> 
+<%= (Article.public_count > 1 || Article.public_count == 0) ? 'articles' : 'article' %> 
+and counting!
+
 <ul>
   <% @articles.each do |article| %>
     <% unless article.archived? %>
       <li>
         <%= link_to article.title, article %>
       </li>
-    <% end %>%>
+    <% end %>
   <% end %>
 </ul>
 
