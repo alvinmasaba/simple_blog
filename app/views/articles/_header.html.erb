@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <%= image_tag("pistons-logo.png", :class=>"header-logo") %>
+    <%# Show the specific team logo on team pages, otherwise show the NBA logo. %>
+    <%= (@team.nil? || @team.id.nil?) ? image_tag("official-nba.svg", :class=>"header-logo") : 
+                                        image_tag(@team.city.downcase + "-" + @team.name.downcase + '.svg', :class=>"header-logo") %>
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -1,3 +1,15 @@
-<h1><%= @team.city @team.name%></h1>
+<h1><%= @team.city.capitalize%> <%= @team.name.capitalize %></h1>
+
+<ul>
+  <li><%= link_to "Edit", 
+  edit_team_path(@team) %></li>
+
+  <li><%= link_to "Delete", 
+  team_path(@team),
+  data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          } %></li>
+</ul>
 
 <%= link_to "Home", root_path %>

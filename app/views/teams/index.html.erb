@@ -6,8 +6,10 @@
   <ul>
     <% @teams.each do |team| %>
         <li>
-          <%= link_to team.name, team %>
+          <%= link_to team.name.capitalize, team %>
         </li>
     <% end %>
   </ul>
 </div>
+
+<%= link_to "New Team", new_team_path %>

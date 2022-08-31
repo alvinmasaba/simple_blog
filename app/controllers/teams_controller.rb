@@ -16,6 +16,8 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @team.name = @team.name.downcase
+    @team.city = @team.city.downcase
     
     if @team.save
       redirect_to @team
@@ -48,6 +50,6 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:city, :name, :status)
+    params.require(:team).permit(:city, :name)
   end
 end
