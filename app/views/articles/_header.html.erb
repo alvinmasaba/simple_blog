@@ -10,14 +10,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <%= (@team.nil? || @team.id.nil?) ? (link_to "IGNBA", root_path, :class=>"nav-link") : (link_to "Home", root_path, :class=>"nav-link") %>
         </li>
+        
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <%= link_to "Spreadsheet", "https://docs.google.com/spreadsheets/d/1MvAv6t_Q4RR5jq4oNpeiZrxetIwDVAGmiqj7Foet_co/edit#gid=1727034487", :class=>"nav-link" %>
         </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            <%= (@team.nil? || @team.id.nil?) ? "Teams" : "Roster" %>
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -25,9 +27,6 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
       <form class="d-flex" role="search">

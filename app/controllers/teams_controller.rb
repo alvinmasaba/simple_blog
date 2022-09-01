@@ -16,8 +16,8 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
-    @team.name = @team.name.downcase
-    @team.city = @team.city.downcase
+    @team.name = @team.name.downcase.strip.gsub(/\s+/, "-")
+    @team.city = @team.city.downcase.strip.gsub(/\s+/, "-")
     
     if @team.save
       redirect_to @team

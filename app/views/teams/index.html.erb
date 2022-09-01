@@ -6,7 +6,7 @@
   <ul>
     <% @teams.each do |team| %>
         <li>
-          <%= link_to team.name.capitalize, team %>
+          <%= link_to team.name.gsub("-", " ").titleize, team %>
         </li>
     <% end %>
   </ul>
