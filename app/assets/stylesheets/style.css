@@ -7,7 +7,49 @@
   padding: 0;
 }
 
-.header-logo {
+html,
+body {
+  min-height: 100vh;
+  overflow: auto;
+  width: 100%;
+}
+
+.main-container {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 110px 1fr;
+  grid-template-areas: 
+    "header"
+    "main";
+}
+
+/* HEADER */
+
+.navbar {
+  padding: 0 1.5rem;
+}
+
+.navbar .container-fluid {
+  gap: 3rem;
+}
+
+.navbar-nav {
+  gap: 2rem;
+  font-size: 20px;
+}
+
+/* HEADER LOGOS */
+
+.nba-header-logo {
   height: 75px;
-  width: 75px;
+  width: 125px;
+}
+.team-header-logo {
+  height: 80px;
+  width: 80px;
+}
+
+.homepage-team-logo {
+  height: 100px;
+  width: 100px;
 }

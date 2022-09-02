@@ -1,13 +1,7 @@
-<div>
-  <h1>IGNBA Teams</h1>
-</div>
-
-<div class="main-container">
+<div class="main-content">
   <ul>
     <% @teams.each do |team| %>
-        <li>
-          <%= link_to team.name.gsub("-", " ").titleize, team %>
-        </li>
+      <%= image_tag(team.city.downcase + "-" + team.name.downcase + '.svg', :class=>"homepage-team-logo") %>
     <% end %>
   </ul>
 </div>
