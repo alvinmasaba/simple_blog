@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_31_182353) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_02_193059) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -31,6 +31,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_182353) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "players", force: :cascade do |t|
+    t.integer "age"
+    t.string "school"
+    t.string "country"
+    t.integer "years_in_league"
+    t.integer "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "draft_class"
+    t.index ["team_id"], name: "index_players_on_team_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "city"
     t.string "name"
@@ -40,4 +54,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_182353) do
 
   add_foreign_key "articles", "teams"
   add_foreign_key "comments", "articles"
+  add_foreign_key "players", "teams"
 end
