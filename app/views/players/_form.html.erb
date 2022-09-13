@@ -1,0 +1,69 @@
+<%= form_with(model: player, url: team_players_path, :class => "new-player-form") do |form| %>
+  <div>
+    <%= form.label :first_name %><br>
+    <%= form.text_field :first_name %>
+    <% player.errors.full_messages_for(:first_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :last_name %><br>
+    <%= form.text_field :last_name %>
+    <% player.errors.full_messages_for(:last_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :age %><br>
+    <%= form.text_field :age %>
+    <% player.errors.full_messages_for(:age).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :height %><br>
+    <%= form.text_field :height %>
+    <% player.errors.full_messages_for(:height).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :school %><br>
+    <%= form.text_field :school %>
+    <% player.errors.full_messages_for(:school).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :position %><br>
+    <%= form.text_field :position %>
+    <% player.errors.full_messages_for(:position).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :country %><br>
+    <%= form.text_field :country %>
+    <% player.errors.full_messages_for(:country).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :draft_class %><br>
+    <%= form.text_field :draft_class %>
+    <% player.errors.full_messages_for(:draft_class).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

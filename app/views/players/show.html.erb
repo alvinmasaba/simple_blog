@@ -1,0 +1,13 @@
+<div class="player-profile">
+  <h1><%= @player.first_name.gsub("-", " ").titleize%> <%= @player.last_name.gsub("-", " ").titleize %></h1>
+  <ul>
+    <li class="player-profile-field">Name: <%=@player.first_name%> <%=@player.last_name%></li>
+    <li class="player-profile-field">Age: <%=@player.age%></li>
+    <li class="player-profile-field">School: <%=@player.school%></li>
+    <li class="player-profile-field">Country: <%=@player.country%></li>
+    <li class="player-profile-field">Height: <%=@player.height%></li>
+    <li class="player-profile-field">Position: <%=@player.position%></li>
+    <li class="player-profile-field">Draft: <%=@player.draft_class%></li>
+    <li class="player-profile-field">Years Played: <%=@player.years_in_league%></li>
+  </ul>
+</div>

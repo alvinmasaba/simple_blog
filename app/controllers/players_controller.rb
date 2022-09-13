@@ -8,6 +8,7 @@ class PlayersController < ApplicationController
 
   def show
     @player = Player.find(params[:id])
+    @team = Team.find(@player.team_id)
   end
 
   def new
@@ -18,8 +19,13 @@ class PlayersController < ApplicationController
     @player = Player.new(player_params)
     @player.first_name = @player.first_name.downcase.strip
     @player.last_name = @player.last_name.downcase.strip
+    @player.school = @player.school.downcase.strip
+    @player.height = @player.height.strip
+    @player.position = @player.position.downcase.strip
+    @player.team_id = params[:team_id]
+
     if @player.save
-      redirect_to @player
+      redirect_to "/teams/#{params[:team_id]}/players/#{@player.id}"
     else
       render :new, status: :unprocessable_entity
     end
@@ -49,6 +55,6 @@ class PlayersController < ApplicationController
   private
 
   def player_params
-    params.require(:player).permit(:first_name, :last_name, :age, :school, :draft_class, :country, :team, :years_in_league)
+    params.require(:player).permit(:first_name, :last_name, :age, :height, :school, :position, :country, :years_in_league, :draft_class)
   end
 end

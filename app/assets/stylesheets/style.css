@@ -53,3 +53,16 @@ body {
   height: 100px;
   width: 100px;
 }
+
+.new-player-form {
+  justify-self: center;
+  margin-top: 2rem;
+  display: grid;
+  height: 400px;
+  align-items: center;
+  justify-items: center;
+}
+
+.player-profile-field {
+  list-style: none;
+}
