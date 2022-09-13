@@ -61,9 +61,11 @@ body {
   height: 400px;
   align-items: center;
   justify-items: center;
+  gap: .7rem;
 }
 
-.player-profile-container, .player-form-container {
+.player-profile-container, .player-form-container,
+.team-page-main-container {
   display: grid;
   justify-self: center;
   max-height: 400px;
@@ -81,7 +83,8 @@ body {
   padding: 1rem;
 }
 
-.player-profile-info-list li {
+.player-profile-info-list li,
+.team-page-main-container li {
   list-style: none;
   display: flex;
   justify-content: space-between;

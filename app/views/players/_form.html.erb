@@ -71,6 +71,14 @@
     </div>
 
     <div>
+      <%= form.label :years_in_league %><br>
+      <%= form.text_field :years_in_league %>
+      <% player.errors.full_messages_for(:years_in_league).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
       <%= form.submit %>
     </div>
   <% end %>

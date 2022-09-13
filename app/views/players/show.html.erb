@@ -10,5 +10,6 @@
     <li><p class="player-profile-label">Years Played:</p><p class="player-profile-value"><%= @player.years_in_league%></p></li>
   </ul>
 
-  <%= link_to "Edit Player", edit_team_player_path(@team) %>
+  <%= link_to "Edit Player", edit_team_player_path %>
+  <%= link_to "Return to Team", team_path(@team) %></li>
 </div>
