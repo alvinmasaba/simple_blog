@@ -63,6 +63,26 @@ body {
   justify-items: center;
 }
 
-.player-profile-field {
+.player-profile-container, .player-form-container {
+  display: grid;
+  justify-self: center;
+  max-height: 400px;
+  align-items: center;
+  justify-items: center;
+  grid-template-rows: 75px 1fr 25px;
+  margin-top: 5rem;
+}
+
+.player-profile-info-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 40px;
+  width: 100%;
+  padding: 1rem;
+}
+
+.player-profile-info-list li {
   list-style: none;
+  display: flex;
+  justify-content: space-between;
 }

@@ -37,9 +37,10 @@ class PlayersController < ApplicationController
 
   def update
     @player = Player.find(params[:id])
+    @team = Team.find(params[:team_id])
 
     if @player.update(player_params)
-      redirect_to @player
+      redirect_to "/teams/#{params[:team_id]}/players/#{@player.id}"
     else
       render :edit, status: :unprocessable_entity
     end

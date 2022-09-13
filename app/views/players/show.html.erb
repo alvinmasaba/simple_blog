@@ -1,13 +1,14 @@
-<div class="player-profile">
+<div class="player-profile-container">
   <h1><%= @player.first_name.gsub("-", " ").titleize%> <%= @player.last_name.gsub("-", " ").titleize %></h1>
-  <ul>
-    <li class="player-profile-field">Name: <%=@player.first_name%> <%=@player.last_name%></li>
-    <li class="player-profile-field">Age: <%=@player.age%></li>
-    <li class="player-profile-field">School: <%=@player.school%></li>
-    <li class="player-profile-field">Country: <%=@player.country%></li>
-    <li class="player-profile-field">Height: <%=@player.height%></li>
-    <li class="player-profile-field">Position: <%=@player.position%></li>
-    <li class="player-profile-field">Draft: <%=@player.draft_class%></li>
-    <li class="player-profile-field">Years Played: <%=@player.years_in_league%></li>
+  <ul class="player-profile-info-list">
+    <li><p class="player-profile-label">Age:</p><p class="player-profile-value"><%= @player.age%></p></li>
+    <li><p class="player-profile-label">School:</p><p class="player-profile-value"><%= @player.school%></p></li>
+    <li><p class="player-profile-label">Country:</p><p class="player-profile-value"><%= @player.country%></p></li>
+    <li><p class="player-profile-label">Height:</p><p class="player-profile-value"><%= @player.height%></p></li>
+    <li><p class="player-profile-label">Position:</p><p class="player-profile-value"><%= @player.position%></p></li>
+    <li><p class="player-profile-label">Draft:</p><p class="player-profile-value"><%= @player.draft_class%></p></li>
+    <li><p class="player-profile-label">Years Played:</p><p class="player-profile-value"><%= @player.years_in_league%></p></li>
   </ul>
+
+  <%= link_to "Edit Player", edit_team_player_path(@team) %>
 </div>
