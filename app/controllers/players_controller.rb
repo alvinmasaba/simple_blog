@@ -47,11 +47,12 @@ class PlayersController < ApplicationController
   end
 
   def destroy
-    @player = Player.find(params[:id])
-    @player.destroy
     @team = Team.find(params[:team_id])
+    @player = Player.find(params[:id])
 
-    redirect_to @team, status: :see_other
+    @player.destroy
+
+    redirect_to "/teams/#{params[:team_id]}", status: :see_other
   end
 
   private
