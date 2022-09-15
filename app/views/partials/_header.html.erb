@@ -16,13 +16,6 @@
         <li class="nav-item">
           <%= link_to "Spreadsheet", "https://docs.google.com/spreadsheets/d/1MvAv6t_Q4RR5jq4oNpeiZrxetIwDVAGmiqj7Foet_co/edit#gid=1727034487", :class=>"nav-link" %>
         </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= (@team.nil? || @team.id.nil?) ? "Teams" : "Roster" %>
-          </a>
-            <%= (@team.nil? || @team.id.nil?) ? ((render "home_dropdown_menu", teams: @teams) unless @player) : nil %>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

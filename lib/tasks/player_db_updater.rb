@@ -21,7 +21,7 @@ class String
   def team_name
     return self unless self.split.length > 1
 
-    self.downcase.split[1].gsub(/\s+/, "-")
+    self.downcase.split[-1].gsub(/\s+/, "-")
   end
 
   def is_player_name?(verbiage)
