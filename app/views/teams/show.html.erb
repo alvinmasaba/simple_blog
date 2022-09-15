@@ -4,7 +4,7 @@
   <ul>
     <% @players.each do |player| %>
       <li>
-        <%= link_to player.last_name, "/teams/#{@team.id}/players/#{player.id}" %>
+        <%= link_to player.full_name, "/teams/#{@team.id}/players/#{player.id}" %>
       </li>
     <% end %>
   </ul>

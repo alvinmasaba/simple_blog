@@ -11,5 +11,9 @@
   </ul>
 
   <%= link_to "Edit Player", edit_team_player_path %>
-  <%= link_to "Return to Team", team_path(@team) %></li>
+  <%= link_to "Delete", team_player_path(@player), data: {
+                                                            turbo_method: :delete,
+                                                            turbo_confirm: "Are you sure?"
+                                                          } %>
+  <%= link_to "Return to Team", team_path(@team) %>
 </div>
