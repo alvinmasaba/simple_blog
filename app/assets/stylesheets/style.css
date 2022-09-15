@@ -23,6 +23,21 @@ body {
     "main";
 }
 
+.homepage-main-content {
+  display: flex;
+  justify-content: center;
+}
+.homepage-main-content ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  width: 750px;
+  gap: 10px;
+  margin: 2rem;
+}
+
 /* HEADER */
 
 .navbar {
