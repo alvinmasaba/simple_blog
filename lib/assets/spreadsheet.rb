@@ -26,7 +26,7 @@ class Spreadsheet
       next unless row[0].is_player_name?(SALARY_VERBIAGE)
     
       # Skip cell if full player name is already in the database
-      next unless !Player.pluck(:first_name, :last_name).include?(row[0].downcase.split)
+      next if Player.in_db?(row[0].downcase.split)
     
       current_player.update_player_name(row[0])
     
