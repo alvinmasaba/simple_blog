@@ -17,7 +17,4 @@ class String
 
     true
   end
-
-  def insert_new_player
-  end
 end

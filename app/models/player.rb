@@ -6,20 +6,21 @@ class Player < ApplicationRecord
   validates :last_name, presence: true
 
   def full_name
-    "#{first_name.titleize} #{last_name.titleize}"
+    full_name = "#{first_name.titleize} #{last_name.titleize}"
+    
+    suffix.nil? ? full_name : "#{full_name} #{suffix.titleize}"
   end
 
-  def add_name(player_name)
-    update_name(player_name)
+  def update_player_name(player_name)
+    standardize_player_name(player_name)
   end
 
   private
 
-  def update_name(name)
-    if name.length > 2
-      self.first_name, self.last_name = name[0], (name[1] + '' + name[2])
-    else
-      self.first_name, self.last_name = name[0], name[1]
-    end
+  def standardize_player_name(name)
+    name = name.downcase.split
+
+    self.first_name, self.last_name, self.suffix = name[0], name[1]
+    self.suffix = name[2] if name[2]
   end
 end
