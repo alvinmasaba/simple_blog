@@ -32,6 +32,9 @@ class String
 
     true
   end
+
+  def insert_new_player
+  end
 end
 
 current_team_name = nil
@@ -55,7 +58,7 @@ spreadsheet.worksheet.rows.each do |row|
   # Skip cell if full player name is already in the database
   next unless !Player.pluck(:first_name, :last_name).include?(full_name)
 
-  current_player.first_name, current_player.last_name = full_name[0], full_name[1]
+  current_player.add_name(full_name)
 
   current_team = Team.find_by name: current_team_name
   current_player.team_id = current_team.id

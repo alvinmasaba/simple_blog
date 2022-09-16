@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_13_181301) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_15_190458) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -29,6 +29,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_181301) do
     t.datetime "updated_at", null: false
     t.string "status"
     t.index ["article_id"], name: "index_comments_on_article_id"
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.integer "year_1"
+    t.integer "year_2"
+    t.integer "year_3"
+    t.integer "year_4"
+    t.integer "year_5"
+    t.integer "year_6"
+    t.integer "player_option"
+    t.integer "team_option"
+    t.integer "player_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_contracts_on_player_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -60,5 +75,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_181301) do
 
   add_foreign_key "articles", "teams"
   add_foreign_key "comments", "articles"
+  add_foreign_key "contracts", "players"
   add_foreign_key "players", "teams"
 end
