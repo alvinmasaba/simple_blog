@@ -15,10 +15,10 @@ class Spreadsheet
     @worksheet.rows.each do |row|
       current_player = Player.new
       # Updates team name only when a cell containing an NBA team name is encountered.
-      current_team_name = is_team_name?(row[0]) ? team_name(row[0]) : current_team_name
+      current_team_name = row[0].is_team_name? ? row[0].generate_team_name : current_team_name
     
       # Skip cell if not a player name
-      next unless is_player_name?(row[0])
+      next unless row[0].is_player_name?(SALARY_VERBIAGE)
       
       full_name = remove_waived_tag(row[0].downcase.split)
       # Skip cell if full player name is already in the database
@@ -36,7 +36,7 @@ class Spreadsheet
 
   def update_contracts
     @worksheet.rows.each do |row|
-      next unless is_player_name?(row[0])
+      next unless row[0].is_player_name?(SALARY_VERBIAGE)
 
       i = 1
       contract = Contract.new
@@ -63,25 +63,6 @@ class Spreadsheet
 
   def remove_waived_tag(arr)
     arr.include?("(waived)") ? arr.pop : arr
-  end
-
-  def is_team_name?(str)
-    Team.pluck(:name).include?(team_name(str))
-  end
-
-  def team_name(name)
-    return name unless name.split.length > 1
-
-    name.downcase.split[-1].gsub(/\s+/, "-")
-  end
-
-  def is_player_name?(str)
-    # Returns false if string is a team name, empty space, or salary cap jargon
-    return false if is_team_name?(str) || str.split.length < 2
-
-    return false if SALARY_VERBIAGE.include?(str)
-
-    true
   end
 
   def player_in_db?(player_name)
