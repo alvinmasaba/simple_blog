@@ -23,6 +23,14 @@
     </div>
 
     <div>
+      <%= form.label :suffix %><br>
+      <%= form.text_field :suffix %>
+      <% player.errors.full_messages_for(:suffix).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
       <%= form.label :age %><br>
       <%= form.text_field :age %>
       <% player.errors.full_messages_for(:age).each do |message| %>

@@ -1,5 +1,5 @@
 <div class="player-profile-container">
-  <h1><%= @player.first_name.gsub("-", " ").titleize%> <%= @player.last_name.gsub("-", " ").titleize %></h1>
+  <h1><%= @player.full_name %></h1>
   <ul class="player-profile-info-list">
     <li><p class="player-profile-label">Age:</p><p class="player-profile-value"><%= @player.age%></p></li>
     <li><p class="player-profile-label">School:</p><p class="player-profile-value"><%= @player.school%></p></li>
@@ -7,11 +7,16 @@
     <li><p class="player-profile-label">Height:</p><p class="player-profile-value"><%= @player.height%></p></li>
     <li><p class="player-profile-label">Position:</p><p class="player-profile-value"><%= @player.position%></p></li>
     <li><p class="player-profile-label">Draft:</p><p class="player-profile-value"><%= @player.draft_class%></p></li>
-    <li><p class="player-profile-label">Years Played:</p><p class="player-profile-value"><%= @player.years_in_league%></p></li>
-    <li><p class="player-profile-label">Current Salary:</p><p class="player-profile-value"><%= number_to_currency(@contract.year_1) %></p></li>
+    <li><p class="player-profile-label">Years Played:</p><p class="player-profile-value"><% @player.years_in_league%></p></li>
+    <li>
+      <p class="player-profile-label">Current Salary:</p>
+      <p class="player-profile-value">
+        <%= @contract.year_1 == "two-way" ? @contract.year_1 : number_to_currency(@contract.year_1) %>
+      </p>
+    </li>
   </ul>
 
-  <%= link_to "2K Rating", "https://www.2kratings.com/#{@player.first_name}-#{@player.last_name}"%>
+  <%= link_to "2K Rating", @player.ratings_url %>
 
   <%= link_to "Edit Player", edit_team_player_path %>
   <%= link_to "Delete", team_player_path(@team, @player), data: {

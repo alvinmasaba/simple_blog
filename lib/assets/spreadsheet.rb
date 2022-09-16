@@ -3,7 +3,8 @@ class Spreadsheet
 
   SALARY_VERBIAGE = ["Total Payroll", "Against Salary Cap", "Against Luxury Tax",
                      "Against Apron", "MLE Remaining", "BAE Remaining",
-                     "Luxury Tax Offender"]
+                     "Luxury Tax Offender", "Cap hold", 
+                     "Non-Tax Payer Exception"]
 
   def initialize
     @worksheet = load_spreadsheet
@@ -58,11 +59,16 @@ class Spreadsheet
   private
 
   def generate_salary(num)
-    num[1..-1].gsub(",", "").to_i 
+    num == "two way" ? num : num[1..-1].gsub(",", "").to_i
   end
 
   def remove_waived_tag(arr)
-    arr.include?("(waived)") ? arr.pop : arr
+    if arr.include?("(waived)") 
+      arr.pop
+      arr
+    else
+      arr
+    end
   end
 
   def player_in_db?(player_name)

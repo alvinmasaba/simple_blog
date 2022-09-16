@@ -1,0 +1,38 @@
+<div class="team-page-main-container">
+  <h1><%= @team.city.gsub("-", " ").titleize%> <%= @team.name.gsub("-", " ").titleize %></h1>
+
+  <table class="table">
+    <tr class="table-primary">
+      <th>Roster</th>
+      <th>2022-23</th>
+      <th>2023-24</th>
+      <th>2024-25</th>
+      <th>2025-26</th>
+      <th>2026-27</th>
+    </tr>
+      <% @players.each do |player| %>
+        <tr>
+          <td>
+            <%= link_to player.full_name, "/teams/#{@team.id}/players/#{player.id}" %>
+          </td>
+          <% Contract.find_by(player_id: player.id).contract_array.map { |salary| salary.nil? ? "" : number_to_currency(salary) }.each do |year| %>
+            <td><%= year %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <tr>
+      
+    </tr>
+  </table>
+
+<ul>
+  <li><%= link_to "Add Player", new_team_player_path(@team) %>
+  <li><%= link_to "Edit", edit_team_path(@team) %></li>
+  <li><%= link_to "Home", root_path %></li>
+  <li><%= link_to "Delete", 
+  team_path(@team),
+  data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          } %></li>
+</ul>

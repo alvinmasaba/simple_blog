@@ -8,11 +8,21 @@ class Player < ApplicationRecord
   def full_name
     full_name = "#{first_name.titleize} #{last_name.titleize}"
     
-    suffix.nil? ? full_name : "#{full_name} #{suffix.titleize}"
+    suffix.nil? ? full_name : "#{full_name} #{standardize_suffix(suffix)}"
+  end
+
+  def ratings_url
+    base = "https://www.2kratings.com/#{first_name}-#{last_name}"
+
+    suffix.nil? ? base : base + "-#{suffix}"
   end
 
   def update_player_name(player_name)
     standardize_player_name(player_name)
+  end
+
+  def standardize_suffix(suffix)
+    suffix == "jr." || suffix == "sr." ? suffix.titleize : suffix.upcase
   end
 
   private
