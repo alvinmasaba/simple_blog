@@ -1,48 +1,8 @@
-class Spreadsheet
-  attr_accessor :worksheet
-
-  def initialize
-    @worksheet = load_spreadsheet
-  end
-
-  def load_spreadsheet
-    session = GoogleDrive::Session.from_service_account_key(Rails.root + "app/assets/api/client_secret1.json")
-    spreadsheet = session.spreadsheet_by_title("IGNBA Roster 2")
-
-    spreadsheet.worksheets.first
-  end
-end
-
-class String
-  def is_team_name?
-    Team.pluck(:name).include?(team_name)
-  end
-
-  def team_name
-    return self unless self.split.length > 1
-
-    self.downcase.split[-1].gsub(/\s+/, "-")
-  end
-
-  def is_player_name?(verbiage)
-    # Returns false if string is a team name, empty space, or salary cap jargon
-    return false if self.is_team_name? || self.split.length < 2
-
-    return false if verbiage.include?(self)
-
-    true
-  end
-
-  def insert_new_player
-  end
-end
-
-current_team_name = nil
-
 SALARY_VERBIAGE = ["Total Payroll", "Against Salary Cap", "Against Luxury Tax",
   "Against Apron", "MLE Remaining", "BAE Remaining",
   "Luxury Tax Offender"]
 
+current_team_name = nil
 spreadsheet = Spreadsheet.new
 
 spreadsheet.worksheet.rows.each do |row|
