@@ -9,6 +9,7 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:id])
     @team = Team.find(@player.team_id)
+    @contract = Contract.find_by(player_id: params[:id])
   end
 
   def new
