@@ -1,6 +1,6 @@
 class Player < ApplicationRecord
   belongs_to :team
-  has_one :contract
+  has_many :contracts, :dependent => :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -15,20 +15,10 @@ class Player < ApplicationRecord
     standardize_player_name(player_name)
   end
 
-  def in_db?(player_name)
-    if player_name.length < 3
-      Player.pluck(:first_name, :last_name).include?(player_name)
-    else
-      Player.pluck(:first_name, :last_name, :suffix).include?(player_name)
-    end
-  end
-
   private
 
   def standardize_player_name(name)
-    name = name.downcase.split
-
-    self.first_name, self.last_name, self.suffix = name[0], name[1]
+    self.first_name, self.last_name = name[0], name[1]
     self.suffix = name[2] if name[2]
   end
 end
