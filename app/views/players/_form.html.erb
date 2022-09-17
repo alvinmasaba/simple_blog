@@ -100,6 +100,15 @@
       <% end %>
     </div>
 
+    <%= form.fields_for :contract do |contract_form| %>
+      <div>
+        <%= contract_form.label :two_way, "Two Way"%>
+        <%= contract_form.check_box :two_way, :value => true %><br>
+        <%= contract_form.label :waived, "Waived"%>
+        <%= contract_form.check_box :waived, :value => true %><br>
+      </div>
+    <% end %>
+
     <div>
       <%= form.submit %>
     </div>

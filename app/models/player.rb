@@ -1,14 +1,21 @@
 class Player < ApplicationRecord
   belongs_to :team
-  has_many :contracts, :dependent => :destroy
+  has_one :contract, :dependent => :destroy
+  accepts_nested_attributes_for :contract
 
   validates :first_name, presence: true
   validates :last_name, presence: true
 
   def print_full_name
+    return full_name unless full_name.nil? || full_name == ""
+
     f_name = "#{first_name.titleize} #{last_name.titleize}"
     
-    suffix.nil? ? f_name : "#{f_name} #{standardize_suffix(suffix)}"
+    f_name = suffix.nil? ? f_name : "#{f_name} #{standardize_suffix(suffix)}"
+  end
+
+  def print_waived_name
+    "#{print_full_name} (waived)"
   end
 
   def ratings_url

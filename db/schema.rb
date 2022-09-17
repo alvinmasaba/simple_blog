@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_17_002847) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_17_013054) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -43,6 +43,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_17_002847) do
     t.integer "player_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "two_way"
+    t.boolean "waived"
     t.index ["player_id"], name: "index_contracts_on_player_id"
   end
 

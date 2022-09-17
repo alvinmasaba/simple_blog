@@ -13,10 +13,10 @@
       <% @players.each do |player| %>
         <tr>
           <td>
-            <% if player.full_name.nil? || player.full_name == "" %>
-              <%= link_to player.print_full_name, "/teams/#{@team.id}/players/#{player.id}" %>
+            <% if Contract.find_by(player_id: player.id).waived %>
+              <%= link_to player.print_waived_name, "/teams/#{@team.id}/players/#{player.id}" %>
             <% else %>
-              <%= link_to player.full_name, "/teams/#{@team.id}/players/#{player.id}" %>
+              <%= link_to player.print_full_name, "/teams/#{@team.id}/players/#{player.id}" %>
             <% end %>
           </td>
           <% if Contract.find_by(player_id: player.id).nil? %>

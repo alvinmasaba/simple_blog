@@ -1,4 +1,4 @@
-class contractsController < ApplicationController
+class ContractsController < ApplicationController
   def show
     @contract = Contract.find(params[:id])
   end
@@ -36,6 +36,6 @@ class contractsController < ApplicationController
   private
 
   def contract_params
-    params.require(:contract).permit(:year_1, :year_2, :year_3, :year_4, :year_5, :year_6)
+    params.require(:contract).permit(:year_1, :year_2, :year_3, :year_4, :year_5, :year_6, :waived, :two_way)
   end
 end
