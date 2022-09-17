@@ -15,7 +15,6 @@ body {
 }
 
 .main-container {
-  height: 100vh;
   display: grid;
   grid-template-rows: 110px 1fr;
   grid-template-areas: 
@@ -79,8 +78,7 @@ body {
   gap: .7rem;
 }
 
-.player-profile-container, .player-form-container,
-.team-page-main-container {
+.player-profile-container, .player-form-container {
   display: grid;
   justify-self: center;
   max-height: 400px;
@@ -88,6 +86,17 @@ body {
   justify-items: center;
   grid-template-rows: 75px 1fr 25px;
   margin-top: 2rem;
+}
+
+.team-page-main-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-self: center;
+  align-items: center;
+  align-content: center;
+  gap: 1rem;
+  width: 75%;
 }
 
 .player-profile-info-list {

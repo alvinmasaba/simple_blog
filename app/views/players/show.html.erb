@@ -1,5 +1,11 @@
 <div class="player-profile-container">
-  <h1><%= @player.full_name %></h1>
+  <h1>
+    <% if @player.full_name.nil? || @player.full_name == "" %>
+      <%= @player.print_full_name %>
+    <% else %>
+      <%= @player.full_name %>
+    <% end %>
+  </h1>
   <ul class="player-profile-info-list">
     <li><p class="player-profile-label">Age:</p><p class="player-profile-value"><%= @player.age%></p></li>
     <li><p class="player-profile-label">School:</p><p class="player-profile-value"><%= @player.school%></p></li>
@@ -11,7 +17,7 @@
     <li>
       <p class="player-profile-label">Current Salary:</p>
       <p class="player-profile-value">
-        <%= @contract.year_1 == "two-way" ? @contract.year_1 : number_to_currency(@contract.year_1) %>
+        <%# @contract.year_1 == "two-way" ? @contract.year_1 : number_to_currency(@contract.year_1) %>
       </p>
     </li>
   </ul>

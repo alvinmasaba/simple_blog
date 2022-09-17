@@ -13,15 +13,23 @@
       <% @players.each do |player| %>
         <tr>
           <td>
-            <%= link_to player.full_name, "/teams/#{@team.id}/players/#{player.id}" %>
+            <% if player.full_name.nil? || player.full_name == "" %>
+              <%= link_to player.print_full_name, "/teams/#{@team.id}/players/#{player.id}" %>
+            <% else %>
+              <%= link_to player.full_name, "/teams/#{@team.id}/players/#{player.id}" %>
+            <% end %>
           </td>
-          <% Contract.find_by(player_id: player.id).contract_array.map { |salary| salary.nil? ? "" : number_to_currency(salary) }.each do |year| %>
-            <td><%= year %></td>
+          <% if Contract.find_by(player_id: player.id).nil? %>
+            <td>N/A</td>
+          <% else %>
+            <% Contract.find_by(player_id: player.id).contract_array.map { |salary| salary.nil? ? "" : number_to_currency(salary) }.each do |year| %>
+              <td><%= year %></td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
     <tr>
-      
+
     </tr>
   </table>
 
@@ -29,10 +37,4 @@
   <li><%= link_to "Add Player", new_team_player_path(@team) %>
   <li><%= link_to "Edit", edit_team_path(@team) %></li>
   <li><%= link_to "Home", root_path %></li>
-  <li><%= link_to "Delete", 
-  team_path(@team),
-  data: {
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure?"
-          } %></li>
 </ul>

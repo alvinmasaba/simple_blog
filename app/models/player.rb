@@ -5,16 +5,16 @@ class Player < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  def full_name
-    full_name = "#{first_name.titleize} #{last_name.titleize}"
+  def print_full_name
+    f_name = "#{first_name.titleize} #{last_name.titleize}"
     
-    suffix.nil? ? full_name : "#{full_name} #{standardize_suffix(suffix)}"
+    suffix.nil? ? f_name : "#{f_name} #{standardize_suffix(suffix)}"
   end
 
   def ratings_url
-    base = "https://www.2kratings.com/#{first_name}-#{last_name}"
+    base = "https://www.2kratings.com/#{remove_dots(first_name)}-#{remove_dots(last_name)}"
 
-    suffix.nil? ? base : base + "-#{suffix}"
+    (suffix.nil? || suffix == "") ? base : base + "-#{remove_dots(suffix)}"
   end
 
   def update_player_name(player_name)
@@ -30,5 +30,9 @@ class Player < ApplicationRecord
   def standardize_player_name(name)
     self.first_name, self.last_name = name[0], name[1]
     self.suffix = name[2] if name[2]
+  end
+
+  def remove_dots(str)
+    str.gsub(".", "")
   end
 end

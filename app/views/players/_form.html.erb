@@ -2,7 +2,13 @@
   <% if @player.first_name.nil? %>
     <h1>Add New Player</h1>
   <% else %> 
-    <h1><%= @player.first_name.gsub("-", " ").titleize%> <%= @player.last_name.gsub("-", " ").titleize %></h1>
+    <h1>
+      <% if @player.full_name.nil? || @player.full_name == "" %>
+        <%= @player.print_full_name %>
+      <% else %>
+        <%= @player.full_name %>
+      <% end %>
+    </h1>
   <% end %>
 
   <%= form_with(model: player, url: "/teams/#{params[:team_id]}/players/#{player.id}", :class => "new-player-form") do |form| %>
@@ -26,6 +32,14 @@
       <%= form.label :suffix %><br>
       <%= form.text_field :suffix %>
       <% player.errors.full_messages_for(:suffix).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :full_name %><br>
+      <%= form.text_field :full_name %>
+      <% player.errors.full_messages_for(:full_name).each do |message| %>
         <div><%= message %></div>
       <% end %>
     </div>

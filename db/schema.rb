@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_16_202245) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_17_002847) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_202245) do
     t.string "position"
     t.string "height"
     t.string "suffix"
+    t.string "full_name"
     t.index ["age", "last_name"], name: "index_players_on_age_and_last_name"
     t.index ["height", "last_name"], name: "index_players_on_height_and_last_name"
     t.index ["last_name"], name: "index_players_on_last_name"
