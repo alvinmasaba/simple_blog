@@ -6,4 +6,7 @@ class Team < ApplicationRecord
   validates :city, presence: true
   validates :name, presence: true, uniqueness: true
   
+  def titleize_name
+    "#{self.city.gsub("-", " ").titleize} #{self.name.gsub("-", " ").titleize}"
+  end
 end

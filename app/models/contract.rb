@@ -19,6 +19,10 @@ class Contract < ApplicationRecord
   end
 
   def contract_array
-    arr = [year_1, year_2, year_3, year_4, year_5, year_6]
+    [year_1, year_2, year_3, year_4, year_5, year_6].map do |salary| 
+      next if salary.nil?
+
+      salary == ("Two-Way" || 0) ? "Two-Way" : salary
+    end 
   end
 end

@@ -13,11 +13,12 @@
     <li><p class="player-profile-label">Height:</p><p class="player-profile-value"><%= @player.height%></p></li>
     <li><p class="player-profile-label">Position:</p><p class="player-profile-value"><%= @player.position%></p></li>
     <li><p class="player-profile-label">Draft:</p><p class="player-profile-value"><%= @player.draft_class%></p></li>
-    <li><p class="player-profile-label">Years Played:</p><p class="player-profile-value"><% @player.years_in_league%></p></li>
+    <li><p class="player-profile-label">Years Played:</p><p class="player-profile-value"><%= @player.years_in_league%></p></li>
+    <li><p class="player-profile-label">Current Team:</p><p class="player-profile-value"><%= @player.show_player_team%></p></li>
     <li>
       <p class="player-profile-label">Current Salary:</p>
       <p class="player-profile-value">
-        <%= @contract.two_way %>
+        <%# @contract.two_way %>
         <%# @contract.year_1 == 0 ? @contract.year_1 : number_to_currency(@contract.year_1) %>
       </p>
     </li>
@@ -26,6 +27,7 @@
   <%= link_to "2K Rating", @player.ratings_url %>
 
   <%= link_to "Edit Player", edit_team_player_path %>
+  <%= link_to "Create Contract", new_team_player_contract_path(@team, @player) %>
   <%= link_to "Delete", team_player_path(@team, @player), data: {
                                                             turbo_method: :delete,
                                                             turbo_confirm: "Are you sure?"

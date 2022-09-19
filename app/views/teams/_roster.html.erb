@@ -1,5 +1,5 @@
 <div class="team-page-main-container">
-  <h1><%= @team.city.gsub("-", " ").titleize%> <%= @team.name.gsub("-", " ").titleize %></h1>
+  <h1><%= @team.titleize_name %></h1>
 
   <table class="table">
     <tr class="table-primary">
@@ -13,17 +13,15 @@
       <% @players.each do |player| %>
         <tr>
           <td>
-            <% if Contract.find_by(player_id: player.id).waived %>
-              <%= link_to player.print_waived_name, "/teams/#{@team.id}/players/#{player.id}" %>
-            <% else %>
-              <%= link_to player.print_full_name, "/teams/#{@team.id}/players/#{player.id}" %>
-            <% end %>
+            <%= link_to player.print_waived_name, "/teams/#{@team.id}/players/#{player.id}" %>
           </td>
           <% if Contract.find_by(player_id: player.id).nil? %>
             <td>N/A</td>
           <% else %>
-            <% Contract.find_by(player_id: player.id).contract_array.map { |salary| salary.nil? ? "" : number_to_currency(salary) }.each do |year| %>
-              <td><%= year %></td>
+            <% Contract.find_by(player_id: player.id).contract_array.each do |year| %>
+              <td>
+                <%= year == "Two-Way" ? year : number_to_currency(year) %>
+              </td>
             <% end %>
           <% end %>
         </tr>

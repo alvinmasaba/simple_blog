@@ -1,0 +1,64 @@
+<div class="player-form-container">
+  <h1>Create Contract</h1>
+
+  <%= form_with(model: contract, url: "/teams/#{params[:team_id]}/players/#{:player_id}/contracts/#{contract.id}", :class => "new-player-form") do |form| %>
+    <div>
+      <%= form.label :year_1 %><br>
+      <%= form.text_field :year_1 %>
+      <% contract.errors.full_messages_for(:year_1).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :year_2 %><br>
+      <%= form.text_field :year_2 %>
+      <% contract.errors.full_messages_for(:year_2).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :year_3 %><br>
+      <%= form.text_field :year_3 %>
+      <% contract.errors.full_messages_for(:year_3).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :year_4 %><br>
+      <%= form.text_field :year_4 %>
+      <% contract.errors.full_messages_for(:year_4).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :year_5 %><br>
+      <%= form.text_field :year_5 %>
+      <% contract.errors.full_messages_for(:year_5).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :year_6 %><br>
+      <%= form.text_field :year_6 %>
+      <% contract.errors.full_messages_for(:year_6).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :two_way, "Two Way"%>
+      <%= form.check_box :two_way, :value => true %>
+      <%= form.label :waived, "Waived"%>
+      <%= form.check_box :waived, :value => true %>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

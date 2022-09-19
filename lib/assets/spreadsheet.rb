@@ -49,8 +49,10 @@ class Spreadsheet
       until row[i] == ""
         # Updates current player's salary for the year corresponding to the value of i 
         contract.update_salary(generate_salary(row[i]), i)
+        contract.two_way = true if row[i] == "Two-Way"
         i += 1
       end
+
 
       contract.save
     end
@@ -59,7 +61,7 @@ class Spreadsheet
   private
 
   def generate_salary(num)
-    num == "two way" ? num : num[1..-1].gsub(",", "").to_i
+    num == "Two-Way" ? num : num[1..-1].gsub(",", "").to_i
   end
 
   def remove_waived_tag(arr)

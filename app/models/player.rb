@@ -15,7 +15,9 @@ class Player < ApplicationRecord
   end
 
   def print_waived_name
-    "#{print_full_name} (waived)"
+    return print_full_name if Contract.find_by(player_id: id).nil?
+
+    Contract.find_by(player_id: id).waived ? "#{print_full_name} (waived)" : print_full_name
   end
 
   def ratings_url
@@ -28,8 +30,10 @@ class Player < ApplicationRecord
     standardize_player_name(player_name)
   end
 
-  def standardize_suffix(suffix)
-    suffix == "jr." || suffix == "sr." ? suffix.titleize : suffix.upcase
+  def show_player_team
+    team = Team.find_by(id: self.team_id)
+
+    team.titleize_name
   end
 
   private
@@ -37,6 +41,10 @@ class Player < ApplicationRecord
   def standardize_player_name(name)
     self.first_name, self.last_name = name[0], name[1]
     self.suffix = name[2] if name[2]
+  end
+
+  def standardize_suffix(suffix)
+    suffix == "jr." || suffix == "sr." ? suffix.titleize : suffix.upcase
   end
 
   def remove_dots(str)

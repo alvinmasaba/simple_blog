@@ -38,4 +38,8 @@ class ContractsController < ApplicationController
   def contract_params
     params.require(:contract).permit(:year_1, :year_2, :year_3, :year_4, :year_5, :year_6, :waived, :two_way)
   end
+
+  def generate_salary(num)
+    num == "two way" ? num : num[1..-1].gsub(",", "").to_i
+  end
 end
