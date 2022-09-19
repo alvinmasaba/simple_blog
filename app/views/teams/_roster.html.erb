@@ -20,7 +20,7 @@
           <% else %>
             <% Contract.find_by(player_id: player.id).contract_array.each do |year| %>
               <td>
-                <%= year == "Two-Way" ? year : number_to_currency(year) %>
+                <%= year == 0 ? "Two-Way" : number_to_currency(year) %>
               </td>
             <% end %>
           <% end %>

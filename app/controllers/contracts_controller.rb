@@ -5,14 +5,16 @@ class ContractsController < ApplicationController
 
   def new
     @contract = Contract.new
+    @player = Player.find(params[:player_id])
   end
 
   def create
     @contract = Contract.new(contract_params)
-    @player = Player.find(params[:player_id])
+    @contract.player_id = params[:player_id]
+    @player = Player.find_by(id: params[:player_id])
 
-    if @contract.save
-      redirect_to @player
+    if @contract.save!
+      redirect_to "/teams/#{params[:team_id]}/players/#{params[:player_id]}"
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,9 +39,5 @@ class ContractsController < ApplicationController
 
   def contract_params
     params.require(:contract).permit(:year_1, :year_2, :year_3, :year_4, :year_5, :year_6, :waived, :two_way)
-  end
-
-  def generate_salary(num)
-    num == "two way" ? num : num[1..-1].gsub(",", "").to_i
   end
 end
