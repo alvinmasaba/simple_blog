@@ -1,5 +1,5 @@
 <div class="team-page-main-container">
-  <h1><%= @team.titleize_name %></h1>
+  <h1><%= team.titleize_name %></h1>
 
   <table class="table">
     <tr class="table-primary">
@@ -10,10 +10,10 @@
       <th>2025-26</th>
       <th>2026-27</th>
     </tr>
-      <% @players.each do |player| %>
+      <% players.each do |player| %>
         <tr>
           <td>
-            <%= link_to player.print_waived_name, "/teams/#{@team.id}/players/#{player.id}" %>
+            <%= link_to player.print_waived_name, team_player_path(team, player) %>
           </td>
           <% if Contract.find_by(player_id: player.id).nil? %>
             <td>N/A</td>
@@ -32,7 +32,7 @@
   </table>
 
 <ul>
-  <li><%= link_to "Add Player", new_team_player_path(@team) %>
-  <li><%= link_to "Edit", edit_team_path(@team) %></li>
+  <li><%= link_to "Add Player", new_team_player_path(@team, @player) %>
+  <li><%= link_to "Edit", edit_team_path %></li>
   <li><%= link_to "Home", root_path %></li>
 </ul>

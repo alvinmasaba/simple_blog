@@ -1,5 +1,6 @@
 class Contract < ApplicationRecord
   belongs_to :player
+  belongs_to :team
 
   def update_salary(salary, num)
     case num

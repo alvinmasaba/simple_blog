@@ -26,7 +26,7 @@ class PlayersController < ApplicationController
     @player.team_id = params[:team_id]
 
     if @player.save
-      redirect_to "/teams/#{params[:team_id]}/players/#{@player.id}"
+      redirect_to team_player_path(params[:team_id], params[:player_id])
     else
       render :new, status: :unprocessable_entity
     end
@@ -41,7 +41,7 @@ class PlayersController < ApplicationController
     @team = Team.find(params[:team_id])
 
     if @player.update(player_params)
-      redirect_to "/teams/#{params[:team_id]}/players/#{@player.id}"
+      redirect_to team_player_path(params[:team_id], params[:player_id])
     else
       render :edit, status: :unprocessable_entity
     end

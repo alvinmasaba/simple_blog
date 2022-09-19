@@ -11,10 +11,10 @@ class ContractsController < ApplicationController
   def create
     @contract = Contract.new(contract_params)
     @contract.player_id = params[:player_id]
-    @player = Player.find_by(id: params[:player_id])
+    @contract.team_id = params[:team_id]
 
     if @contract.save
-      redirect_to "/teams/#{params[:team_id]}/players/#{params[:player_id]}"
+      redirect_to team_player_path(params[:team_id], params[:player_id])
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class ContractsController < ApplicationController
     @contract = Contract.find(params[:id])
 
     if @contract.update(contract_params)
-      redirect_to "/teams/#{params[:team_id]}/players/#{params[:player_id]}"
+      redirect_to team_player_path(params[:team_id], params[:player_id])
     else
       render :edit, status: :unprocessable_entity
     end
