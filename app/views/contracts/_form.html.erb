@@ -1,5 +1,5 @@
 <div class="player-form-container">
-  <h1>Create Contract</h1>
+  <%= @contract.id.nil? ? "Create Contract" : "Edit Contract" %>
 
   <%= form_with(model: contract, url: "/teams/#{params[:team_id]}/players/#{params[:player_id]}/contracts/#{contract.id}", :class => "new-player-form") do |form| %>
     <div>
