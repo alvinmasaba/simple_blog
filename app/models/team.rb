@@ -1,7 +1,7 @@
 class Team < ApplicationRecord
   has_many :articles
   has_many :players
-  has_many :contracts, through: :players
+  has_many :contracts, -> { order(year_1: :desc) }, through: :players
   
   validates :city, presence: true
   validates :name, presence: true, uniqueness: true

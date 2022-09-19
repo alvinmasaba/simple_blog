@@ -27,8 +27,13 @@
   <%= link_to "2K Rating", @player.ratings_url %>
 
   <%= link_to "Edit Player", edit_team_player_path %>
-  <%= link_to "Create Contract", new_team_player_contract_path(@team, @player) %>
-  <%= link_to "Edit Contract", edit_team_player_contract_path(@team, @player, @contract) %>
+
+  <% if Contract.exists?(player_id: @player.id) %>
+    <%= link_to "Edit Contract", edit_team_player_contract_path(@team, @player, @contract) %>
+  <% else %>  
+    <%= link_to "Create Contract", new_team_player_contract_path(@team, @player) %>
+  <% end %>
+  
   <%= link_to "Delete", team_player_path(@team, @player), data: {
                                                             turbo_method: :delete,
                                                             turbo_confirm: "Are you sure?"

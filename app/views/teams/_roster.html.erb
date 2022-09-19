@@ -10,7 +10,7 @@
       <th>2025-26</th>
       <th>2026-27</th>
     </tr>
-      <% @players.includes(:contract).order('contracts.waived, contracts.year_1 desc, last_name asc').each do |player| %>
+      <% @players.each do |player| %>
         <tr>
           <td>
             <%= link_to player.print_waived_name, "/teams/#{@team.id}/players/#{player.id}" %>
