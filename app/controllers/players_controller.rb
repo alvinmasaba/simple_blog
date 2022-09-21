@@ -26,7 +26,7 @@ class PlayersController < ApplicationController
     @player.team_id = params[:team_id]
 
     if @player.save
-      redirect_to team_player_path(params[:team_id], params[:player_id])
+      redirect_to team_player_path(params[:team_id], @player.id)
     else
       render :new, status: :unprocessable_entity
     end
@@ -53,7 +53,7 @@ class PlayersController < ApplicationController
 
     @player.destroy
 
-    redirect_to "/teams/#{params[:team_id]}", status: :see_other
+    redirect_to team_path(params[:team_id]), status: :see_other
   end
 
   private
