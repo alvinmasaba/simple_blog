@@ -18,8 +18,7 @@
     <li>
       <p class="player-profile-label">Current Salary:</p>
       <p class="player-profile-value">
-        <%# @contract.two_way %>
-        <%# @contract.year_1 == 0 ? @contract.year_1 : number_to_currency(@contract.year_1) %>
+        <%= @contract.year_1 == 0 ? "Two Way": number_to_currency(@contract.year_1) %>
       </p>
     </li>
   </ul>
@@ -29,7 +28,7 @@
   <%= link_to "Edit Player", edit_team_player_path %>
 
   <% if Contract.exists?(player_id: @player.id) %>
-    <%= link_to "Edit Contract", edit_team_player_contract_path(@team, @player, @contract) %>
+    <%= link_to "View Contract", team_player_contract_path(@team, @player, @contract) %>
   <% else %>  
     <%= link_to "Create Contract", new_team_player_contract_path(@team, @player) %>
   <% end %>

@@ -1,0 +1,20 @@
+<div class="player-profile-container">
+  <h1>Contract Details for <%= @player.print_full_name %></h1>
+
+  <ul class="player-profile-info-list">
+    <li><p class="player-profile-label">2022-23:</p><p class="player-profile-value"><%= @contract.year_1 == 0 ? "Two Way": number_to_currency(@contract.year_1)%></p></li>
+    <li><p class="player-profile-label">2023-24</p><p class="player-profile-value"><%= @contract.year_2 == 0 ? "Two Way": number_to_currency(@contract.year_2)%></p></li>
+    <li><p class="player-profile-label">2024-25:</p><p class="player-profile-value"><%= @contract.year_3 == 0 ? "Two Way": number_to_currency(@contract.year_3)%></p></li>
+    <li><p class="player-profile-label">2025-26:</p><p class="player-profile-value"><%= @contract.year_4 == 0 ? "Two Way": number_to_currency(@contract.year_4)%></p></li>
+    <li><p class="player-profile-label">2026-27:</p><p class="player-profile-value"><%= @contract.year_5 == 0 ? "Two Way": number_to_currency(@contract.year_5)%></p></li>
+    <li><p class="player-profile-label">2027-28:</p><p class="player-profile-value"><%= @contract.year_6 == 0 ? "Two Way": number_to_currency(@contract.year_6)%></p></li>
+  </ul>
+
+  <%= link_to "Edit Contract", edit_team_player_contract_path(@team, @player, @contract) %>
+  <%= link_to "Return to Player", team_player_path(@team, @player) %>
+  <%= link_to "Delete", team_player_contract_path(@team, @player, @contract), data: {
+                                                            turbo_method: :delete,
+                                                            turbo_confirm: "Are you sure?"
+                                                          } %>
+  <%= link_to "Return to Team", team_path(@team) %>
+</div>

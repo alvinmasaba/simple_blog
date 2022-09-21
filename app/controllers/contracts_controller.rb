@@ -1,6 +1,8 @@
 class ContractsController < ApplicationController
   def show
     @contract = Contract.find(params[:id])
+    @player = Player.find(@contract.player_id)
+    @team = Team.find(@player.team_id)
   end
 
   def new
@@ -27,9 +29,10 @@ class ContractsController < ApplicationController
 
   def update
     @contract = Contract.find(params[:id])
+    @contract.team_id = params[:team_id]
 
-    if @contract.update(contract_params)
-      redirect_to team_player_path(params[:team_id], params[:player_id])
+    if @contract.update!(contract_params)
+      redirect_to team_player_contract_path(params[:team_id], params[:player_id], params[:id])
     else
       render :edit, status: :unprocessable_entity
     end
