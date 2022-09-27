@@ -113,3 +113,7 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.table {
+  text-align: center;
+}

@@ -38,6 +38,14 @@ class ContractsController < ApplicationController
     end
   end
 
+  def destroy
+    @contract = Contract.find(params[:id])
+
+    @contract.destroy
+
+    redirect_to team_player_path(params[:team_id], params[:player_id]), status: :see_other
+  end
+
   private
 
   def contract_params

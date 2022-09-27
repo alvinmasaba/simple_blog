@@ -8,7 +8,6 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find(params[:id])
-    @players = Player.where(team_id: params[:id])
   end
 
   def new

@@ -4,21 +4,21 @@
   <table class="table">
     <tr class="table-primary">
       <th>Roster</th>
-      <th>2022-23</th>
+      <th><%=c_year%></th>
       <th>2023-24</th>
       <th>2024-25</th>
       <th>2025-26</th>
       <th>2026-27</th>
     </tr>
-      <% players.each do |player| %>
+      <% team.players.each do |player| %>
         <tr>
           <td>
             <%= link_to player.print_waived_name, team_player_path(team, player) %>
           </td>
-          <% if Contract.find_by(player_id: player.id).nil? %>
+          <% if player.contract.nil? %>
             <td>N/A</td>
           <% else %>
-            <% Contract.find_by(player_id: player.id).contract_array.each do |year| %>
+            <% player.contract.contract_array.each do |year| %>
               <td>
                 <%= year == 0 ? "Two-Way" : number_to_currency(year) %>
               </td>
@@ -27,7 +27,22 @@
         </tr>
       <% end %>
     <tr>
-
+      <th>Total Payroll</th>
+      <% team.yearly_salary_array.each do |salary| %>
+        <td><%= number_to_currency(salary) %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <th>Against Salary Cap</th>
+        <td><%= number_to_currency(cap - team.yearly_salary_array[0]) %></td>
+    </tr>
+    <tr>
+      <th>Against Luxury Tax</th>
+        <td><%= number_to_currency(luxury - team.yearly_salary_array[0]) %></td>
+    </tr>
+    <tr>
+      <th>Against Apron</th>
+        <td><%= number_to_currency(apron - team.yearly_salary_array[0]) %></td>
     </tr>
   </table>
 

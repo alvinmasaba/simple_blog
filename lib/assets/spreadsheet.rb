@@ -42,8 +42,14 @@ class Spreadsheet
       i = 1
       contract = Contract.new
       player_name = row[0].downcase.split
+
+      p player_name
       # Find player by name and set contract ID to player ID.
-      contract.player_id = Player.find_by(first_name: player_name[0], last_name: player_name[1]).id
+      player = Player.find_by(first_name: player_name[0], last_name: player_name[1])
+      contract.player_id = player.id
+      contract.team_id = player.team_id
+
+      next unless !Contract.where(player_id: contract.player_id).exists?
 
       # Check if adjacent cell contains a value until empty cell is reached, as salaries occur in consecutive years
       until row[i] == ""
@@ -53,8 +59,7 @@ class Spreadsheet
         i += 1
       end
 
-
-      contract.save
+      contract.save!
     end
   end
 
