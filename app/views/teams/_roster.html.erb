@@ -1,14 +1,15 @@
 <div class="team-page-main-container">
   <h1><%= team.titleize_name %></h1>
 
-  <table class="table">
+  <table class="table table-bordered table-striped">
     <tr class="table-primary">
-      <th>Roster</th>
-      <th><%=c_year%></th>
-      <th>2023-24</th>
-      <th>2024-25</th>
-      <th>2025-26</th>
-      <th>2026-27</th>
+      <th style="width: 14.28%">Roster</th>
+      <th style="width: 14.28%"><%=c_year%></th>
+      <th style="width: 14.28%">2023-24</th>
+      <th style="width: 14.28%">2024-25</th>
+      <th style="width: 14.28%">2025-26</th>
+      <th style="width: 14.28%">2026-27</th>
+      <th style="width: 14.28%">2027-28</th>
     </tr>
       <% team.players.each do |player| %>
         <tr>
@@ -27,21 +28,21 @@
         </tr>
       <% end %>
     <tr>
-      <th>Total Payroll</th>
+      <th class="table-primary">Total Payroll</th>
       <% team.yearly_salary_array.each do |salary| %>
         <td><%= number_to_currency(salary) %></td>
       <% end %>
     </tr>
     <tr>
-      <th>Against Salary Cap</th>
+      <th class="table-primary">Against Salary Cap</th>
         <td><%= number_to_currency(cap - team.yearly_salary_array[0]) %></td>
     </tr>
     <tr>
-      <th>Against Luxury Tax</th>
+      <th class="table-primary">Against Luxury Tax</th>
         <td><%= number_to_currency(luxury - team.yearly_salary_array[0]) %></td>
     </tr>
     <tr>
-      <th>Against Apron</th>
+      <th class="table-primary">Against Apron</th>
         <td><%= number_to_currency(apron - team.yearly_salary_array[0]) %></td>
     </tr>
   </table>

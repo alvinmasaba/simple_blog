@@ -10,9 +10,7 @@ class Spreadsheet
     @worksheet = load_spreadsheet
   end
 
-  def update_players
-    current_team_name = nil
-
+  def update_players(current_team_name = nil)
     @worksheet.rows.each do |row|
       current_player = Player.new
       # Updates team name only when a cell containing an NBA team name is encountered.
