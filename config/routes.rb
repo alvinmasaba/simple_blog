@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root "teams#index"
+  get 'auth/:discord/callback', to: 'sessions#create'
+  get '/login', to: 'sessions#new'
 
   resources :teams do
     resources :players do
