@@ -9,10 +9,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= (@team.nil? || @team.id.nil?) ? (link_to "IGNBA", root_path, :class=>"nav-link") : (link_to "Home", root_path, :class=>"nav-link") %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to "Spreadsheet", "https://docs.google.com/spreadsheets/d/1MvAv6t_Q4RR5jq4oNpeiZrxetIwDVAGmiqj7Foet_co/edit#gid=1727034487", :class=>"nav-link" %>
+        </li>
+        
         <% if user_signed_in? %>
 
           <li class="nav-item">
-            <%= link_to "Edit Membership", edit_user_registration_path, :class=>"nav-link" %>
+            <%= link_to "Profile", user_path(current_user), :class=>"nav-link" %>
           </li>
 
           <li class="nav-item">
@@ -28,14 +36,6 @@
             <%= link_to "Sign Up", new_user_registration_path, :class=>"nav-link" %>
           </li>
         <% end %>
-
-        <li class="nav-item">
-          <%= (@team.nil? || @team.id.nil?) ? (link_to "IGNBA", root_path, :class=>"nav-link") : (link_to "Home", root_path, :class=>"nav-link") %>
-        </li>
-
-        <li class="nav-item">
-          <%= link_to "Spreadsheet", "https://docs.google.com/spreadsheets/d/1MvAv6t_Q4RR5jq4oNpeiZrxetIwDVAGmiqj7Foet_co/edit#gid=1727034487", :class=>"nav-link" %>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

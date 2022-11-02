@@ -2,4 +2,6 @@
   <%= button_to "Sign in with Discord", user_discord_omniauth_authorize_path, method: :post, class: "btn btn-primary", :style => "margin-left: 1rem; padding: 5px;", data: {turbo: "false"} %>
 <% elsif current_user.provider.nil? %>
   <%= button_to "Connect To Discord", user_discord_omniauth_authorize_path, method: :post, class: "btn btn-primary", :style => "margin-left: 1rem; padding: 5px;", data: {turbo: "false"} %>
+<% else %>
+  <%= image_tag(current_user.image, class: "header-avatar") %>
 <% end %>
