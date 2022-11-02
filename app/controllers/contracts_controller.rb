@@ -1,4 +1,6 @@
 class ContractsController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
+
   def show
     @contract = Contract.find(params[:id])
     @player = Player.find(@contract.player_id)

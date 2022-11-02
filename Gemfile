@@ -77,3 +77,7 @@ group :test do
 end
 
 gem 'google_drive'
+gem 'omniauth'
+gem 'omniauth-discord'
+gem "omniauth-rails_csrf_protection"
+gem 'devise'

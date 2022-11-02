@@ -16,11 +16,33 @@
         <li class="nav-item">
           <%= link_to "Spreadsheet", "https://docs.google.com/spreadsheets/d/1MvAv6t_Q4RR5jq4oNpeiZrxetIwDVAGmiqj7Foet_co/edit#gid=1727034487", :class=>"nav-link" %>
         </li>
+        
+        <% if user_signed_in? %>
+
+          <li class="nav-item">
+            <%= link_to "Profile", user_path(current_user), :class=>"nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Sign Out", destroy_user_session_path, data: { "turbo-method": :delete }, :class=>"nav-link" %>
+          </li>
+
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign In", new_user_session_path, :class=>"nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, :class=>"nav-link" %>
+          </li>
+        <% end %>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+
+      <%= render "partials/discord_button" %>
     </div>
   </div>
 </nav>
