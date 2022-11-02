@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_02_052508) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_02_054459) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -48,6 +48,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_052508) do
     t.integer "team_id"
     t.index ["player_id"], name: "index_contracts_on_player_id"
     t.index ["team_id"], name: "index_contracts_on_team_id"
+  end
+
+  create_table "discord_accounts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name"
+    t.string "username"
+    t.string "image"
+    t.string "token"
+    t.string "secret"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_discord_accounts_on_user_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -96,5 +108,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_052508) do
   add_foreign_key "comments", "articles"
   add_foreign_key "contracts", "players"
   add_foreign_key "contracts", "teams"
+  add_foreign_key "discord_accounts", "users"
   add_foreign_key "players", "teams"
 end

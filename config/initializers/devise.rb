@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+class TurboFailureApp < Devise::FailureApp
+  def respond
+    if request_format == :turbo_stream
+      redirect
+    else
+      super
+    end
+  end
+
+  def skip_format?
+    %w(html turbo_stream */*).include? request_format.to_s
+  end
+end
+
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
 # are not: uncommented lines are intended to protect your configuration from
@@ -14,11 +28,12 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'c940a9709eb083a680d12730ed544a791aaefb5d8031d02a8a9d03297fc023af623a68ef4abf4aaad2c6d02b9da3b50447d9074075443fd254133f8d4d1015b6'
+  # config.secret_key = '6b7ea179df8b859e530078a2a94123da53469bf0446b5181fabf02b25c35918d7ce0d784a25fb13c9d3b36531a5bfabe7f1b665536116519888bd4bddbf273ae'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
-  # config.parent_controller = 'DeviseController'
+  config.parent_controller = 'TurboDeviseUserController'
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -126,7 +141,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '1f60cf9458a73911b480157539eb626058c77916b5d196665a87bd56c04484b2c2c90e844e96b3040bd63df3d5f08d1b3253ea02916921b17410e3eb83c914dd'
+  # config.pepper = '3f627139018bc44cfaaf0929234aa68a4afafe57343bf4eba748612863e887ac8286a9145a6e98b9011a46145569575d0e36f0506ed691c5feb2cdea7591fe6c'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -277,10 +292,11 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  # config.warden do |manager|
+  config.warden do |manager|
+    manager.failure_app = TurboFailureApp
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
-  # end
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
