@@ -42,7 +42,7 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
 
-      <%= button_to "Sign in with Discord", "/auth/discord", method: :post, class: "btn btn-primary", :style => "margin-left: 1rem; padding: 5px;", data: {turbo: "false"} %>
+      <%= render "partials/discord_button" %>
     </div>
   </div>
 </nav>

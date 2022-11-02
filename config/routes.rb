@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
-  
   root "teams#index"
 
-  get 'auth/discord/callback', to: 'omniauth_callbacks#discord'
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   resources :teams do
     resources :players do
