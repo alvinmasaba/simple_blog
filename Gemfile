@@ -81,3 +81,5 @@ gem 'omniauth'
 gem 'omniauth-discord'
 gem "omniauth-rails_csrf_protection"
 gem 'devise'
+gem 'nokogiri'
+gem 'open-uri'

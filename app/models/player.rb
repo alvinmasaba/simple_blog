@@ -39,8 +39,13 @@ class Player < ApplicationRecord
   private
 
   def standardize_player_name(name)
-    self.first_name, self.last_name = name[0], name[1]
-    self.suffix = name[2] if name[2]
+    self.update(first_name: name[0], last_name: name[1])
+
+    if name[2].include?('(') # Removes NTC deadline dates from player names
+      name.pop
+    end
+    
+    self.update(suffix: name[2]) if name[2]
   end
 
   def standardize_suffix(suffix)
