@@ -6,6 +6,8 @@ module Admin
       @contract = Contract.find(params[:id])
       @player = Player.find(@contract.player_id)
       @team = Team.find(@player.team_id)
+      
+      render json: @contract
     end
 
     def new

@@ -4,6 +4,8 @@ module Admin
 
     def index
       @players = Player.all
+      
+      render json: @player
     end
 
     def show
@@ -25,10 +27,14 @@ module Admin
       @player.position = @player.position.downcase.strip
       @player.team_id = params[:team_id]
 
-      if @player.save
-        redirect_to team_player_path(params[:team_id], @player.id)
-      else
-        render :new, status: :unprocessable_entity
+      respond_to do |format|
+        if @player.save
+          format.json { render json: status: 'success', player: @player , status: :created }
+          format.html { redirect_to team_player_path(params[:team_id], @player.id) }
+        else
+          format.json { render json: status: 'error', errors: @player.errors , status: :unprocessable_entity }
+          format.html { render :new, status: :unprocessable_entity }
+        end
       end
     end
 
@@ -40,10 +46,14 @@ module Admin
       @player = Player.find(params[:id])
       @team = Team.find(params[:team_id])
 
-      if @player.update(player_params)
-        redirect_to team_player_path(@team, @player)
-      else
-        render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        if @player.update(player_params)
+          format.json { render json: status: 'success', player: @player , status: :ok } 
+          format.html { redirect_to team_player_path(@team, @player) }
+        else
+          format.json { render json: status: 'error', errors: @player.errors, status: :unprocessable_entity }
+          format.html { render :edit, status: :unprocessable_entity }
+        end
       end
     end
 
@@ -51,9 +61,15 @@ module Admin
       @team = Team.find(params[:team_id])
       @player = Player.find(params[:id])
 
-      @player.destroy
+      respond_to do |format|      
+        if @player.destroy
+          format.json { render json: status: 'success', message: 'Player successfully deleted.', status: :ok }
+        else
+          format.json { render json: status: 'error', message: 'Player could not be deleted.', status: :unprocessable_entity }
+        end
 
-      redirect_to team_path(params[:team_id]), status: :see_other
+        format.html { redirect_to team_path(params[:team_id]), status: :see_other }
+      end
     end
 
     private
