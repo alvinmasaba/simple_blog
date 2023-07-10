@@ -4,6 +4,7 @@ const AdminDashboard = () => {
   const [teams, setTeams] = useState([]);
   const [players, setPlayers] = useState([]);
   const [users, setUsers] = useState([]);
+  const [capFigures, setCapFigures] = useState([]);
 
   useEffect(() => {
     fetch('/admin/teams.json')
@@ -17,6 +18,10 @@ const AdminDashboard = () => {
     fetch('/admin/users.json')
       .then(response => response.json())
       .then(data => setUsers(data));
+
+    fetch('/admin/cap_figures.json')
+      .then(response => response.json())
+      .then(data => setCapFigures(data));
   }, []);
 
   return (

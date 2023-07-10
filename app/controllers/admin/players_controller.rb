@@ -5,7 +5,7 @@ module Admin
     def index
       @players = Player.all
       
-      render json: @player
+      render json: @players
     end
 
     def show
