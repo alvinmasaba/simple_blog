@@ -1,0 +1,7 @@
+<div class="homepage-main-content">
+  <ul>
+    <% @users.order('username asc').each do |user| %>
+      <%= link_to user.username, user_path(user.id) %>
+    <% end %>
+  </ul>
+</div>

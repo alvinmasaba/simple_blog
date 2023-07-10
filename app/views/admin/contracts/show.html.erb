@@ -10,6 +10,11 @@
     <li><p class="player-profile-label">2027-28:</p><p class="player-profile-value"><%= @contract.year_6 == 0 ? "Two Way": number_to_currency(@contract.year_6)%></p></li>
   </ul>
 
+  <%= link_to "Edit Contract", edit_team_player_contract_path(@team, @player, @contract) %>
   <%= link_to "Return to Player", team_player_path(@team, @player) %>
+  <%= link_to "Delete", team_player_contract_path(@team, @player, @contract), data: {
+                                                            turbo_method: :delete,
+                                                            turbo_confirm: "Are you sure?"
+                                                          } %>
   <%= link_to "Return to Team", team_path(@team) %>
 </div>

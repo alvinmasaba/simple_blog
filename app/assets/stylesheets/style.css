@@ -124,3 +124,31 @@ body {
 .table {
   text-align: center;
 }
+
+.admin-options {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+}
+
+.admin-options ul {
+  list-style-type: none;
+}
+
+.admin-options li {
+  padding: 10px;
+}
+
+.admin-options a {
+  text-decoration: none;
+  color: #000;
+}
+
+.admin-options a:hover {
+  text-decoration: underline;
+}

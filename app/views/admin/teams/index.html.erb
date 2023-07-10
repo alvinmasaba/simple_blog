@@ -1,0 +1,9 @@
+<div class="homepage-main-content">
+  <ul>
+    <% @teams.order('city asc').each do |team| %>
+      <%= link_to team_path(team.id) do %>
+        <%= image_tag(team.city.downcase + "-" + team.name.downcase + '.svg', :class=>"homepage-team-logo") %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

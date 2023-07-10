@@ -1,0 +1,2 @@
+class CapFigure < ApplicationRecord
+end

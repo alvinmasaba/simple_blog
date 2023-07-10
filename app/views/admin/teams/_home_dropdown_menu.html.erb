@@ -1,0 +1,7 @@
+<ul class="dropdown-menu">
+  <% @teams.order(name: :asc).each do |team| %>
+    <li>
+      <%= link_to team.name.gsub("-", " ").titleize, team, :class=>"dropdown-item" %>
+    </li>
+  <% end %>
+</ul>

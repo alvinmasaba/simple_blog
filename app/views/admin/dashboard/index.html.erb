@@ -1,0 +1,25 @@
+<div class="main-container">
+  <h1>Admin Dashboard</h1>
+
+  <div class="homepage-main-content">
+    <ol>
+      <% @teams.order('city asc').each do |team| %>
+        <li>
+          <%= link_to team_path(team.id) do %>
+            <%= team.titleize_name %>
+          <% end %>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+
+  <h2>Edit Options</h2>
+  <div class="admin-options">
+    <ul>
+      <li><%= link_to 'Edit Salary Cap', admin_cap_figures_path %></li>
+      <li><%= link_to 'Manage Users', admin_users_path %></li>
+      <li><%= link_to 'Manage Players', admin_players_path %></li>
+      <!-- Add any other administrative actions here -->
+    </ul>
+  </div>
+</div>

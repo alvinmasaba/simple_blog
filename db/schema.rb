@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_02_192538) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_09_172104) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -19,6 +19,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_192538) do
     t.string "status"
     t.integer "team_id"
     t.index ["team_id"], name: "index_articles_on_team_id"
+  end
+
+  create_table "cap_figures", force: :cascade do |t|
+    t.integer "salary_cap"
+    t.integer "luxury_tax"
+    t.integer "apron"
+    t.integer "second_apron"
+    t.integer "min_payroll"
+    t.integer "cap_hold"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -103,6 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_192538) do
     t.string "provider"
     t.string "uid"
     t.string "image"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

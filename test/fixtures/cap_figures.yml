@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  salary_cap: 1
+  luxury_tax: 1
+  apron: 1
+  second_apron: 1
+  min_payroll: 1
+  cap_hold: 1
+
+two:
+  salary_cap: 1
+  luxury_tax: 1
+  apron: 1
+  second_apron: 1
+  min_payroll: 1
+  cap_hold: 1
