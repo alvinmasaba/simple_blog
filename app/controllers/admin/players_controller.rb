@@ -3,9 +3,9 @@ module Admin
     before_action :admin_only
 
     def index
-      @players = Player.all
+      @players = Player.includes(:team).all
       
-      render json: @players
+      render json: @players.as_json(include: { team: { only: [:name, :id] } })
     end
 
     def show

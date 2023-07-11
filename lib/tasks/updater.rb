@@ -10,7 +10,11 @@ class String
   end
 
   def generate_team_name
-    self.downcase.split[-1].gsub(/\s+/, "-")
+    if self == "Portland Trail Blazers"
+      return "trail-blazers"
+    else
+      self.downcase.split[-1].gsub(/\s+/, "-")
+    end
   end
 
   def is_player_name?(verbiage)
@@ -23,8 +27,14 @@ class String
   end
 end
 
-
+puts "Starting updater..."
 spreadsheet = Spreadsheet.new
+
+puts "Updating players..."
 spreadsheet.update_players
 spreadsheet.update_draft_rights
+
+puts "Updating contracts..."
 spreadsheet.update_contracts
+
+puts "Finished updating database!"

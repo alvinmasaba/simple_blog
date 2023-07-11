@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
 
-
 class Spreadsheet
   attr_accessor :worksheet
 
@@ -10,9 +9,12 @@ class Spreadsheet
                      "Against Apron", "Against 2nd Apron", "MLE Remaining", "BAE Remaining",
                      "Luxury Tax Offender", "Cap hold", "cap hold", "Draft Rights",
                      "Player Option", "Team Option", "Qualifying Offer",
-                     "Veteran Minimum Exception", "Bi-Annual Exception",
+                     "Veteran Mininum Exception", "Bi-Annual Exception",
                      "Non-Tax Payer Exception", "Payroll Information", "Salary Cap",
                      "Luxury Tax", "Apron", "2nd Apron", "Minimum Payroll"]
+  
+  CAP_FIGURES = ["Bi-Annual Exception", "Salary Cap",
+    "Luxury Tax", "Apron", "2nd Apron", "Minimum Payroll"]
 
 
   def initialize
@@ -75,6 +77,27 @@ class Spreadsheet
     end
   end
 
+  def update_cap_figures
+    year = @worksheet.rows[0][1]
+    cap_figures = CapFigure.find_by(year: year)
+  
+    if cap_figures.nil?
+      puts "No CapFigure found for year: #{year}"
+      return
+    end
+  
+    @worksheet.rows.each do |row|
+      next if row[0] == 'Payroll Information'
+      break if row[0] == ''
+  
+      if cap_figures.has_attribute?(row[0])
+        cap_figures.update(row[0].to_sym => row[1].to_i)
+      else
+        puts "Attribute #{row[0]} does not exist on CapFigure"
+      end
+    end
+  end
+
 
   private
 
@@ -90,6 +113,18 @@ class Spreadsheet
     false
   end
 
+  def remove_ntc_tag(name_array)
+    # Removes NTC deadline dates from player names
+    if name_array.length < 3
+      return name_array
+    elsif name_array.length > 3
+      name_array.pop if name_array[3].include?('(')
+    elsif name_array[2].include?('(')
+      name_array.pop
+    end
+
+    name_array
+  end
 
   def player_in_db?(player_name)
     if player_name.length < 3
@@ -101,9 +136,14 @@ class Spreadsheet
 
 
   def load_spreadsheet
+    puts "Accessing spreadsheet.."
     session = GoogleDrive::Session.from_service_account_key(Rails.root + "app/assets/api/client_secret1.json")
     spreadsheet = session.spreadsheet_by_title("IGNBA Roster 24")
-    spreadsheet.worksheets.first
+
+    if spreadsheet
+      puts "Spreadsheet accessed!"
+      spreadsheet.worksheets.first
+    end
   end
 
 
@@ -141,6 +181,7 @@ class Spreadsheet
 
 
   def find_or_create_player(player_name, team_name)
+    player_name = remove_ntc_tag(player_name)
     # Skip cell if full player name is already in the database
     if player_in_db?(player_name)
       update_team(player_name, team_name)
@@ -148,7 +189,7 @@ class Spreadsheet
       player = Player.new( team_id: Team.find_by(name: team_name).id )
       player.update_player_name(player_name)
       player.save
-      puts "#{player.first_name} #{player.last_name}"
+      puts "#{player.first_name} #{player.last_name} saved to Database!"
     end
   end
 end

@@ -41,7 +41,10 @@ class Player < ApplicationRecord
   def standardize_player_name(name)
     self.update(first_name: name[0], last_name: name[1])
 
-    if name[2].include?('(') # Removes NTC deadline dates from player names
+    # Removes NTC deadline dates from player names
+    if name.length > 3
+      name.pop if name[3].include?('(')
+    elsif name[2].include?('(')
       name.pop
     end
     

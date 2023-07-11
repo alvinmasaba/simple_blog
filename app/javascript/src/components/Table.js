@@ -33,6 +33,12 @@ const Table = ({ data, columns }) => {
             const name2 = row2.original.last_name.toLowerCase();
             return name1 > name2 ? 1 : -1;
           },
+
+          teamName: (row1, row2) => {
+            const name1 = row1.original.name.toLowerCase();
+            const name2 = row2.original.name.toLowerCase();
+            return name1 > name2 ? 1 : -1;
+          }
         },
       },
       useSortBy

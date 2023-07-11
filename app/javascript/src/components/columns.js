@@ -30,20 +30,73 @@ export const PLAYER_COLUMNS = [
 
     {
       Header: 'Team',
-      accessor: d => `${d.first_name}`
+      accessor: d => d.team ? d.team.name : 'No Team',
+      Cell: ({ cell: { value, row: { original: { team } } } }) => (
+        team ? 
+        <a href={`/admin/teams/${team.id}`}>
+          {titleize(value)}
+        </a> : 
+        value
+      ),
+      sortType: 'teamName',
     },
   ];
 
 export const CAP_COLUMNS = [
     {
-      Header: 'salary Cap',
+      Header: 'Year',
+      accessor: 'year'
+    },
+
+    {
+      Header: 'Salary Cap',
       accessor: 'salary_cap'
     },
 
     {
       Header: 'Luxury Tax',
       accessor: 'luxury_tax'
-    },  
+    },
+    
+    {
+      Header: 'Apron',
+      accessor: 'apron'
+    },
+
+    {
+      Header: 'Second Apron',
+      accessor: 'second_apron'
+    },
+
+    {
+      Header: 'Minimum Payroll',
+      accessor: 'min_payroll'
+    },
+
+    {
+      Header: 'Non-Taxpayer MLE',
+      accessor: 'nontaxpayermle'
+    },
+
+    {
+      Header: 'Taxpayer MLE',
+      accessor: 'taxpayermle'
+    },
+
+    {
+      Header: 'Room MLE',
+      accessor: 'roommle'
+    },
+
+    {
+      Header: 'Bi-Annual Exception',
+      accessor: 'bae'
+    },
+
+    {
+      Header: 'Cap Hold',
+      accessor: 'cap_hold'
+    },
     // add more column configurations here...
   ];
 
