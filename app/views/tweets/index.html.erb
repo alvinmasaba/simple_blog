@@ -1,0 +1,9 @@
+<h2>IGNBA News</h2>
+<ul>
+  <% @tweets.each do |tweet| %>
+    <li>
+      <%= tweet.text %>
+      <p><small><%= tweet.created_at.strftime('%b %d, %Y') %></small></p>
+    </li>
+  <% end %>
+</ul>

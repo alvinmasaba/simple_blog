@@ -1,0 +1,20 @@
+<div class="header">
+    <div class="search-notifications">
+        <div class="search-container">
+            <%= image_tag("magnify.svg", :alt=>"search-icon") %>
+            <input type="search" name="" id="search-bar">
+        </div>
+        <div class="notification-icons">
+            <%= image_tag("bell-ring-outline.svg", :alt=>"icon", :class=>"notification-icon") %>
+            <%= (link_to image_tag(current_user.image, class: "search-bar-user-avatar"), user_path(current_user)) if current_user %>
+            <p class="search-bar-user-name"><%= current_user.username if current_user %></p>
+        </div>
+    </div>
+    <div class="name-menu">
+        <%= image_tag(current_user.image, :alt=>"avatar", :class=>"name-menu-user-avatar") %>
+        <p class="greeting">Hi there,</p>
+        <h2 class="name-menu-user-name"><%= current_user.username if current_user %> <%#(<a href="">@angelamerkel</a>)%></h2>
+        
+        <%= button_to "Sign Out", destroy_user_session_path, data: { "turbo-method": :delete }%>
+    </div>
+</div>

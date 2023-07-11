@@ -2,17 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Roboto&family=Heebo&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  min-height: 100vh;
-  overflow: auto;
-  width: 100%;
-}
 
 .main-container {
   display: grid;
@@ -103,7 +92,6 @@ body {
   align-items: center;
   align-content: center;
   gap: 1rem;
-  width: 75%;
 }
 
 .player-profile-info-list {

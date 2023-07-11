@@ -3,6 +3,7 @@
 <ul>
   <li><%= current_user.username %></li>
   <li><%= current_user.email %></li>
+  <li>Team: <%= link_to current_user.team.titleize_name, team_path(@team) %></li>
 </ul>
 
 <div>

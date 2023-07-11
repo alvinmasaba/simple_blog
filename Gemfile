@@ -84,4 +84,5 @@ gem 'devise'
 gem 'nokogiri'
 gem 'open-uri'
 gem 'webpacker', '~> 5.0'
+gem 'twitter'
 
