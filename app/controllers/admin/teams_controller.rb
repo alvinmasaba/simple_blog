@@ -24,10 +24,10 @@ module Admin
       
       respond_to do |format|
         if @team.save
-          format.json { render json: status: 'success', team: @team , status: :created }
+          format.json { render json: { status: 'success', team: @team }, status: :created }
           format.html { redirect_to @team }
         else
-          format.json { render json: status: 'error', errors: @team.errors , status: :unprocessable_entity }
+          format.json { render json: { status: 'error', errors: @team.errors }, status: :unprocessable_entity }
           format.html { render :new, status: :unprocessable_entity }
         end
       end
@@ -42,10 +42,10 @@ module Admin
 
       respond_to do |format|
         if @team.update(team_params)
-          format.json { render json: status: 'success', team: @team , status: :ok } 
+          format.json { render json: { status: 'success', team: @team }, status: :ok } 
           format.html { redirect_to @team }
         else
-          format.json { render json: status: 'error', errors: @team.errors, status: :unprocessable_entity }
+          format.json { render json: { status: 'error', errors: @team.errors }, status: :unprocessable_entity }
           format.html { render :edit, status: :unprocessable_entity }
         end
       end
@@ -58,10 +58,10 @@ module Admin
       redirect_to root_path, status: :see_other
       respond_to do |format|      
         if @team.destroy
-          format.json { render json: status: 'success', message: 'Player successfully deleted.', status: :ok }
+          format.json { render json: { status: 'success', message: 'Player successfully deleted.' }, status: :ok }
           format.html { redirect_to admin_dashboard_path }
         else
-          format.json { render json: status: 'error', message: 'Team could not be deleted.', status: :unprocessable_entity }
+          format.json { render json: { status: 'error', message: 'Team could not be deleted.' }, status: :unprocessable_entity }
           format.html { redirect_to @team, status: :see_other }
         end
       end

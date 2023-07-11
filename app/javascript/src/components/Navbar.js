@@ -7,7 +7,7 @@ const Navbar = (props) => {
         <li onClick={() => props.onTabChange('teams')}>Teams</li>
         <li onClick={() => props.onTabChange('players')}>Players</li>
         <li onClick={() => props.onTabChange('users')}>Users</li>
-        <li onClick={() => props.onTabChange('salarycap')}>Salary Cap</li>
+        <li onClick={() => props.onTabChange('cap_figures')}>Cap Figures</li>
       </ul>
     </nav>
   );

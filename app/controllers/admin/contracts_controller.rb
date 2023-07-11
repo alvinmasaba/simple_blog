@@ -7,7 +7,7 @@ module Admin
       @player = Player.find(@contract.player_id)
       @team = Team.find(@player.team_id)
       
-      render json: @contract
+      #render json: @contract
     end
 
     def new

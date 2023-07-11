@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dashboard from '../src/components/Dashboard';
+import AdminDashboard from '../src/components/AdminDashboard';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Dashboard />,
-    document.getElementById('dashboard'),
+    <AdminDashboard />,
+    document.getElementById('admin-dashboard'),
   );
 });

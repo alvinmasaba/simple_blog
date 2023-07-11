@@ -25,7 +25,7 @@
 
   <%= link_to "2K Rating", @player.ratings_url %>
 
-  <%= link_to "Edit Player", edit_admin_team_player_path %>
+  <%= link_to "Edit Player", edit_admin_team_player_path(@team) %>
 
   <% if @player.contract %>
     <%= link_to "View Contract", admin_team_player_contract_path(@team, @player, @contract) %>

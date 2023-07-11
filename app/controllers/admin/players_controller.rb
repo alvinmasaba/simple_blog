@@ -29,45 +29,45 @@ module Admin
 
       respond_to do |format|
         if @player.save
-          format.json { render json: status: 'success', player: @player , status: :created }
+          format.json { render json: { status: 'success', player: @player }, status: :created }
           format.html { redirect_to team_player_path(params[:team_id], @player.id) }
         else
-          format.json { render json: status: 'error', errors: @player.errors , status: :unprocessable_entity }
+          format.json { render json: { status: 'error', errors: @player.errors }, status: :unprocessable_entity }
           format.html { render :new, status: :unprocessable_entity }
         end
       end
     end
-
+      
     def edit
       @player = Player.find(params[:id])
     end
-
+    
     def update
       @player = Player.find(params[:id])
       @team = Team.find(params[:team_id])
-
+    
       respond_to do |format|
         if @player.update(player_params)
-          format.json { render json: status: 'success', player: @player , status: :ok } 
+          format.json { render json: { status: 'success', player: @player }, status: :ok } 
           format.html { redirect_to team_player_path(@team, @player) }
         else
-          format.json { render json: status: 'error', errors: @player.errors, status: :unprocessable_entity }
+          format.json { render json: { status: 'error', errors: @player.errors }, status: :unprocessable_entity }
           format.html { render :edit, status: :unprocessable_entity }
         end
       end
     end
-
+    
     def destroy
       @team = Team.find(params[:team_id])
       @player = Player.find(params[:id])
-
+    
       respond_to do |format|      
         if @player.destroy
-          format.json { render json: status: 'success', message: 'Player successfully deleted.', status: :ok }
+          format.json { render json: { status: 'success', message: 'Player successfully deleted.' }, status: :ok }
         else
-          format.json { render json: status: 'error', message: 'Player could not be deleted.', status: :unprocessable_entity }
+          format.json { render json: { status: 'error', message: 'Player could not be deleted.' }, status: :unprocessable_entity }
         end
-
+    
         format.html { redirect_to team_path(params[:team_id]), status: :see_other }
       end
     end

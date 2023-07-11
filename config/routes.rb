@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index'
-    get '', to: 'dashboard#index'
+    get 'dashboard', to: 'dashboard#react'
+    get '', to: 'dashboard#react'
     resources :players
     resources :teams do
       resources :players do
