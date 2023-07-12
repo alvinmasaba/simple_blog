@@ -7,6 +7,7 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find(params[:id])
+    @cap = CapFigure.find_by(year: "2023-24")
   end
 
   def new

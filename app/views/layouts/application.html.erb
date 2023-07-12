@@ -11,8 +11,8 @@
     <style>
       :root {
         --team-color-primary:   <%= current_user.team.primary_color|| '#default_primary' %>;
-        --team-color-secondary: <%= current_user.team.color_secondary || '#default_secondary' %>;
-        --team-color-tertiary:  <%= current_user.team.color_tertiary || '#default_tertiary' %>;
+        --team-color-secondary: <%= current_user.team.secondary_color || '#default_secondary' %>;
+        --team-color-tertiary:  <%= current_user.team.tertiary_color || '#default_tertiary' %>;
       }
     </style>
   </head>

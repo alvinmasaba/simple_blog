@@ -64,7 +64,7 @@ ul, li {
   grid-area: sidebar;
   display: grid;
   grid-template-rows: 77px 325px auto;
-  background-color: var(--green, #649173);
+  background-color: var(--team-color-secondary, #002D62);
   padding: 25px;
   color: white;
   min-width: 275px;
@@ -118,13 +118,16 @@ li {
   text-decoration: none;
 }
 
+.account-nav li a:hover, .site-info li a:hover {
+  color: var(--team-color-tertiary)
+}
 /* HEADER STYLING */
 
 .header {
   display: grid;
   grid-area: header;
   align-items: center;
-  background-color: white;
+  background: white;
   box-shadow: 3px 3px 6px rgb(160, 160, 160);
   padding: 1% 7.5% 7.5% 7.5%;
   min-width: 100%;
@@ -190,6 +193,7 @@ li {
 
 .name-menu-user-name {
   grid-area: name;
+  color: var(--team-color-secondary, black);
 }
 
 
@@ -213,7 +217,7 @@ li {
   padding: 10px;
   border-radius: 1.5rem;
   width: 100px;
-  background-color: var(--green, #649173);
+  background-color: var(--team-color-secondary, #002D62);
   color: white;
   border: none;
   font-size: 17px;
@@ -222,11 +226,11 @@ li {
 
 button:hover {
   cursor: pointer;
-  background-color: var(--yellow, gold);
+  background-color: var(--team-color-tertiary, #C8102E);
 }
 
 button:active {
-  background-color: var(--dark-yellow, --yellow);
+  background-color: var(--team-color-tertiary, #C8102E);
   transition-duration: 8ms;
   padding: 8px;
   width: 95px;
@@ -238,11 +242,14 @@ button:active {
 .main-content {
   display: grid;
   grid-area: main;
+  grid-template-areas:
+  "content announcements"
+  "content tweets";
   grid-template-columns: 3fr 1fr;
   gap: 25px;
   padding: 25px;
   padding-bottom: 40px;
-  background: linear-gradient(to left, #649173, #dbd5a4);
+  background: linear-gradient(to top, var(--team-color-primary), white);
 }
 
 .main-content h1 {
@@ -257,53 +264,8 @@ button:active {
 
 .projects {
   display: grid;
-  grid-template-rows: 25px auto;
-  grid-row: 1 / 3;
+  grid-area: content;
   gap: 15px;
-  min-width: 825px;
-}
-
-.project-cards-display {
-  grid-row: 2 / 3;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 25px;
-  justify-content: center;
-}
-
-.project-card {
-  border-right: var(--project-card-border, 2.5px solid green);
-  border-bottom: var(--project-card-border, 2.5px solid green);
-  min-height: 200px;
-  display: grid;
-  place-items: center start;
-  padding-left: 2rem;
-  padding-right: 1.5rem;
-}
-
-.project-card:hover {
-  width: 92%;
-  height: 100%;
-  z-index: 1;
-}
-
-.project-card .buttons {
-  justify-self: end;
-}
-
-.project-card .buttons img:first-of-type,
-.project-card .buttons img:nth-of-type(2) {
-  padding-right: 1.5rem;
-}
-
-.project-card h1 {
-  align-self: flex-end;
-}
-
-.project-card p {
-  align-self: flex-start;
-  color: rgb(145, 145, 145);
-  font-size: 1.1rem;
 }
 
 /* Announcements card styling */
@@ -312,6 +274,7 @@ button:active {
   display: grid;
   grid-template-rows: 25px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-area: announcements;
   gap: 15px;
 }
 
@@ -322,7 +285,7 @@ button:active {
   padding: 30px;
   padding-top: 50px;
   justify-self: flex-start;
-  height: 350px;
+  overflow: auto; 
 }
 
 .announcements-card h1 {
@@ -347,6 +310,7 @@ hr {
   display: grid;
   grid-template-rows: 25px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-area: tweets;
   gap: 15px;
   align-self: flex-end;
 }
@@ -390,4 +354,11 @@ hr {
 .twitter-field > img {
   width: 50px;
   height: 50px;
+}
+
+/* ROSTER TABLE */
+
+.roster-header {
+  color: white;
+  width: 14.28%;
 }

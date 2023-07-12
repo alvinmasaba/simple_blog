@@ -11,6 +11,7 @@ module Admin
 
     def show
       @team = Team.find(params[:id])
+      @cap = CapFigure.find_by(year: "2023-24")
     end
 
     def new
@@ -76,7 +77,7 @@ module Admin
     end
 
     def team_params
-      params.require(:team).permit(:city, :name)
+      params.require(:team).permit(:city, :name, :primary_color, :secondary_color, :tertiary_color)
     end
   end
 end

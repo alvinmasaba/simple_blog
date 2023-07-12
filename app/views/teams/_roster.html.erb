@@ -1,26 +1,23 @@
-<div class="team-page-main-container">
-  <h1><%= team.titleize_name %></h1>
-
+<div class="homepage-main-content">
   <table class="table table-bordered table-striped">
     <tr class="table-primary">
-      <th style="width: 14.28%">Roster</th>
-      <th style="width: 14.28%"><%=c_year%></th>
-      <th style="width: 14.28%">2023-24</th>
-      <th style="width: 14.28%">2024-25</th>
-      <th style="width: 14.28%">2025-26</th>
-      <th style="width: 14.28%">2026-27</th>
-      <th style="width: 14.28%">2027-28</th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>"><%= team.titleize_name %></th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>"><%=c_year%></th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">2024-25</th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">2025-26</th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">2026-27</th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">2027-28</th>
     </tr>
       <% team.players.each do |player| %>
         <tr>
-          <td>
+          <td style="--bs-table-accent-bg: white">
             <%= link_to player.print_waived_name, team_player_path(team, player) %>
           </td>
           <% if player.contract.nil? %>
-            <td>N/A</td>
+            <td style="--bs-table-accent-bg: white">N/A</td>
           <% else %>
-            <% player.contract.contract_array.each do |year| %>
-              <td>
+            <% player.contract.contract_array[0...-1].each do |year| %>
+              <td style="--bs-table-accent-bg: white">
                 <%= year == 0 ? "Two-Way" : number_to_currency(year) %>
               </td>
             <% end %>
@@ -30,23 +27,32 @@
     <tr>
       <th class="table-primary">Total Payroll</th>
       <% team.yearly_salary_array.each do |salary| %>
-        <td><%= number_to_currency(salary) %></td>
+        <td style="--bs-table-accent-bg: white"><%= number_to_currency(salary) %></td>
       <% end %>
     </tr>
     <tr>
       <th class="table-primary">Against Salary Cap</th>
-        <td><%= number_to_currency(cap - team.yearly_salary_array[0]) %></td>
+        <% 5.times do |i|%>
+          <td style="--bs-table-accent-bg: white"><%= number_to_currency(@cap.salary_cap - team.yearly_salary_array[i]) %></td>
+        <% end %>
     </tr>
     <tr>
       <th class="table-primary">Against Luxury Tax</th>
-        <td><%= number_to_currency(luxury - team.yearly_salary_array[0]) %></td>
+        <% 5.times do |i|%>
+          <td style="--bs-table-accent-bg: white"><%= number_to_currency(@cap.luxury_tax - team.yearly_salary_array[i]) %></td>
+        <% end %>
     </tr>
     <tr>
       <th class="table-primary">Against Apron</th>
-        <td><%= number_to_currency(apron - team.yearly_salary_array[0]) %></td>
+        <% 5.times do |i|%>
+          <td style="--bs-table-accent-bg: white"><%= number_to_currency(@cap.apron - team.yearly_salary_array[i]) %></td>
+        <% end %>
+    </tr>
+    <tr>
+      <th class="table-primary">Against Second Apron</th>
+        <% 5.times do |i|%>
+          <td style="--bs-table-accent-bg: white"><%= number_to_currency(@cap.second_apron - team.yearly_salary_array[i]) %></td>
+        <% end %>
     </tr>
   </table>
-
-<ul>
-  <li><%= link_to "Home", root_path %></li>
-</ul>
+</div>

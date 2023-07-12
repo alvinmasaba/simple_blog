@@ -16,6 +16,30 @@
   </div>
 
   <div>
+    <%= form.label :primary_color %><br>
+    <%= form.text_field :primary_color %>
+    <%= team.errors.full_messages_for(:primary_color).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :secondary_color %><br>
+    <%= form.text_field :secondary_color %>
+    <%= team.errors.full_messages_for(:secondary_color).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :tertiary_color %><br>
+    <%= form.text_field :tertiary_color %>
+    <%= team.errors.full_messages_for(:tertiary_color).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
