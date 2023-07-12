@@ -1,8 +1,7 @@
 class PlayersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :search]
 
   def index
-    @players = Player.all
   end
 
   def show
@@ -55,11 +54,15 @@ class PlayersController < ApplicationController
     redirect_to team_path(params[:team_id]), status: :see_other
   end
 
+  def search
+    @players = Player.search(params[:search])
+    render :index
+  end
+
   private
 
   def player_params
     params.require(:player).permit(:first_name, :last_name, :suffix, :full_name, :age, :height, :school, :position, 
-                                  :country, :years_in_league, :draft_class, contract_attributes: [:two_way, :id, :waived],
-                                  :image)
-  end
+                                  :country, :years_in_league, :draft_class, :image, contract_attributes: [:two_way, :id, :waived])
+end
 end

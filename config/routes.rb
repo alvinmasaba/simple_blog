@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :users, :only => [:show]
 
+  get 'players/search', to: 'players#search', as: 'search_players'
+
   resources :teams do
     resources :players do
       resources :contracts

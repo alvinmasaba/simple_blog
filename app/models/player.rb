@@ -67,6 +67,23 @@ class Player < ApplicationRecord
       end
     end
   end
+
+  # Search function to search users
+  def self.search(search)
+    if search
+      search_terms = search.split
+      if search_terms.size == 2
+        # When there are two search terms, assume the first is the first name and the second is the last name
+        players = Player.where("first_name LIKE :first_name AND last_name LIKE :last_name", first_name: "%#{search_terms[0]}%", last_name: "%#{search_terms[1]}%")
+      else
+        # When there is one search term, check both the first_name and last_name fields
+        players = Player.where("first_name LIKE :search OR last_name LIKE :search", search: "%#{search}%")
+      end
+      players.empty? ? Player.all : players
+    else
+      Player.all.order("last_name desc")
+    end
+  end
   
   private
 

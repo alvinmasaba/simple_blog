@@ -1,0 +1,9 @@
+<h2> Results:</h2>
+
+<ol>
+  <% @players.each_with_index do |player, i| %>
+    <li>
+      <%=i%>. <%= link_to player.print_full_name, team_player_path(player.team, player.id) %>
+    </li>
+  <% end %>
+</ol>

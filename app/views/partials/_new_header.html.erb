@@ -2,7 +2,10 @@
     <div class="search-notifications">
         <div class="search-container">
             <%= image_tag("magnify.svg", :alt=>"search-icon") %>
-            <input type="search" name="" id="search-bar">
+            <%= form_tag search_players_path, method: :get, :class => "d-flex" do |form| %>
+                <%= text_field_tag :search, params[:search], :class => "form-control me-2", :placeholder => "Search" %>
+                <%= submit_tag "Search", :name => nil, :id => "search-btn" %>
+            <% end %>
         </div>
         <div class="notification-icons">
             <%= image_tag("bell-ring-outline.svg", :alt=>"icon", :class=>"notification-icon") %>
