@@ -30,7 +30,7 @@ module Admin
       respond_to do |format|
         if @player.save
           format.json { render json: { status: 'success', player: @player }, status: :created }
-          format.html { redirect_to team_player_path(params[:team_id], @player.id) }
+          format.html { redirect_to admin_team_player_path(params[:team_id], @player.id) }
         else
           format.json { render json: { status: 'error', errors: @player.errors }, status: :unprocessable_entity }
           format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +49,7 @@ module Admin
       respond_to do |format|
         if @player.update(player_params)
           format.json { render json: { status: 'success', player: @player }, status: :ok } 
-          format.html { redirect_to team_player_path(@team, @player) }
+          format.html { redirect_to admin_team_player_path(@team, @player) }
         else
           format.json { render json: { status: 'error', errors: @player.errors }, status: :unprocessable_entity }
           format.html { render :edit, status: :unprocessable_entity }
@@ -68,7 +68,7 @@ module Admin
           format.json { render json: { status: 'error', message: 'Player could not be deleted.' }, status: :unprocessable_entity }
         end
     
-        format.html { redirect_to team_path(params[:team_id]), status: :see_other }
+        format.html { redirect_to admin_team_path(params[:team_id]), status: :see_other }
       end
     end
 

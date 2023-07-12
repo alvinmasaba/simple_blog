@@ -362,3 +362,9 @@ hr {
   color: white;
   width: 14.28%;
 }
+
+.roster-admin-links {
+  color: white;
+  text-decoration: none;
+}
+

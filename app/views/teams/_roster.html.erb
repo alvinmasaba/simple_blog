@@ -15,6 +15,9 @@
           </td>
           <% if player.contract.nil? %>
             <td style="--bs-table-accent-bg: white">N/A</td>
+            <% 4.times do %>
+              <td style="--bs-table-accent-bg: white"></td>
+            <% end %>
           <% else %>
             <% player.contract.contract_array[0...-1].each do |year| %>
               <td style="--bs-table-accent-bg: white">

@@ -26,7 +26,7 @@
   <%= link_to "2K Rating", @player.ratings_url %>
 
   <% if @player.contract %>
-    <%= link_to "View Contract", team_player_contract_path(@team, @player, @contract) %>
+    <%= link_to "View Contract", team_player_contract_path(@team, @player, @contract), target: :_blank %>
   <% end %>
   
   <%= link_to "Return to Team", team_path(@team) %>
