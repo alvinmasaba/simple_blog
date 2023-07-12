@@ -18,6 +18,11 @@ class Team < ApplicationRecord
      yearly_salary("year_4"), yearly_salary("year_5")]
   end
 
+  def logo
+    # Returns path to team logo
+    city.downcase + "-" + name.downcase + '.svg'
+  end
+
   private
 
   def yearly_salary(year)

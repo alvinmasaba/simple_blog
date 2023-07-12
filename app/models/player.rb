@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'fileutils'
+
 class Player < ApplicationRecord
   belongs_to :team
   has_one :contract, dependent: :destroy
@@ -10,7 +13,6 @@ class Player < ApplicationRecord
     return full_name unless full_name.nil? || full_name == ""
 
     f_name = "#{first_name.titleize} #{last_name.titleize}"
-    
     f_name = suffix.nil? ? f_name : "#{f_name} #{standardize_suffix(suffix)}"
   end
 
@@ -22,7 +24,6 @@ class Player < ApplicationRecord
 
   def ratings_url
     base = "https://www.2kratings.com/#{remove_dots(first_name)}-#{remove_dots(last_name)}"
-
     (suffix.nil? || suffix == "") ? base : base + "-#{remove_dots(suffix)}"
   end
 
@@ -34,6 +35,26 @@ class Player < ApplicationRecord
     team = Team.find_by(id: self.team_id)
 
     team.titleize_name
+  end
+
+  def update_image
+    image_url = self.image_url
+    image_path = Rails.root.join('app', 'assets', 'images', 'players', "#{self.id}.jpg")
+
+    begin
+      content = URI.read(image_url)
+      File.write(image_path, content)
+
+      # Update the image attribute with the path where the image is saved
+      self.update(image: "players/#{self.id}.jpg")
+
+    rescue OpenURI::HTTPError => e
+      puts "Failed to download image. Error: #{e.message}"
+    rescue Errno::ENOENT => e
+      puts "Failed to create file. Error: #{e.message}"
+    rescue StandardError => e
+      puts "An error occurred. Error: #{e.message}"
+    end
   end
 
   private
@@ -56,6 +77,20 @@ class Player < ApplicationRecord
   end
 
   def remove_dots(str)
-    str.gsub(".", "")
+    str.delete('.')
+  end
+
+  def image_url
+    base = "https://www.2kratings.com/wp-content/uploads/#{first_name.titleize}-#{last_name.titleize}"
+
+    if suffix.nil? || suffix == ""
+      base 
+    elsif suffix == "jr." || suffix == "sr."
+      base += "-#{suffix.titleize}"
+    else
+      base += "-#{suffix.upcase}"
+    end
+
+    base + '-2K-Rating-547x400.png'
   end
 end

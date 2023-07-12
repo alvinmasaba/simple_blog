@@ -39,3 +39,8 @@
                                                           } %>
   <%= link_to "Return to Team", admin_team_path(@team) %>
 </div>
+
+<div class="container-fluid profile-photo-bg">
+  <div class="player-team-logo" style="background: <%= @player.team.logo %>;"></div> 
+  <img class="profile-photo" src="<%= @player.image %>" alt="Picture of <%= @player.full_name %>">
+</div>

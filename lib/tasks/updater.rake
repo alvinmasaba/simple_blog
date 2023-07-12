@@ -1,6 +1,6 @@
 namespace :update do
   desc "Update database from spreadsheet"
-  task :spreadsheet => :environment do
+  task :spreadsheet => :environment do    
     class String
       def is_team_name?
         Team.pluck(:name).include?(self.team_name)
@@ -53,6 +53,8 @@ namespace :update do
     puts "Updating contracts..."
     spreadsheet.update_contracts
 
+    puts "Updating images..."
+    Player.where(image: nil).find_each(&:update_image)
 
     puts "Finished updating database!"
   end

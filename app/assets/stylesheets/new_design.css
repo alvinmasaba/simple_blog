@@ -180,20 +180,22 @@ li {
 .name-menu .greeting {
   margin-bottom: 0;
   font-size: larger;
+  padding-left: 1.5rem;
 }
 
 
 .name-menu-user-avatar {
   grid-area: avatar;
-  height: 75px;
-  width: 75px;
-  padding-right: 10px;
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
 }
 
 
 .name-menu-user-name {
   grid-area: name;
   color: var(--team-color-secondary, black);
+  padding-left: 1.5rem;
 }
 
 
@@ -312,7 +314,7 @@ hr {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-area: tweets;
   gap: 15px;
-  align-self: flex-end;
+  align-self: flex-start;
 }
 
 .trending-card {
@@ -368,3 +370,31 @@ hr {
   text-decoration: none;
 }
 
+
+/* PLAYER PAGE */
+
+.profile-photo-bg {
+  background-image: url('/images/player-2k-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top center;
+}
+
+.profile-photo,.profile-photo-bg {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%
+}
+
+.profile-photo-bg {
+  object-fit: contain;
+  object-position: center;
+  background-color: #ccd0d3
+}
+
+.profile-photo {
+  margin: 0 auto 0 -12px;
+  object-fit: cover;
+  position: relative;
+  z-index: 999
+}

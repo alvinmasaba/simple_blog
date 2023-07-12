@@ -7,6 +7,11 @@ class TweetsController < ApplicationController
             config.access_token_secret = Rails.application.credentials.dig(:twitter, :access_token_secret)
         end
 
-        @tweets = client.user_timeline('IGNBA3', count: 10) # Fetch last 10 tweets
+        @tweets = client.user_timeline('IGNBA3', count: 3) # Fetch last 3 tweets
+
+        rescue StandardError => e
+            @tweets = []
+            @error = "Could not fetch tweets: #{e.message}"
+        end
     end
 end

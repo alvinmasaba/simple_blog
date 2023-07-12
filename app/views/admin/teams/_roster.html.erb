@@ -1,12 +1,12 @@
 <div class="homepage-main-content">
   <table class="table table-bordered table-striped">
     <tr class="table-primary">
-      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>"><%= team.titleize_name %></th>
-      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>"><%=c_year%></th>
-      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">2024-25</th>
-      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">2025-26</th>
-      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">2026-27</th>
-      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">2027-28</th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>"><%= team.titleize_name %></th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>"><%=c_year%></th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">2024-25</th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">2025-26</th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">2026-27</th>
+      <th class="roster-header" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">2027-28</th>
     </tr>
       <% team.players.each do |player| %>
         <tr>
@@ -28,31 +28,31 @@
         </tr>
       <% end %>
     <tr>
-      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">Total Payroll</th>
+      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">Total Payroll</th>
       <% team.yearly_salary_array.each do |salary| %>
         <td style="--bs-table-accent-bg: white"><%= number_to_currency(salary) %></td>
       <% end %>
     </tr>
     <tr>
-      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">Against Salary Cap</th>
+      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">Against Salary Cap</th>
         <% 5.times do |i|%>
           <td style="--bs-table-accent-bg: white"><%= number_to_currency(@cap.salary_cap - team.yearly_salary_array[i]) %></td>
         <% end %>
     </tr>
     <tr>
-      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">Against Luxury Tax</th>
+      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">Against Luxury Tax</th>
         <% 5.times do |i|%>
           <td style="--bs-table-accent-bg: white"><%= number_to_currency(@cap.luxury_tax - team.yearly_salary_array[i]) %></td>
         <% end %>
     </tr>
     <tr>
-      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">Against Apron</th>
+      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">Against Apron</th>
         <% 5.times do |i|%>
           <td style="--bs-table-accent-bg: white"><%= number_to_currency(@cap.apron - team.yearly_salary_array[i]) %></td>
         <% end %>
     </tr>
     <tr>
-      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.tertiary_color %>">Against Second Apron</th>
+      <th class="table-primary" style="color: white; --bs-table-accent-bg: <%= team.primary_color %>">Against Second Apron</th>
         <% 5.times do |i|%>
           <td style="--bs-table-accent-bg: white"><%= number_to_currency(@cap.second_apron - team.yearly_salary_array[i]) %></td>
         <% end %>
@@ -62,5 +62,5 @@
 <ul class="roster-admin-links">
   <li><%= link_to "Add Player", new_admin_team_player_path(@team, @player), :style=>"text-decoration: none; color:white" %>
   <li><%= link_to "Edit", edit_admin_team_path, :style=>"text-decoration: none; color:white" %></li>
-  <li><%= link_to "Home", root_path, :style=>"text-decoration: none; color:white" %></li>
+  <li><%= link_to "Return to Teams", admin_teams_path, :style=>"text-decoration: none; color:white" %></li>
 </ul>

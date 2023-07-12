@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_221343) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_170233) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -93,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_221343) do
     t.string "height"
     t.string "suffix"
     t.string "full_name"
+    t.string "image"
     t.index ["age", "last_name"], name: "index_players_on_age_and_last_name"
     t.index ["height", "last_name"], name: "index_players_on_height_and_last_name"
     t.index ["last_name"], name: "index_players_on_last_name"
@@ -110,6 +111,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_221343) do
     t.string "secondary_color", default: "#002D62"
     t.string "tertiary_color", default: "#C8102E"
     t.index ["user_id"], name: "index_teams_on_user_id"
+  end
+
+  create_table "tweets", force: :cascade do |t|
+    t.text "content"
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
