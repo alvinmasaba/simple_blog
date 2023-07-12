@@ -11,7 +11,7 @@
     </h1>
   <% end %>
 
-  <%= form_with(model: player, url: "/teams/#{params[:team_id]}/players/#{player.id}", :class => "new-player-form") do |form| %>
+  <%= form_with(model: [:admin, player.team, player], class: "new-player-form") do |form| %>
     <div>
       <%= form.label :first_name %><br>
       <%= form.text_field :first_name %>
@@ -96,6 +96,14 @@
       <%= form.label :years_in_league %><br>
       <%= form.text_field :years_in_league %>
       <% player.errors.full_messages_for(:years_in_league).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :image %><br>
+      <%= form.text_field :image %>
+      <% player.errors.full_messages_for(:image).each do |message| %>
         <div><%= message %></div>
       <% end %>
     </div>

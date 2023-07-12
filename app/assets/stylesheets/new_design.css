@@ -374,10 +374,16 @@ hr {
 /* PLAYER PAGE */
 
 .profile-photo-bg {
+  position: relative;
   background-image: url('/images/player-2k-bg.jpg');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top center;
+  width: 100%;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .profile-photo,.profile-photo-bg {
@@ -396,5 +402,32 @@ hr {
   margin: 0 auto 0 -12px;
   object-fit: cover;
   position: relative;
-  z-index: 999
+  z-index: 999;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.player-show-image-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.player-links {
+  text-decoration: none;
+  color: white;
+}
+
+.player-team-logo {
+  background: var(--team-logo);
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 0 -40px;
+  background-repeat: no-repeat!important;
+  background-position: center!important;
+  background-size: contain!important;
+  position: absolute;
+  z-index: 998;
+  object-fit: cover;
 }

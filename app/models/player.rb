@@ -38,25 +38,36 @@ class Player < ApplicationRecord
   end
 
   def update_image
-    image_url = self.image_url
-    image_path = Rails.root.join('app', 'assets', 'images', 'players', "#{self.id}.jpg")
+    image_urls = self.image_url
 
-    begin
-      content = URI.read(image_url)
-      File.write(image_path, content)
-
-      # Update the image attribute with the path where the image is saved
-      self.update(image: "players/#{self.id}.jpg")
-
-    rescue OpenURI::HTTPError => e
-      puts "Failed to download image. Error: #{e.message}"
-    rescue Errno::ENOENT => e
-      puts "Failed to create file. Error: #{e.message}"
-    rescue StandardError => e
-      puts "An error occurred. Error: #{e.message}"
+    if self.suffix
+      image_path = Rails.root.join('app', 'assets', 'images', 'players', "#{self.first_name}-#{self.last_name}-#{self.suffix}.jpg")
+    else
+      image_path = Rails.root.join('app', 'assets', 'images', 'players', "#{self.first_name}-#{self.last_name}.jpg")
+    end
+    
+    image_urls.each do |image_url|
+      begin
+        content = URI.open(image_url).read
+        File.open(image_path, 'wb') do |file|
+          file.write(content)
+        end
+  
+        # Update the image attribute with the path where the image is saved
+        self.update(image: image_path.to_s)
+        
+        # Break the loop when an image is successfully downloaded
+        break
+      rescue OpenURI::HTTPError => e
+        puts "Failed to download image from URL #{image_url}. Error: #{e.message}"
+      rescue Errno::ENOENT => e
+        puts "Failed to create file. Error: #{e.message}"
+      rescue StandardError => e
+        puts "An error occurred. Error: #{e.message}"
+      end
     end
   end
-
+  
   private
 
   def standardize_player_name(name)
@@ -81,8 +92,8 @@ class Player < ApplicationRecord
   end
 
   def image_url
-    base = "https://www.2kratings.com/wp-content/uploads/#{first_name.titleize}-#{last_name.titleize}"
-
+    base = "https://www.2kratings.com/wp-content/uploads/#{first_name.titleize.gsub(' ', '-')}-#{last_name.titleize.gsub(' ', '-')}"
+  
     if suffix.nil? || suffix == ""
       base 
     elsif suffix == "jr." || suffix == "sr."
@@ -91,6 +102,14 @@ class Player < ApplicationRecord
       base += "-#{suffix.upcase}"
     end
 
-    base + '-2K-Rating-547x400.png'
+    url_array = [base + '-2K-Rating-547x400.png', base + '-2K-Rating-550x400.png']
+
+    # Some urls differ slightly due to missing suffixes and an alternate size.
+    ['Jr.', 'Sr.', 'II', 'III', 'IV'].each do |suffix|
+      url_array.append(base + '-' + suffix + '-2K-Rating-547x400.png')
+      url_array.append(base + '-' + suffix + '-2K-Rating-550x400.png')
+    end
+  
+    url_array
   end
 end

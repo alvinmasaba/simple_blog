@@ -77,10 +77,9 @@
 .player-profile-container, .player-form-container {
   display: grid;
   justify-self: center;
-  max-height: 400px;
+  max-height: 100%;
   align-items: center;
   justify-items: center;
-  grid-template-rows: 75px 1fr 25px;
   margin-top: 2rem;
 }
 
