@@ -216,12 +216,12 @@ li {
   justify-self: start;
 }
 
-.name-menu .button_to {
+.name-menu .button_to, .button-to {
   grid-area: share;
   justify-self: start;
 }
 
-.name-menu button, #search-btn {
+.name-menu button, #search-btn, .button-to {
   padding: 10px;
   border-radius: 1.5rem;
   width: 100px;
@@ -233,7 +233,7 @@ li {
   text-align: center;
 }
 
-button:hover, #search-btn:hover {
+button:hover, #search-btn:hover, .button-to:hover {
   cursor: pointer;
   background-color: var(--team-color-tertiary, #C8102E);
 }

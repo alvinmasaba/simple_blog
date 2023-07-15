@@ -55,7 +55,7 @@ namespace :update do
 
     puts "Updating images..."
     puts "Deleting corrupt images first..."
-    Player.update_all(image: nil)
+    # Player.update_all(image: nil)
 
     puts "Attempting to download new working images..."
     Player.where(image: nil).find_each(&:update_image)

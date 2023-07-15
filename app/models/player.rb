@@ -68,17 +68,13 @@ class Player < ApplicationRecord
     end
   end
 
-  # Search function to search users
+  # Search function to search players
   def self.search(search)
     if search
       search_terms = search.split
-      if search_terms.size == 2
-        # When there are two search terms, assume the first is the first name and the second is the last name
-        players = Player.where("first_name LIKE :first_name AND last_name LIKE :last_name", first_name: "%#{search_terms[0]}%", last_name: "%#{search_terms[1]}%")
-      else
-        # When there is one search term, check both the first_name and last_name fields
-        players = Player.where("first_name LIKE :search OR last_name LIKE :search", search: "%#{search}%")
-      end
+      query = search_terms.map { |term| "first_name LIKE :#{term} OR last_name LIKE :#{term}" }.join(' OR ')
+      query_params = search_terms.each_with_object({}) { |term, hash| hash[term.to_sym] = "%#{term}%" }
+      players = Player.where(query, query_params)
       players.empty? ? Player.all : players
     else
       Player.all.order("last_name desc")
@@ -88,15 +84,7 @@ class Player < ApplicationRecord
   private
 
   def standardize_player_name(name)
-    self.update(first_name: name[0], last_name: name[1])
-
-    # Removes NTC deadline dates from player names
-    if name.length > 3
-      name.pop if name[3].include?('(')
-    elsif name[2].include?('(')
-      name.pop
-    end
-    
+    self.update(first_name: name[0], last_name: name[1])    
     self.update(suffix: name[2]) if name[2]
   end
 

@@ -115,13 +115,8 @@ class Spreadsheet
 
   def remove_ntc_tag(name_array)
     # Removes NTC deadline dates from player names
-    if name_array.length < 3
-      return name_array
-    elsif name_array.length > 3
-      name_array.pop if name_array[3].include?('(')
-    elsif name_array[2].include?('(')
+    if name_array.include?('(')
       name_array.pop
-    end
 
     name_array
   end
@@ -179,9 +174,33 @@ class Spreadsheet
     player_names
   end
 
+  def fix_problematic_names(name)
+    if name.include?("van", "vleet")
+      return ["fred", "vanvleet"]
+    elsif name.include?("g. g.")
+      return ["gregory", "jackson", "ii"]
+    elsif name == ["carson", "wallace"]
+      return ["cason", "wallace"]
+    elsif name == ["robert", "williams"]
+      return ["robert", "williams", "iii"]
+    elsif name == ["greg", "brown"]
+      return ["greg", "brown", "iii"]
+    elsif name == ["mo", "bamba"]
+      return ["mohamed", "bamba"]
+    elsif name.include?("pippin")
+      return ["scotty", "pippen", "jr."]
+    elsif name == ["justice", "winslow"]
+      return ["justise", "winslow"]
+    end
+
+    name
+  end
+
 
   def find_or_create_player(player_name, team_name)
     player_name = remove_ntc_tag(player_name)
+
+    player_name = fix_problematic_names(player_name)
     # Skip cell if full player name is already in the database
     if player_in_db?(player_name)
       update_team(player_name, team_name)

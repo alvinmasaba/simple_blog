@@ -3,7 +3,11 @@
 <ol>
   <% @players.each_with_index do |player, i| %>
     <li>
-      <%=i%>. <%= link_to player.print_full_name, team_player_path(player.team, player.id) %>
+      <% if current_user.admin? %>
+        <%=i%>. <%= link_to player.print_full_name, admin_team_player_path(player.team, player.id) %>
+      <% else %>
+        <%=i%>. <%= link_to player.print_full_name, admin_team_player_path(player.team, player.id) %>
+      <% end %>
     </li>
   <% end %>
 </ol>

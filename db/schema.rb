@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_12_170233) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_15_223010) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -19,6 +19,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_170233) do
     t.string "status"
     t.integer "team_id"
     t.index ["team_id"], name: "index_articles_on_team_id"
+  end
+
+  create_table "articles_tags", id: false, force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "tag_id", null: false
+    t.index ["article_id", "tag_id"], name: "index_articles_tags_on_article_id_and_tag_id"
+    t.index ["tag_id", "article_id"], name: "index_articles_tags_on_tag_id_and_article_id"
   end
 
   create_table "cap_figures", force: :cascade do |t|
@@ -99,6 +106,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_170233) do
     t.index ["last_name"], name: "index_players_on_last_name"
     t.index ["position", "last_name"], name: "index_players_on_position_and_last_name"
     t.index ["team_id"], name: "index_players_on_team_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|

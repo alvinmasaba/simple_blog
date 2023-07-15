@@ -11,7 +11,7 @@
       <% team.players.each do |player| %>
         <tr>
           <td style="--bs-table-accent-bg: white">
-            <%= link_to player.print_waived_name, team_player_path(team, player) %>
+            <%= link_to player.print_waived_name, admin_team_player_path(team, player) %>
           </td>
           <% if player.contract.nil? %>
             <td style="--bs-table-accent-bg: white">N/A</td>
@@ -59,3 +59,12 @@
     </tr>
   </table>
 </div>
+<ul class="roster-admin-links">
+  <% if current_user.admin? %>
+    <li><%= link_to "Add Player", new_admin_team_player_path(@team, @player), :style=>"text-decoration: none; color:white" %>
+    <li><%= link_to "Edit", edit_admin_team_path, :style=>"text-decoration: none; color:white" %></li>
+    <li><%= link_to "Return to Teams", teams_path, :style=>"text-decoration: none; color:white" %></li>
+  <% else %>
+    <li><%= link_to "Return to Teams", admin_teams_path, :style=>"text-decoration: none; color:white" %></li>
+  <% end %>
+</ul>

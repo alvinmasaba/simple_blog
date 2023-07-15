@@ -86,4 +86,5 @@ gem 'open-uri'
 gem 'webpacker', '~> 5.0'
 gem 'twitter'
 gem 'fileutils'
+gem 'will_paginate', '~> 3.3.0'
 

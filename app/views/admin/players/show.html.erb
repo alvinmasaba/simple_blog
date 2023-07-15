@@ -28,7 +28,7 @@
     <li>
       <p class="player-profile-label">Current Salary:</p>
       <p class="player-profile-value">
-        <%# @contract.year_1 == 0 ? "Two Way": number_to_currency(@contract.year_1) %>
+        <%= @player.contract.year_1 if @player.contract.present? %>
       </p>
     </li>
   </ul>
