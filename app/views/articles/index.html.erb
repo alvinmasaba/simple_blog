@@ -1,21 +1,43 @@
-<div>
-  <h1>IGNBA NEWS</h1>
-  Our blog has <%= Article.public_count %> 
-  <%= (Article.public_count > 1 || Article.public_count == 0) ? 'articles' : 'article' %> 
-  and counting!
+<div class="container-fluid pb-4 pt-4 paddding">
+    <div class="paddding">
+        <div class="row mx-0">
+            <div class="col-md-8 animate-box fadeInLeft animated-fast" data-animate-effect="fadeInLeft">
+              <div>
+                  <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Latest News</div>
+              </div>
+              <% @articles.first(5).each do |article| %>
+                  <div class="row pb-4">
+                      <div class="col-md-12">
+                          <div class="fh5co_hover_news_img">
+                              <%= link_to article_path(article) do %>
+                                  <%= image_tag article.image, alt: article.title if article.image.present? %>
+                                  <div class="image_text_overlay">
+                                      <span class="fh5co_magna py-2"><%= article.title %></span> 
+                                      <p class="fh5co_mini_time py-3"> <%= article.author.username %> - <%= article.created_at.strftime("%B %d,%Y") %> </p>
+                                      <div class="fh5co_consectetur"> <%= truncate(article.body, length: 100) %> </div>
+                                  </div>
+                              <% end %>
+                          </div>
+                      </div>
+                  </div>
+              <% end %>
+            </div>
+            <div class="col-md-3 animate-box fadeInRight animated-fast" data-animate-effect="fadeInRight">
+                <%# <div>
+                    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Tags</div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="fh5co_tags_all"> %>
+                    <%# @tags.each do |tag| %>
+                      <%# link_to tag.name, tag_path(tag), class: 'fh5co_tagg' %>
+                    <%# end %>
+                <%# </div> %>
+
+                <!-- You can add more sections here according to your design -->
+
+            </div>
+        </div>
+
+        <%= paginate @articles %>
+    </div>
 </div>
-
-<div class="main-container">
-  <% @articles.each do |article| %>
-    <% unless article.archived? %>
-      <div class="article-item">
-        <h2><%= link_to article.title, article %></h2>
-        <p><%= article.published_at.strftime('%B %d, %Y') %></p>
-      </div>
-    <% end %>
-  <% end %>
-
-  <%= will_paginate @articles %>
-</div>
-
-<%= link_to "New Article", new_article_path %>

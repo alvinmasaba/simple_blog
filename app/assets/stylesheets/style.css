@@ -142,3 +142,84 @@
 .admin-options a:hover {
   text-decoration: underline;
 }
+
+
+/* ARTICLES INDEX */
+
+.fh5co_hover_news_img {
+  position: relative;
+  overflow: hidden;
+  height: 300px; /* Set the height you desire */
+  border: 5px solid #fff; /* White padding around the image */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* A subtle shadow effect */
+}
+
+.fh5co_hover_news_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the div without stretching */
+  transition: transform 0.5s;
+}
+
+.fh5co_hover_news_img:hover img {
+  transform: scale(1.1);
+}
+
+.image_text_overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Makes the whole area clickable */
+  padding: 20px;
+  color: #fff;
+  background: rgba(0,0,0,0.6);
+  transition: background 0.5s;
+}
+
+.fh5co_hover_news_img:hover .image_text_overlay {
+  background: rgba(0,0,0,0.8);
+}
+
+/* Increase the size of the text */
+.fh5co_magna {
+  font-size: 24px; 
+}
+
+.fh5co_mini_time {
+  font-size: 18px;
+}
+
+.fh5co_consectetur {
+  font-size: 16px;
+}
+
+/* ARTICLE SHOW */
+
+.article-header {
+  width: 100%;
+  height: 500px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+
+.article-header h1 {
+  font-size: 3em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.article-meta {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+.comments {
+  margin-top: 2em;
+}
+
+.comments h2 {
+  font-size: 2em;
+  margin-bottom: 1em;
+}

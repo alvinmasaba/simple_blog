@@ -115,7 +115,7 @@ class Spreadsheet
 
   def remove_ntc_tag(name_array)
     # Removes NTC deadline dates from player names
-    if name_array.include?('(')
+    if name_array[-1].include?('(')
       name_array.pop
 
     name_array

@@ -2,8 +2,8 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   
   def index
-    @articles = Article.order('created_at DESC').paginate(page: params[:page], per_page: 10)
-  end
+    @articles = Article.order(created_at: :desc).page(params[:page]).per(10)
+  end  
 
   def show
     @article = Article.find(params[:id])
