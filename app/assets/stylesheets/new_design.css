@@ -126,6 +126,7 @@ li {
 .header {
   display: grid;
   grid-area: header;
+  gap: 1rem;
   align-items: center;
   background: white;
   box-shadow: 3px 3px 6px rgb(160, 160, 160);
@@ -274,7 +275,7 @@ button:active {
 .projects {
   display: grid;
   grid-area: content;
-  gap: 15px;
+  padding-top: 2rem;
 }
 
 /* Announcements card styling */

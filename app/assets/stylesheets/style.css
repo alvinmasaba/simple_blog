@@ -203,16 +203,72 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 2em;
+  position: relative;
+  overflow: hidden;
+}
+
+.article-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
 }
 
 .article-header h1 {
   font-size: 3em;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: slideInLeft 1s;
 }
 
 .article-meta {
   font-size: 1.2em;
-  margin-bottom: 1em;
+  margin-top: 0.5em;
+  animation: slideInRight 1s;
+}
+
+.article-content {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  margin: 0 auto;
+  width: 100%;
+  font-size: 1.2em;
+  line-height: 1.6;
+  border-radius: 15px;
+  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.5s;
+}
+
+.article-content:hover {
+  box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em 0;
+}
+
+.admin-action-button {
+  margin-left: 1em;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: white;
+  background-color: #333;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.admin-action-button:hover {
+  background-color: #666;
 }
 
 .comments {
@@ -222,4 +278,83 @@
 .comments h2 {
   font-size: 2em;
   margin-bottom: 1em;
+}
+
+.home-button {
+  display: inline-block;
+  margin-top: 2em;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: white;
+  background-color: #333;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.home-button:hover {
+  background-color: #666;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* PLAYERS INDEX */
+
+.players-list {
+  width: 75%;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.players-list h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.players-list a:hover {
+  color: blue;
+}
+
+.players-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.players-list table th,
+.players-list table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.players-list table a {
+  color: #333;
+  text-decoration: none;
+}
+
+.players-list .pagination-wrapper {
+  margin-top: 20px;
+  text-align: center;
 }

@@ -1,13 +1,30 @@
-<h2> Results:</h2>
-
-<ol>
-  <% @players.each_with_index do |player, i| %>
-    <li>
-      <% if current_user.admin? %>
-        <%=i%>. <%= link_to player.print_full_name, admin_team_player_path(player.team, player.id) %>
-      <% else %>
-        <%=i%>. <%= link_to player.print_full_name, admin_team_player_path(player.team, player.id) %>
+<div class="players-list">
+  <h1>Players</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Player Name</th>
+        <th>Age</th>
+        <th>Height</th>
+        <th>Position</th>
+        <th>Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @players.first(20).each do |player| %>
+        <tr>
+          <td>
+            <%= link_to player.print_full_name, player_path(player) %>
+          </td>
+          <td><%= player.age %></td>
+          <td><%= player.height %></td>
+          <td><%= player.position %></td>
+          <td><%= link_to player.team.titleize_name, team_path(player.team) %></td>
+        </tr>
       <% end %>
-    </li>
-  <% end %>
-</ol>
+    </tbody>
+  </table>
+  <div class="pagination-wrapper">
+    <%= paginate @players %>
+  </div>
+</div>

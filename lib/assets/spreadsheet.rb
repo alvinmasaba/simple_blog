@@ -60,6 +60,9 @@ class Spreadsheet
       p player_name
       # Find player by name and set contract ID to player ID.
       player = Player.find_by(first_name: player_name[0], last_name: player_name[1])
+
+      next unless player
+      
       contract.player_id = player.id
       contract.team_id = player.team_id
 
@@ -117,6 +120,7 @@ class Spreadsheet
     # Removes NTC deadline dates from player names
     if name_array[-1].include?('(')
       name_array.pop
+    end
 
     name_array
   end
@@ -175,7 +179,7 @@ class Spreadsheet
   end
 
   def fix_problematic_names(name)
-    if name.include?("van", "vleet")
+    if name.include?("vleet") && name.include?("van")
       return ["fred", "vanvleet"]
     elsif name.include?("g. g.")
       return ["gregory", "jackson", "ii"]
@@ -191,6 +195,10 @@ class Spreadsheet
       return ["scotty", "pippen", "jr."]
     elsif name == ["justice", "winslow"]
       return ["justise", "winslow"]
+    elsif name == ["john", "walll"]
+      return ["john", "wall"]
+    elsif name == ["derek", "lively"]
+      return ["dereck", "lively", "ii"]
     end
 
     name

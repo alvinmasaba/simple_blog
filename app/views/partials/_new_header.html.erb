@@ -7,22 +7,24 @@
                 <%= submit_tag "Search", :name => nil, :id => "search-btn" %>
             <% end %>
         </div>
-        <div class="notification-icons">
-            <%= image_tag("bell-ring-outline.svg", :alt=>"icon", :class=>"notification-icon") %>
-            <%= (link_to image_tag(current_user.image, class: "search-bar-user-avatar"), user_path(current_user)) if current_user %>
-            <p class="search-bar-user-name"><%= current_user.username if current_user %></p>
-        </div>
-    </div>
-    <div class="name-menu">
         <% if current_user %>
-            <%= image_tag(current_user.image, :alt=>"avatar", :class=>"name-menu-user-avatar") if current_user %>
-            <p class="greeting">Hi there,</p>
-            <h2 class="name-menu-user-name"><%= current_user.username %></h2>
-            <%= link_to "Sign Out", destroy_user_session_path, data: { "turbo-method": :delete }, :style=>"text-decoration: none;", :class=> "button-to" %>
+            <div class="notification-icons">
+                <%= image_tag(current_user.team.logo, :alt=>"icon", :class=>"notification-icon") %>
+                <%= (link_to image_tag(current_user.image, class: "search-bar-user-avatar"), user_path(current_user))%>
+                <%= link_to "Sign Out", destroy_user_session_path, data: { "turbo-method": :delete }, :style=>"text-decoration: none;", :class=> "button-to" %>
+            </div>
         <% elsif current_user.nil? %>
             <%= button_to "Sign in with Discord", user_discord_omniauth_authorize_path, method: :post, :style=>"width: fit-content;", class: "button-to", data: {turbo: "false"} %>
         <% elsif current_user.provider.nil? %>
             <%= button_to "Connect To Discord", user_discord_omniauth_authorize_path, method: :post, :style=>"width: fit-content;", class: "button-to", data: {turbo: "false"} %>
+        <% end %>
+    </div>
+    
+    <div class="name-menu">
+        <% if current_user %>
+            <%= (link_to image_tag(current_user.image, :alt=>"avatar", :class=>"name-menu-user-avatar"), user_path(current_user)) if current_user %>
+            <p class="greeting">Hi there,</p>
+            <h2 class="name-menu-user-name"><%= current_user.username %></h2>
         <% end %>
     </div>
 </div>

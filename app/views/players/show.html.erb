@@ -1,3 +1,13 @@
+<style>
+  :root {
+    <% if @player.team.logo.present? %>
+      --team-logo: url('<%= asset_path(@player.team.logo) %>');
+    <% else %>
+      --team-logo: url('<%= asset_path("ignba.jpg") %>');
+    <% end %>
+  }
+</style>
+
 <div class="player-profile-container">
   <h1>
     <% if @player.full_name.nil? || @player.full_name == "" %>
@@ -34,5 +44,6 @@
     <%= link_to "View Contract", team_player_contract_path(@team, @player, @contract), target: :_blank, :class=>"player-links" %>
   <% end %>
   
-  <%= link_to "Return to Team", team_path(@team), :class=>"player-links" %>
+  <%= link_to "Go to Team", team_path(@team), :class=>"player-links" %>
+  <%= link_to "Return to Players", players_path, :class=>"player-links" %>
 </div>

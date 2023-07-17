@@ -2,6 +2,7 @@ class PlayersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
 
   def index
+    @players = Player.order(last_name: :asc).page(params[:page]).per(20)
   end
 
   def show
@@ -55,7 +56,7 @@ class PlayersController < ApplicationController
   end
 
   def search
-    @players = Player.search(params[:search])
+    @players = Player.search(params[:search]).order(last_name: :asc).page(params[:page]).per(20)
     render :index
   end
 

@@ -7,8 +7,10 @@
         <ul class="account-nav">
             <%= image_tag("home.svg", :alt=>"Logo") %>
             <li><%= link_to "News", articles_path %></li>
+            <%# image_tag("account-group.svg", :alt=>"Logo") %>
+            <%#<li><%# (link_to "Dashboard", admin_dashboard_path, data: { turbolinks: false }) if current_user.admin %>
             <%= image_tag("account-group.svg", :alt=>"Logo") %>
-            <li><%= (link_to "Dashboard", admin_dashboard_path, data: { turbolinks: false }) if current_user.admin %></li>
+            <li><%= (link_to "Players", players_path, data: { turbolinks: false }) %></li>
             <%= image_tag("card-account-details-outline.svg", :alt=>"Logo") %>
             <li><%= link_to "Profile", user_path(current_user)%></li>
             <%= image_tag("message-reply.svg", :alt=>"Logo") %>

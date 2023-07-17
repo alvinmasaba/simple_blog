@@ -107,7 +107,8 @@ class Player < ApplicationRecord
       base += "-#{suffix.upcase}"
     end
 
-    url_array = [base + '-2K-Rating-547x400.png', base + '-2K-Rating-550x400.png']
+    url_array = [base + '-2K-Rating-547x400.png', base + '-2K-Rating-550x400.png', base + '-2K-Rating-600x400.png',
+                 base + '-2K-Rating-547x400.webp', base + '-2K-Rating-550x400.webp', base + '-2K-Rating-600x400.webp']
 
     # Some urls differ slightly due to missing suffixes and an alternate size.
     ['Jr.', 'Sr.', 'II', 'III', 'IV'].each do |suffix|
