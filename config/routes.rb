@@ -36,4 +36,6 @@ Rails.application.routes.draw do
   resources :tweets, only: [:index]
 
   resources :players, only: [:index, :show]
+
+  get 'trade_machine', action: :show, controller: 'trade_machine'
 end

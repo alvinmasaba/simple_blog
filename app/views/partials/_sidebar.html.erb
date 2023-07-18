@@ -21,6 +21,8 @@
             <li><%= link_to 'Teams', (current_user.admin ? admin_teams_path : teams_path) %></li>
             <%= image_tag("file-multiple-outline.svg", :alt=>"Logo") %>
             <li><%= link_to "Spreadsheet", "https://docs.google.com/spreadsheets/d/1Tr6kYGr_T-DWWXlYs9p5Cc6EXGjUCdJQgSo1plwBklw/edit?usp=sharing", target: :_blank %></li>
+            <%= image_tag("file-multiple-outline.svg", :alt=>"Logo") %>
+            <li><%= link_to 'Trade Machine', trade_machine_path %></li>
             <% if current_user.admin? %>
                 <%= image_tag("file-multiple-outline.svg", :alt=>"Logo") %>
                 <li><%= link_to "Editable Spreadsheet", "https://docs.google.com/spreadsheets/d/1qIWp0pUQTd5R86BjRYq0xipPw5Md0RFn05gvvzOEMxA/edit#gid=0", target: :_blank %></li>
