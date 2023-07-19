@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_16_001231) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_18_060155) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -86,6 +86,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_16_001231) do
     t.index ["user_id"], name: "index_discord_accounts_on_user_id"
   end
 
+  create_table "draft_picks", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "owned_by_id", null: false
+    t.string "round"
+    t.integer "year"
+    t.string "protections"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owned_by_id"], name: "index_draft_picks_on_owned_by_id"
+    t.index ["team_id"], name: "index_draft_picks_on_team_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.integer "age"
     t.string "school"
@@ -124,7 +136,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_16_001231) do
     t.string "primary_color", default: "#1D42BA"
     t.string "secondary_color", default: "#002D62"
     t.string "tertiary_color", default: "#C8102E"
+    t.integer "tax_offender"
     t.index ["user_id"], name: "index_teams_on_user_id"
+  end
+
+  create_table "trade_exceptions", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "amount"
+    t.datetime "expiry", precision: nil
+    t.string "exception_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_trade_exceptions_on_team_id"
   end
 
   create_table "tweets", force: :cascade do |t|
@@ -156,6 +179,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_16_001231) do
   add_foreign_key "contracts", "players"
   add_foreign_key "contracts", "teams"
   add_foreign_key "discord_accounts", "users"
+  add_foreign_key "draft_picks", "teams"
+  add_foreign_key "draft_picks", "teams", column: "owned_by_id"
   add_foreign_key "players", "teams"
   add_foreign_key "teams", "users"
+  add_foreign_key "trade_exceptions", "teams"
 end

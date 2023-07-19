@@ -1,0 +1,30 @@
+.trade-machine {
+    font-family: Arial, sans-serif;
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+header, subheader {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.teams-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.team-selector {
+    width: 24%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.team-assets {
+    margin-top: 10px;
+}

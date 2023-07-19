@@ -1,0 +1,6 @@
+<div class="team-selector" data-team-number="<%= team_number %>">
+    <%= select_tag "team#{team_number}", options_from_collection_for_select(Team.all, "id", "name"), prompt: "Select a Team", data: { action: "change->trade#loadTeamAssets" } %>
+    <div class="team-assets" id="team-assets-<%= team_number %>">
+        <!-- Assets will be loaded here dynamically -->
+    </div>
+</div>

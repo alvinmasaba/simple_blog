@@ -1,1 +1,14 @@
-<h1>Trade Machine</h1>
+<div class="trade-machine">
+    <h1>Add Teams</h1>
+    <h2>Select up to 4 teams</h2>
+
+    <div class="teams-container">
+        <%= render partial: "team_selector", locals: { team_number: 1 } %>
+        <%= render partial: "team_selector", locals: { team_number: 2 } %>
+        <%= render partial: "team_selector", locals: { team_number: 3 } %>
+        <%= render partial: "team_selector", locals: { team_number: 4 } %>
+    </div>
+
+    <button id="evaluate-trade-btn">Evaluate Trade</button>
+    <div id="trade-evaluation-result"></div>
+</div>

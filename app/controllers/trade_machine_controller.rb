@@ -3,4 +3,13 @@ class TradeMachineController < ActionController::Base
 
     def show
     end
+
+    def load_assets
+        @team = Team.find(params[:team_id])
+        @team_number = params[:team_number]
+        
+        respond_to do |format|
+          format.turbo_stream
+        end
+    end
 end
