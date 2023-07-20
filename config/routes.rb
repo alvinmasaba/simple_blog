@@ -38,4 +38,5 @@ Rails.application.routes.draw do
   resources :players, only: [:index, :show]
 
   get 'trade_machine', action: :show, controller: 'trade_machine'
+  post 'evaluate_trade', to: 'trade_machine#evaluate_trade', as: 'evaluate_trade'
 end

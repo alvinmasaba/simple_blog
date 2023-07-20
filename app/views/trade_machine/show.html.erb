@@ -1,4 +1,4 @@
-<div class="trade-machine">
+<div class="trade-machine" data-controller="trade">
     <h1>Add Teams</h1>
     <h2>Select up to 4 teams</h2>
 
@@ -9,6 +9,6 @@
         <%= render partial: "team_selector", locals: { team_number: 4 } %>
     </div>
 
-    <button id="evaluate-trade-btn">Evaluate Trade</button>
+    <button id="evaluate-trade-btn" data-action="click->trade#evaluateTrade">Evaluate Trade</button>
     <div id="trade-evaluation-result"></div>
 </div>
