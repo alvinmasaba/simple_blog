@@ -2,6 +2,9 @@ require 'open-uri'
 require 'fileutils'
 
 class Player < ApplicationRecord
+  after_create :create_corresponding_asset
+  after_update :update_asset_team, if: -> { saved_change_to_team_id? }
+
   belongs_to :team
   has_one :asset, as: :assetable
   has_one :contract, dependent: :destroy
@@ -83,6 +86,14 @@ class Player < ApplicationRecord
   end
   
   private
+
+  def create_corresponding_asset
+    Asset.create(assetable: self, team: self.team)
+  end
+
+  def update_asset_team
+    self.asset.update(team: self.team)
+  end
 
   def standardize_player_name(name)
     self.update(first_name: name[0], last_name: name[1])    
