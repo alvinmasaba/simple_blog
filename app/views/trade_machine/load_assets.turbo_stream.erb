@@ -1,10 +1,10 @@
 <turbo-stream action="replace" target="team-assets-<%= @team_number %>">
   <template>
-    <% @team.assets.each do |asset| %>
+    <% @team.players.each do |player| %>
       <div class="asset">
-        <%= asset.name %> 
-        <%= select_tag "destination_team_for_#{asset.id}", options_from_collection_for_select(Team.all, "id", "name"), prompt: "Trade to", class: "trade-destination-dropdown" %>
-        <button data-action="click->trade#addAssetToTrade" data-asset-id="<%= asset.id %>">Add to Trade</button>
+        <%= player.print_full_name %> 
+        <%= select_tag "destination_team_for_#{player.id}", options_from_collection_for_select(Team.all, "id", "name"), prompt: "Trade to", class: "trade-destination-dropdown" %>
+        <button data-action="click->trade#addAssetToTrade" data-asset-id="<%= player.id %>">Add to Trade</button>
       </div>
     <% end %>
   </template>

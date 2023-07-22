@@ -3,6 +3,7 @@ require 'fileutils'
 
 class Player < ApplicationRecord
   belongs_to :team
+  has_one :asset, as: :assetable
   has_one :contract, dependent: :destroy
   accepts_nested_attributes_for :contract
 

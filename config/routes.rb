@@ -39,4 +39,5 @@ Rails.application.routes.draw do
 
   get 'trade_machine', action: :show, controller: 'trade_machine'
   post 'evaluate_trade', to: 'trade_machine#evaluate_trade', as: 'evaluate_trade'
+  get 'trade_machine/load_assets', to: 'trade_machine#load_assets', as: 'load_assets'
 end

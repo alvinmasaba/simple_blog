@@ -1,5 +1,6 @@
 class TradeException < ApplicationRecord
     belongs_to :team
+    has_one :asset, as: :assetable
   
     validates :amount, numericality: { greater_than: 0 }
     validates :expiry, presence: true
