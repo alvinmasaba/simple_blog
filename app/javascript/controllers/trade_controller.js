@@ -1,20 +1,27 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-    loadTeamAssets(event) {
-        console.log("loadTeamAssets triggered");
-        const teamId = event.target.value; // Get the selected team's ID from the dropdown
-        const teamNumber = event.target.closest('.team-selector').dataset.teamNumber;
-      
-        fetch(`/trade_machine/load_assets?team_id=${teamId}&team_number=${teamNumber}`)
-          .then(response => response.text())
-          .then(html => {
-            // Assuming your server responds with a Turbo Stream, Turbo will handle the update automatically
-            // If your server responds with plain HTML, manually update the UI:
-            const teamAssetsDiv = document.querySelector(`#team-assets-${teamNumber}`);
-            teamAssetsDiv.innerHTML = html;
-          });
-      }
+  loadTeamAssets(event) {
+    const teamId = event.target.value; // Get the selected team's ID from the dropdown
+    const teamNumber = event.target.closest('.team-selector').dataset.teamNumber;
+  
+    fetch(`/trade_machine/load_assets?team_id=${teamId}&team_number=${teamNumber}`)
+      .then(response => response.text())
+      .then(html => {
+        // Assuming your server responds with a Turbo Stream, Turbo will handle the update automatically
+        // If your server responds with plain HTML, manually update the UI:
+        const teamAssetsDiv = document.querySelector(`#team-assets-${teamNumber}`);
+        teamAssetsDiv.innerHTML = html;
+      });
+    
+    // Hide the dropdown and show the 'Change Team' link
+    event.target.style.display = 'none';
+    const changeTeamLink = document.createElement('a');
+    changeTeamLink.href = '#';
+    changeTeamLink.textContent = 'Change Team';
+    changeTeamLink.dataset.action = "click->trade#showTeamDropdown";
+    event.target.parentNode.insertBefore(changeTeamLink, event.target.nextSibling);
+  }
 
   addAssetToTrade(event) {
     let assetId = event.currentTarget.dataset.assetId;
@@ -31,6 +38,46 @@ export default class extends Controller {
     destinationAssetsDiv.innerHTML += `<div class="incoming-asset">${assetName}</div>`;
     
     // Optionally, you could also remove the asset from the current team's list or mark it as "traded"
+  }
+
+  addAssetToSlot(event) {
+    const assetId = event.target.value; 
+    const assetName = event.target.options[event.target.selectedIndex].text;
+    const teamNumber = event.target.closest('.team-selector').dataset.teamNumber;
+    const assetSlotDiv = document.querySelector(`#team-assets-${teamNumber}`);
+  
+    assetSlotDiv.innerHTML += `
+      <div class="selected-asset" data-asset-id="${assetId}">
+        ${assetName} 
+        <button data-action="click->trade#cycleTradeDestination">N/A</button>
+      </div>
+    `;
+
+    // Remove the asset from the dropdown
+    const optionToRemove = event.target.querySelector(`option[value="${assetId}"]`);
+    optionToRemove && optionToRemove.remove();
+  }
+
+  cycleTradeDestination(event) {
+    const currentTeamName = event.target.textContent;
+    const allTeams = Array.from(document.querySelectorAll('select[id^="team"] option'))
+                           .map(opt => opt.textContent)
+                           .filter(name => name && name !== currentTeamName);
+    
+    const currentIndex = allTeams.indexOf(currentTeamName);
+    const nextIndex = (currentIndex + 1) % allTeams.length;
+    event.target.textContent = allTeams[nextIndex];
+  }
+
+  showTeamDropdown(event) {
+    event.preventDefault();
+    const dropdown = event.target.previousSibling;
+    dropdown.style.display = 'block';
+    event.target.remove();
+  
+    // Clear the selected assets
+    const teamAssetsDiv = dropdown.closest('.team-selector').querySelector('.team-assets');
+    teamAssetsDiv.innerHTML = '';
   }
 }
 
