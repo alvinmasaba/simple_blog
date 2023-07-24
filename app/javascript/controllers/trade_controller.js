@@ -4,6 +4,8 @@ export default class extends Controller {
   loadTeamAssets(event) {
     const teamId = event.target.value; // Get the selected team's ID from the dropdown
     const teamNumber = event.target.closest('.team-selector').dataset.teamNumber;
+    const teamName = event.target.options[event.target.selectedIndex].text;
+
   
     fetch(`/trade_machine/load_assets?team_id=${teamId}&team_number=${teamNumber}`)
       .then(response => response.text())
@@ -21,6 +23,13 @@ export default class extends Controller {
     changeTeamLink.textContent = 'Change Team';
     changeTeamLink.dataset.action = "click->trade#showTeamDropdown";
     event.target.parentNode.insertBefore(changeTeamLink, event.target.nextSibling);
+
+    const teamLink = document.createElement('a');
+    teamLink.href = `/teams/${teamId}`;
+    teamLink.textContent = teamName;
+    teamLink.target = '_blank';
+    teamLink.style.marginRight = "10px";
+    event.target.parentNode.insertBefore(teamLink, event.target.nextSibling);
   }
 
   addAssetToTrade(event) {
@@ -44,13 +53,19 @@ export default class extends Controller {
     const assetId = event.target.value; 
     const assetName = event.target.options[event.target.selectedIndex].text;
     const teamNumber = event.target.closest('.team-selector').dataset.teamNumber;
-    const assetSlotDiv = document.querySelector(`#team-assets-${teamNumber}`);
-  
-    assetSlotDiv.innerHTML += `
-      <div class="selected-asset" data-asset-id="${assetId}">
-        ${assetName} 
-        <button data-action="click->trade#cycleTradeDestination">N/A</button>
-      </div>
+    const assetRow = document.querySelector(`#team-assets-${teamNumber}`);
+
+    assetRow.innerHTML += `
+      <tr class="selected-asset" data-asset-id="${assetId}">
+        <td>${assetName}</td>
+        <td>
+          <button data-action="click->trade#cycleTradeDestination">N/A</button>
+        </td>
+        <td>N/A</td>
+        <td>
+          <button data-action="click->trade#removeAssetFromSlot">Remove</button>
+        </td>
+      </tr>
     `;
 
     // Remove the asset from the dropdown
@@ -71,13 +86,53 @@ export default class extends Controller {
 
   showTeamDropdown(event) {
     event.preventDefault();
-    const dropdown = event.target.previousSibling;
-    dropdown.style.display = 'block';
+
+    // Ask for confirmation
+    if(!confirm("Are you sure you want to change the team? All asset selections will be cleared.")) {
+      return; // User clicked 'Cancel', do nothing and exit the function
+    }
+
+
+    // Retrieve the dropdown for the team
+    const teamDropdown = event.target.previousElementSibling.previousElementSibling;
+
+    // Display the team dropdown
+    teamDropdown.style.display = 'block';
+
+    // Remove the asset dropdown
+    const assetDropDown = event.target.nextElementSibling;
+    assetDropDown.remove();
+
+    // Remove the "Change Team" link itself
     event.target.remove();
-  
-    // Clear the selected assets
-    const teamAssetsDiv = dropdown.closest('.team-selector').querySelector('.team-assets');
+
+    // Remove the team link (team name)
+    const teamLink = teamDropdown.nextElementSibling;
+    teamLink.remove();
+
+    // Clear the selected assets for the team
+    const teamAssetsDiv = teamDropdown.closest('.team-selector').querySelector('.team-assets');
     teamAssetsDiv.innerHTML = '';
+
+    // Reset the team dropdown (optional)
+    teamDropdown.selectedIndex = 0;
+  }
+
+
+  removeAssetFromSlot(event) {
+    const row = event.target.closest('.selected-asset')
+    const teamNumber = event.target.closest('.team-selector').dataset.teamNumber;
+    const dropdown = document.querySelector(`#asset${teamNumber}`);
+    const assetName = event.target.closest('.selected-asset').textContent.replace("N/A", "").replace("Remove", "").trim(); // Removes the "N/A" and "Remove" from the content to get the asset name.
+
+    // Create an option for the removed asset and add it back to the dropdown
+    const optionToAdd = document.createElement("option");
+    optionToAdd.value = assetId;
+    optionToAdd.textContent = assetName;  // Using the trimmed name of the Asset
+    dropdown.appendChild(optionToAdd);
+
+    // Remove the asset div from the slots
+    row.remove();
   }
 }
 

@@ -199,6 +199,8 @@ class Spreadsheet
       return ["john", "wall"]
     elsif name == ["derek", "lively"]
       return ["dereck", "lively", "ii"]
+    elsif name == ["george", "niang"]
+      return ["georges", "niang"]
     end
 
     name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_20_151616) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_24_145021) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -99,7 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_20_151616) do
   create_table "draft_picks", force: :cascade do |t|
     t.integer "team_id", null: false
     t.integer "owned_by_id", null: false
-    t.string "round"
+    t.integer "round"
     t.integer "year"
     t.string "protections"
     t.datetime "created_at", null: false
