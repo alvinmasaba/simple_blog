@@ -201,6 +201,20 @@ class Spreadsheet
       return ["dereck", "lively", "ii"]
     elsif name == ["george", "niang"]
       return ["georges", "niang"]
+    elsif name == ["svi", "mykhailiuk"]
+      return ["sviatoslav", "mykhailiuk"]
+    elsif name == ["dwayne", "dedmon"]
+      return ["dewayne", "dedmon"]
+    elsif name == ["louis", "williams"]
+      return ["lou", "williams"]
+    elsif name == ["victor", "wembayama"]
+      return ["victor", "wembanyama"]
+    elsif name == ["joshua", "minott"]
+      return ["josh", "minott"]
+    elsif name == ["jaquori", "mclaughin"]
+      return ["jaquori", "mclaughlin"]
+    elsif name == ["yam", "mader"]
+      return ["yam", "madar"]
     end
 
     name

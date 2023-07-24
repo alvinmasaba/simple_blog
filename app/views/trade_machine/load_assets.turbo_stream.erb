@@ -2,13 +2,15 @@
   <template>
     <%= select_tag "asset#{@team_number}", options_from_collection_for_select(@team.players, "id", "last_name"), prompt: "Select an Asset", data: { action: "change->trade#addAssetToSlot" } %>
 
-    <table class="table table-bordered table-striped team-assets" id="team-assets-<%= @team_number %>">
-      <tr>
-        <th>Asset</th>
-        <th>Trade To</th>
-        <th>Salary</th>
-        <th>Remove</th>
-      </tr>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped team-assets" id="team-assets-<%= @team_number %>">
+        <tr>
+          <th>Asset</th>
+          <th>Trade To</th>
+          <th>Salary</th>
+          <th>Remove</th>
+        </tr>
+      </table>
+    </div>
   </template>
 </turbo-stream>

@@ -120,18 +120,19 @@ export default class extends Controller {
 
 
   removeAssetFromSlot(event) {
-    const row = event.target.closest('.selected-asset')
+    const row = event.target.closest('.selected-asset');
+    const assetId = row.dataset.assetId; // Retrieve asset ID
     const teamNumber = event.target.closest('.team-selector').dataset.teamNumber;
     const dropdown = document.querySelector(`#asset${teamNumber}`);
-    const assetName = event.target.closest('.selected-asset').textContent.replace("N/A", "").replace("Remove", "").trim(); // Removes the "N/A" and "Remove" from the content to get the asset name.
+    const assetName = event.target.closest('.selected-asset').querySelector('td:first-child').textContent; 
 
     // Create an option for the removed asset and add it back to the dropdown
     const optionToAdd = document.createElement("option");
     optionToAdd.value = assetId;
-    optionToAdd.textContent = assetName;  // Using the trimmed name of the Asset
+    optionToAdd.textContent = assetName;
     dropdown.appendChild(optionToAdd);
 
-    // Remove the asset div from the slots
+    // Remove the asset row from the table
     row.remove();
   }
 }

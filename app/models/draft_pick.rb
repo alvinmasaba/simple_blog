@@ -6,9 +6,8 @@ class DraftPick < ApplicationRecord
     belongs_to :owned_by, class_name: 'Team'
     has_one :asset, as: :assetable
   
-    validates :round, presence: true, inclusion: { in: ['first', 'second'] }
+    validates :round, presence: true, inclusion: { in: [1, 2] }
     validates :year, presence: true
-    validates :protections, presence: true
 
     private
 

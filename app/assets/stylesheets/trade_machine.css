@@ -28,3 +28,52 @@ header, subheader {
 .team-assets {
     margin-top: 10px;
 }
+
+.remove-button {
+    background-color: transparent;
+    border: none;
+    width: 15px;         /* Make the button very small */
+    height: 15px;        /* Make the button very small */
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    overflow: hidden;    /* Ensure the image does not overflow the button dimensions */
+}
+
+.remove-button:hover {
+    opacity: 0.7;
+}
+
+.remove-button img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.teams-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; 
+}
+
+.team-selector {
+    flex: 1;
+    padding: 0 10px;  /* spacing between the team selectors */
+    box-sizing: border-box; 
+    max-width: 24%;  /* Ensures that 4 team selectors occupy one row without wrapping */
+}
+
+.table-responsive {
+    overflow-x: auto;  /* Makes table horizontally scrollable if it overflows the container */
+}
+
+/* You can adjust this media query according to your layout's breakpoint */
+@media (max-width: 768px) {
+    .team-selector {
+        max-width: 48%;  /* On smaller screens, we'll allow two team selectors per row */
+    }
+
+    .table td, .table th {
+        font-size: 0.8em;  /* Decrease font-size on smaller screens */
+    }
+}
