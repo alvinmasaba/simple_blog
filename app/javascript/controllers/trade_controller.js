@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let currentIndices = {};  // Global object to store current indices for each button
+
 export default class extends Controller {
   loadTeamAssets(event) {
     const teamId = event.target.value; // Get the selected team's ID from the dropdown
@@ -30,6 +32,8 @@ export default class extends Controller {
     teamLink.target = '_blank';
     teamLink.style.marginRight = "10px";
     event.target.parentNode.insertBefore(teamLink, event.target.nextSibling);
+
+    this.refreshTradeDestinations();
   }
 
   addAssetToTrade(event) {
@@ -59,7 +63,7 @@ export default class extends Controller {
       <tr class="selected-asset" data-asset-id="${assetId}">
         <td>${assetName}</td>
         <td>
-          <button data-action="click->trade#cycleTradeDestination">N/A</button>
+          <button "trade-team-btn" data-action="click->trade#cycleTradeDestination">N/A</button>
         </td>
         <td>N/A</td>
         <td>
@@ -71,18 +75,36 @@ export default class extends Controller {
     // Remove the asset from the dropdown
     const optionToRemove = event.target.querySelector(`option[value="${assetId}"]`);
     optionToRemove && optionToRemove.remove();
+    this.refreshTradeDestinations();
   }
 
   cycleTradeDestination(event) {
-    const currentTeamName = event.target.textContent;
-    const allTeams = Array.from(document.querySelectorAll('select[id^="team"] option'))
-                           .map(opt => opt.textContent)
-                           .filter(name => name && name !== currentTeamName);
-    
-    const currentIndex = allTeams.indexOf(currentTeamName);
-    const nextIndex = (currentIndex + 1) % allTeams.length;
-    event.target.textContent = allTeams[nextIndex];
+    const currentButton = event.target;
+    const buttonId = currentButton.id;  // Assuming each button has a unique ID
+
+    const currentRowTeamDropdown = currentButton.closest('.team-selector').querySelector('select[id^="team"]');
+    const currentRowTeam = currentRowTeamDropdown.options[currentRowTeamDropdown.selectedIndex].textContent;
+
+    // Get the selected teams. 
+    const selectedTeams = this.getSelectedTeams(undefined, currentRowTeam); 
+    console.log("Selected Teams:", selectedTeams);
+
+    if (!selectedTeams.length) {
+        currentButton.textContent = "N/A";
+        return;
+    }
+
+    // Get the current index from the global object or set it to -1 if not found.
+    let currentIndex = currentIndices[buttonId] || -1;
+
+    // Calculate the next index and wrap around if necessary.
+    let nextIndex = (currentIndex + 1) % selectedTeams.length;
+
+    // Update the button's content and save the new index in the global object.
+    currentButton.textContent = selectedTeams[nextIndex];
+    currentIndices[buttonId] = nextIndex;
   }
+
 
   showTeamDropdown(event) {
     event.preventDefault();
@@ -116,6 +138,8 @@ export default class extends Controller {
 
     // Reset the team dropdown (optional)
     teamDropdown.selectedIndex = 0;
+
+    this.refreshTradeDestinations();
   }
 
 
@@ -134,6 +158,35 @@ export default class extends Controller {
 
     // Remove the asset row from the table
     row.remove();
+
+    this.refreshTradeDestinations();
+  }
+
+  getSelectedTeams(excludeTeam, owningTeam) {
+    const allTeams = Array.from(document.querySelectorAll('.team-selector .team-dropdown'))
+        .map(select => select.options[select.selectedIndex].textContent);
+    
+    console.log("All teams:", allTeams);
+    console.log("Exclude Team:", excludeTeam);
+    console.log("Owning Team:", owningTeam);
+    
+    const filteredTeams = allTeams.filter(name => name !== "N/A" && name !== "Select a Team" && name !== excludeTeam && name !== owningTeam);
+
+    console.log("Filtered teams:", filteredTeams);
+
+    return filteredTeams;
+}
+
+  refreshTradeDestinations() {
+    document.querySelectorAll('button.trade-team-btn').forEach(button => {
+      const currentTeamName = button.textContent;
+
+      // Get available teams for trading excluding the current team
+      const selectedTeams = this.getSelectedTeams(currentTeamName);
+
+      // Set the button's text to the first available team or "N/A" if none is available
+      button.textContent = selectedTeams[0] || "N/A";
+    });
   }
 }
 

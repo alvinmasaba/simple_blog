@@ -181,7 +181,7 @@ class Spreadsheet
   def fix_problematic_names(name)
     if name.include?("vleet") && name.include?("van")
       return ["fred", "vanvleet"]
-    elsif name.include?("g. g.")
+    elsif name == ["g.", "g.", "jackson"]
       return ["gregory", "jackson", "ii"]
     elsif name == ["carson", "wallace"]
       return ["cason", "wallace"]
@@ -197,7 +197,7 @@ class Spreadsheet
       return ["justise", "winslow"]
     elsif name == ["john", "walll"]
       return ["john", "wall"]
-    elsif name == ["derek", "lively"]
+    elsif name == ["derek", "lively", "ii"]
       return ["dereck", "lively", "ii"]
     elsif name == ["george", "niang"]
       return ["georges", "niang"]
