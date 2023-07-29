@@ -97,12 +97,18 @@ namespace :update do
 end
 
 def fetch_player_rating(url)
-  begin
-    html_content = URI.open(url).read
-  rescue OpenURI::HTTPError => e
-    Rails.logger.error "#{url} returned an error: #{e.message}"
-    return nil
-  end
+   # Sanitize the URL
+   sanitized_url = URI.encode(url.strip)
+
+   begin
+     html_content = URI.open(sanitized_url).read
+   rescue OpenURI::HTTPError => e
+     Rails.logger.error "#{sanitized_url} returned an error: #{e.message}"
+     return nil
+   rescue URI::InvalidURIError => e
+     Rails.logger.error "Invalid URL: #{sanitized_url}. Error: #{e.message}"
+     return nil
+   end
 
   doc = Nokogiri::HTML(html_content)
   rating_element = doc.at('.attribute-box-player') # Using the class to find the element
