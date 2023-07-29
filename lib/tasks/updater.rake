@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'nokogiri'
+
 namespace :update do
   desc "Update database from spreadsheet"
   task :spreadsheet => :environment do    
@@ -30,37 +33,36 @@ namespace :update do
       end
     end
 
-    puts "Starting updater..."
+    Rails.logger.info "Starting updater..."
     spreadsheet = Spreadsheet.new
 
-    puts "Deleting non-players..."
+    Rails.logger.info "Deleting non-players..."
     Player.where(first_name: "veteran").destroy_all
 
-    puts "Deleting duplicates..."
+    Rails.logger.info "Deleting duplicates..."
     # This will keep the first record and delete all others with the same name
     Player.group(:first_name, :last_name).having("count(*) > 1").pluck(:first_name, :last_name).each do |first_name, last_name|
       duplicates = Player.where(first_name: first_name, last_name: last_name)
       duplicates[1..].each(&:destroy)
     end
 
-    puts "Updating salary cap info..."
+    Rails.logger.info "Updating salary cap info..."
     spreadsheet.update_cap_figures
 
-    puts "Updating players..."
+    Rails.logger.info "Updating players..."
     spreadsheet.update_players
     spreadsheet.update_draft_rights
 
-    puts "Updating contracts..."
+    Rails.logger.info "Updating contracts..."
     spreadsheet.update_contracts
 
-    puts "Updating images..."
-    puts "Deleting corrupt images first..."
-    # Player.update_all(image: nil)
+    Rails.logger.info "Updating images..."
+    Rails.logger.info "Deleting corrupt images first..."
 
-    puts "Attempting to download new working images..."
+    Rails.logger.info "Attempting to download new working images..."
     Player.where(image: nil).find_each(&:update_image)
 
-    puts "Finished updating database!"
+    Rails.logger.info "Finished updating database!"
   end
 
   desc "Add assets to teams"
@@ -68,7 +70,7 @@ namespace :update do
     Team.find_each do |team|
       i = 1
       team.players.each do |player|
-        puts "#{i}. #{player.first_name}_#{player.last_name}"
+        Rails.logger.info "#{i}. #{player.first_name}_#{player.last_name}"
         Asset.create!(assetable: player, team: team)
         i += 1
       end
@@ -78,5 +80,32 @@ namespace :update do
         DraftPick.create!(year: year, round: 2, team: team, owned_by_id: team.id)
       end
     end    
-  end 
+  end
+  
+  desc "Add ratings to players"
+  task :ratings => :environment do
+    i = 1
+    Player.find_each do |player|
+      rating = fetch_player_rating(player.ratings_url)
+
+      next unless player.rating.nil? || player.rating != rating 
+      player.update!(rating: rating)
+      Rails.logger.info "#{i}. #{player.first_name}_#{player.last_name}: #{rating}"
+      i += 1
+    end
+  end
+end
+
+def fetch_player_rating(url)
+  html_content = URI.open(url).read
+  doc = Nokogiri::HTML(html_content)
+  
+  rating_element = doc.at('.attribute-box-player') # Using the class to find the element
+  if rating_element
+    return rating_element.text.strip.to_i
+  else
+    # Handle cases where the rating element isn't found
+    Rails.logger.error "Rating not found for URL: #{url}"
+    return nil
+  end
 end
