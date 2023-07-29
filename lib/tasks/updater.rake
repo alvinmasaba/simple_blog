@@ -33,6 +33,8 @@ namespace :update do
   
   desc "Update ratings and badges"
   task :ratings => :environment do
+    require_relative '../assets/updater_helpers'
+    
     Rails.logger.info "Updating player ratings and badges..."
 
     i = 1
