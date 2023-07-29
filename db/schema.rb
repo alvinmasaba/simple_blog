@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_29_053400) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_29_180801) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -37,6 +37,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_053400) do
     t.datetime "updated_at", null: false
     t.index ["assetable_type", "assetable_id"], name: "index_assets_on_assetable"
     t.index ["team_id"], name: "index_assets_on_team_id"
+  end
+
+  create_table "badges", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cap_figures", force: :cascade do |t|
@@ -106,6 +113,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_053400) do
     t.datetime "updated_at", null: false
     t.index ["owned_by_id"], name: "index_draft_picks_on_owned_by_id"
     t.index ["team_id"], name: "index_draft_picks_on_team_id"
+  end
+
+  create_table "player_badges", force: :cascade do |t|
+    t.integer "player_id", null: false
+    t.integer "badge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_player_badges_on_badge_id"
+    t.index ["player_id"], name: "index_player_badges_on_player_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -193,6 +209,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_053400) do
   add_foreign_key "discord_accounts", "users"
   add_foreign_key "draft_picks", "teams"
   add_foreign_key "draft_picks", "teams", column: "owned_by_id"
+  add_foreign_key "player_badges", "badges"
+  add_foreign_key "player_badges", "players"
   add_foreign_key "players", "teams"
   add_foreign_key "teams", "users"
   add_foreign_key "trade_exceptions", "teams"

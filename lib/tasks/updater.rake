@@ -97,18 +97,18 @@ namespace :update do
 end
 
 def fetch_player_rating(url)
-   # Sanitize the URL
-   sanitized_url = URI.encode(url.strip)
+  # Sanitize the URL
+  sanitized_url = url.gsub(/[^\x00-\x7F]/, '').strip
 
-   begin
-     html_content = URI.open(sanitized_url).read
-   rescue OpenURI::HTTPError => e
-     Rails.logger.error "#{sanitized_url} returned an error: #{e.message}"
-     return nil
-   rescue URI::InvalidURIError => e
-     Rails.logger.error "Invalid URL: #{sanitized_url}. Error: #{e.message}"
-     return nil
-   end
+  begin
+    html_content = URI.open(sanitized_url).read
+  rescue OpenURI::HTTPError => e
+    Rails.logger.error "#{sanitized_url} returned an error: #{e.message}"
+    return nil
+  rescue URI::InvalidURIError => e
+    Rails.logger.error "Invalid URL: #{sanitized_url}. Error: #{e.message}"
+    return nil
+  end
 
   doc = Nokogiri::HTML(html_content)
   rating_element = doc.at('.attribute-box-player') # Using the class to find the element
@@ -118,6 +118,40 @@ def fetch_player_rating(url)
   else
     # Handle cases where the rating element isn't found
     Rails.logger.error "Rating not found for URL: #{url}"
+    return nil
+  end
+end
+
+def fetch_player_badges(url)
+  # Sanitize the URL
+  sanitized_url = url.gsub(/[^\x00-\x7F]/, '').strip
+
+  begin
+    html_content = URI.open(sanitized_url).read
+  rescue OpenURI::HTTPError => e
+    Rails.logger.error "#{sanitized_url} returned an error: #{e.message}"
+    return nil
+  rescue URI::InvalidURIError => e
+    Rails.logger.error "Invalid URL: #{sanitized_url}. Error: #{e.message}"
+    return nil
+  end
+
+  doc = Nokogiri::HTML(html_content)
+
+
+  end
+
+  def fetch_player_url(url)
+    # Sanitize the URL
+  sanitized_url = url.gsub(/[^\x00-\x7F]/, '').strip
+
+  begin
+    html_content = URI.open(sanitized_url).read
+  rescue OpenURI::HTTPError => e
+    Rails.logger.error "#{sanitized_url} returned an error: #{e.message}"
+    return nil
+  rescue URI::InvalidURIError => e
+    Rails.logger.error "Invalid URL: #{sanitized_url}. Error: #{e.message}"
     return nil
   end
 end
