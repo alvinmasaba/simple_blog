@@ -9,6 +9,8 @@ class Player < ApplicationRecord
   has_one :asset, as: :assetable
   has_one :contract, dependent: :destroy
   accepts_nested_attributes_for :contract
+  has_many :player_badges
+  has_many :badges, through: :player_badges
 
   validates :first_name, presence: true
   validates :last_name, presence: true
