@@ -28,7 +28,12 @@
 </style>
 
 <div class="player-rating-box">
+  <div class="container-fluid profile-photo-bg">
+      <div class="player-team-logo"></div>
+      <%= image_tag(@player.image, :class=>"profile-photo", :alt=>"Photo of #{@player.full_name}") if @player.image %>
+  </div>
   <p><%= @player.rating %></p>
+  Overall
 </div>
 
 <div class="player-profile-container">
@@ -56,17 +61,12 @@
     </li>
   </ul>
 
-  <div class="container-fluid profile-photo-bg">
-      <div class="player-team-logo"></div>
-      <%= image_tag(@player.image, :class=>"profile-photo", :alt=>"Photo of #{@player.full_name}") if @player.image %>
+  <div class="player-links-container">
+    <%= link_to "2K Rating", @player.ratings_url, target: :_blank, :class=>"player-links" %>
+    <% if @player.contract %>
+      <%= link_to "View Contract", team_player_contract_path(@team, @player, @contract), target: :_blank, :class=>"player-links" %>
+    <% end %>
+    <%= link_to "Go to Team", team_path(@team), :class=>"player-links" %>
+    <%= link_to "Return to Players", players_path, :class=>"player-links" %>
   </div>
-
-  <%= link_to "2K Rating", @player.ratings_url, target: :_blank, :class=>"player-links" %>
-
-  <% if @player.contract %>
-    <%= link_to "View Contract", team_player_contract_path(@team, @player, @contract), target: :_blank, :class=>"player-links" %>
-  <% end %>
-  
-  <%= link_to "Go to Team", team_path(@team), :class=>"player-links" %>
-  <%= link_to "Return to Players", players_path, :class=>"player-links" %>
 </div>

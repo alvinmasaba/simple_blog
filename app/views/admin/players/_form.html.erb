@@ -61,6 +61,14 @@
     </div>
 
     <div>
+      <%= form.label :weight %><br>
+      <%= form.text_field :weight %>
+      <% player.errors.full_messages_for(:weight).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
       <%= form.label :school %><br>
       <%= form.text_field :school %>
       <% player.errors.full_messages_for(:school).each do |message| %>

@@ -37,7 +37,7 @@
 </div>
 
 <div class="player-profile-container">
-  <h1>
+  <h1 class="player-profile-header">
     <% if @player.full_name.nil? || @player.full_name == "" %>
       <%= @player.print_full_name %>
     <% else %>

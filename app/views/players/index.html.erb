@@ -3,22 +3,32 @@
   <table>
     <thead>
       <tr>
-        <th>Player Name</th>
+        <th style="text-align: left;">Player</th>
         <th>Age</th>
-        <th>Height</th>
         <th>Position</th>
+        <th>Country</th>
+        <th>Years</th>
+        <th>Height</th>
+        <th>Weight</th>
         <th>Team</th>
       </tr>
     </thead>
     <tbody>
       <% @players.first(20).each do |player| %>
         <tr>
-          <td>
-            <%= link_to player.print_full_name, player_path(player) %>
+          <td style="text-align: left;">
+            <% if current_user.admin? %>
+              <%= link_to player.print_full_name, admin_player_path(player) %>
+            <% else %>
+              <%= link_to player.print_full_name, player_path(player) %>
+            <% end %>
           </td>
           <td><%= player.age %></td>
-          <td><%= player.height %></td>
           <td><%= player.position %></td>
+          <td><%= player.country %></td>
+          <td><%= player.years_in_league %></td>
+          <td><%= player.height %></td>
+          <td><%= player.weight %></td>
           <td><%= link_to player.team.titleize_name, team_path(player.team) %></td>
         </tr>
       <% end %>

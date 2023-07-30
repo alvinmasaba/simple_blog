@@ -75,7 +75,7 @@ module Admin
     private
 
     def player_params
-      params.require(:player).permit(:first_name, :last_name, :suffix, :full_name, :age, :height, :school, :position, 
+      params.require(:player).permit(:first_name, :last_name, :suffix, :full_name, :age, :height, :weight, :school, :position, 
                                     :country, :years_in_league, :draft_class, :image, contract_attributes: [:two_way, :id, :waived])
     end
   end

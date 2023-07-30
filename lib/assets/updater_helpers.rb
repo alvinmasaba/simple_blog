@@ -69,7 +69,6 @@ def fetch_player_bio(url)
     puts "Error fetching player bio from #{url}: #{e.message}"
     nil  # Return nil if there's an error
   end
-
 end
 
 def extract_positions(element)
@@ -78,10 +77,11 @@ def extract_positions(element)
 end
 
 def extract_height(element)
-  # Extract the height from the first span within the element
-  height_text = element.css('span').first.text.strip
-  height_value = height_text.match(/(\d+)lbs/)[1]
+  # Extract the height text from the first span with class `text-light`
+  height_text = element.css('span.text-light').first&.text&.strip
 
+  # Match for height pattern (e.g., 6'11") and return the matched height
+  height_value = height_text&.match(/(\d+'\d+")/)&.captures&.first
 end
 
 def extract_weight(element)
@@ -94,7 +94,7 @@ end
 def update_player_info(player)
   begin
     info = fetch_player_bio(player.ratings_url)
-    next if info.nil?  # Skip the player if info couldn't be fetched
+    return if info.nil?  # Skip the player if info couldn't be fetched
 
     puts "Updating #{player.first_name} #{player.last_name}'s info..."
     player.update(
@@ -106,6 +106,5 @@ def update_player_info(player)
 
   rescue => e
     Rails.logger.error "Error updating info for player #{player.id}: #{e.message}"
-    next  # Skip to the next player in case of an error
   end
 end
