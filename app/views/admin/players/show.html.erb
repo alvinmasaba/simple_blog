@@ -5,8 +5,36 @@
     <% else %>
       --team-logo: url('<%= asset_path("ignba.jpg") %>');
     <% end %>
+
+    --player-team-color-primary:   <%= @player.team.primary_color %>;
+    --player-team-color-secondary: <%= @player.team.secondary_color %>;
+    --player-team-color-tertiary:  <%= @player.team.tertiary_color %>;
+  }
+  
+  .main-content:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+
+    background-image: url('<%= asset_path(@player.team.secondary_logo) %>');
+    background-position: 0 0, center top; 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    opacity: 45%;
   }
 </style>
+
+<div class="player-rating-box">
+  <div class="container-fluid profile-photo-bg">
+      <div class="player-team-logo"></div>
+      <%= image_tag(@player.image, :class=>"profile-photo", :alt=>"Photo of #{@player.full_name}") if @player.image %>
+  </div>
+  <p><%= @player.rating %></p>
+  Overall
+</div>
 
 <div class="player-profile-container">
   <h1>
@@ -33,10 +61,6 @@
     </li>
   </ul>
 
-  <div class="container-fluid profile-photo-bg">
-      <div class="player-team-logo"></div>
-      <%= image_tag(@player.image, :class=>"profile-photo", :alt=>"Photo of #{@player.full_name}") if @player.image %>
-  </div>
   <div class="player-links-container">
     <%= link_to "2K Rating", @player.ratings_url, :class=>"player-links", target: :_blank %>
     <%= link_to "Edit Player", edit_admin_team_player_path(@team), :class=>"player-links" %>

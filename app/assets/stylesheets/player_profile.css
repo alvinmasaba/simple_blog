@@ -1,0 +1,34 @@
+.player-rating-box {
+    display: inline-block;
+    border-radius: 4px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+    min-width: 24px;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    text-align: center;
+    padding: 15px;
+    background: var(--player-team-color-primary);
+}
+
+@media (min-width: 1200px) {
+    .player-rating-box p {
+        font-size: 5rem;
+        line-height: 5rem;
+    }
+}
+
+.projects {
+    position: relative; /* Ensure it's positioned relative so we can absolutely position children */
+}
+
+.player-rating-box {
+    position: absolute; /* Absolute positioning inside the .player-profile-container */
+    top: 5rem;
+    left: 5rem;
+    z-index: 10; /* Ensure it's above other elements */
+}
+
+.player-rating-box p {
+    margin: 0;
+}

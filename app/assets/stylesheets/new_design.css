@@ -260,6 +260,7 @@ button:active {
   padding: 25px;
   padding-bottom: 40px;
   background: linear-gradient(to top, var(--team-color-primary), white);
+  position: relative;
 }
 
 .main-content h1 {

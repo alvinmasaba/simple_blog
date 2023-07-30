@@ -5,8 +5,31 @@
     <% else %>
       --team-logo: url('<%= asset_path("ignba.jpg") %>');
     <% end %>
+
+    --player-team-color-primary:   <%= @player.team.primary_color %>;
+    --player-team-color-secondary: <%= @player.team.secondary_color %>;
+    --player-team-color-tertiary:  <%= @player.team.tertiary_color %>;
+  }
+  
+  .main-content:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+
+    background-image: url('<%= asset_path(@player.team.secondary_logo) %>');
+    background-position: 0 0, center top; 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    opacity: 45%;
   }
 </style>
+
+<div class="player-rating-box">
+  <p><%= @player.rating %></p>
+</div>
 
 <div class="player-profile-container">
   <h1>

@@ -22,6 +22,10 @@ class Team < ApplicationRecord
     city.downcase + "-" + name.downcase + '.svg'
   end
 
+  def secondary_logo
+    'secondary_logos/' + name.downcase + '.svg'
+  end
+
   def current_payroll
     sum = 0
 
