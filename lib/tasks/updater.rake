@@ -5,7 +5,7 @@ namespace :update do
   desc "Update database from spreadsheet"
   task :spreadsheet => :environment do
     require_relative '../assets/updater_helpers'
-        
+
     Rails.logger.info "Starting updater..."
     spreadsheet = Spreadsheet.new
 
@@ -52,6 +52,8 @@ namespace :update do
 
   desc "Update player info"
   task :player_info => :environment do
+    require_relative '../assets/updater_helpers'
+    
     Rails.logger.info "Updating player information..."
 
     Player.find_each do |player|
