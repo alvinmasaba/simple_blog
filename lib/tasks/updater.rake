@@ -3,7 +3,9 @@ require 'nokogiri'
 
 namespace :update do
   desc "Update database from spreadsheet"
-  task :spreadsheet => :environment do    
+  task :spreadsheet => :environment do
+    require_relative '../assets/updater_helpers'
+        
     Rails.logger.info "Starting updater..."
     spreadsheet = Spreadsheet.new
 
@@ -50,16 +52,13 @@ namespace :update do
 
   desc "Update player info"
   task :player_info => :environment do
-    require_relative '../assets/updater_helpers'
     Rails.logger.info "Updating player information..."
 
     Player.find_each do |player|
-      info = fetch_player_bio(player.ratings_url)
-      next unless info
-
-      player.update!(country: info[:country], position: info[:position], height: info[:height],
-                    weight: info[:weight], years_in_league: info[:years_in_league])
+      update_player_info(player)
     end
+
+    puts "Finished updating player info."
   end
 
   # desc "Add assets to teams"

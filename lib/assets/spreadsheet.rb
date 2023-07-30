@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require_relative '../assets/updater_helpers'
 
 class Spreadsheet
   attr_accessor :worksheet
@@ -220,7 +221,6 @@ class Spreadsheet
     name
   end
 
-
   def find_or_create_player(player_name, team_name)
     player_name = remove_ntc_tag(player_name)
 
@@ -232,6 +232,7 @@ class Spreadsheet
       player = Player.new( team_id: Team.find_by(name: team_name).id )
       player.update_player_name(player_name)
       player.save
+      update_player_info(player)
       puts "#{player.first_name} #{player.last_name} saved to Database!"
     end
   end

@@ -50,18 +50,26 @@ def fetch_player_rating(doc)
 end
 
 def fetch_player_bio(url)
-  doc = Nokogiri::HTML(fetch_html_content_from_url(url))
-  return {} unless doc  # Return an empty hash if the doc is nil
+  begin
+    doc = Nokogiri::HTML(fetch_html_content_from_url(url))
+    return {} unless doc  # Return an empty hash if the doc is nil
 
-  info = doc.css('.player-info p')
+    info = doc.css('.player-info p')
 
-  {
-    country: info[1].css('a').text.strip,
-    position: extract_positions(info[4]),
-    height: extract_height(info[5]),
-    weight: extract_weight(info[5]),
-    years_in_league: info[7].text.strip.scan(/\d+/).first.to_i
-  }
+    {
+      country: info[1].css('a').text.strip,
+      position: extract_positions(info[4]),
+      height: extract_height(info[5]),
+      weight: extract_weight(info[5]),
+      years_in_league: info[7].text.strip.scan(/\d+/).first.to_i
+    }
+  
+  rescue => e
+    Rails.logger.error "Error fetching player bio from #{url}: #{e.message}"
+    puts "Error fetching player bio from #{url}: #{e.message}"
+    nil  # Return nil if there's an error
+  end
+
 end
 
 def extract_positions(element)
@@ -71,7 +79,9 @@ end
 
 def extract_height(element)
   # Extract the height from the first span within the element
-  element.css('span').first.text.strip
+  height_text = element.css('span').first.text.strip
+  height_value = height_text.match(/(\d+)lbs/)[1]
+
 end
 
 def extract_weight(element)
@@ -79,4 +89,23 @@ def extract_weight(element)
   weight_text = element.css('span')[1].css('span').text.strip
   weight_value = weight_text.match(/(\d+)lbs/)[1]
   weight_value.to_i
+end
+
+def update_player_info(player)
+  begin
+    info = fetch_player_bio(player.ratings_url)
+    next if info.nil?  # Skip the player if info couldn't be fetched
+
+    puts "Updating #{player.first_name} #{player.last_name}'s info..."
+    player.update(
+      country: player.country || info[:country], 
+      position: player.position || info[:position],
+      height: player.height || info[:height],
+      years_in_league: player.years_in_league || info[:years_in_league]
+    )
+
+  rescue => e
+    Rails.logger.error "Error updating info for player #{player.id}: #{e.message}"
+    next  # Skip to the next player in case of an error
+  end
 end
