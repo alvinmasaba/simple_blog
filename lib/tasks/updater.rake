@@ -49,7 +49,8 @@ namespace :update do
   end
 
   desc "Update player info"
-  task :player_Info => :environment do
+  task :player_info => :environment do
+    require_relative '../assets/updater_helpers'
     Rails.logger.info "Updating player information..."
 
     Player.find_each do |player|
@@ -57,7 +58,7 @@ namespace :update do
       next unless info
 
       player.update!(country: info[:country], position: info[:position], height: info[:height],
-                    years_in_league: info[:years_in_league])
+                    weight: info[:weight], years_in_league: info[:years_in_league])
     end
   end
 

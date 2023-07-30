@@ -56,9 +56,10 @@ def fetch_player_bio(url)
   info = doc.css('.player-info p')
 
   {
-    country: info[0].css('a').text.strip,
-    position: extract_positions(info[3]),
-    height: extract_height(info[4]),
+    country: info[1].css('a').text.strip,
+    position: extract_positions(info[4]),
+    height: extract_height(info[5]),
+    weight: extract_weight(info[5]),
     years_in_league: info[7].text.strip.scan(/\d+/).first.to_i
   }
 end
@@ -71,4 +72,11 @@ end
 def extract_height(element)
   # Extract the height from the first span within the element
   element.css('span').first.text.strip
+end
+
+def extract_weight(element)
+  # Extract the weight from the nested span and use regex to isolate the numeric value
+  weight_text = element.css('span')[1].css('span').text.strip
+  weight_value = weight_text.match(/(\d+)lbs/)[1]
+  weight_value.to_i
 end
