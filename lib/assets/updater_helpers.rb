@@ -1,3 +1,5 @@
+require 'date'
+
 def associate_player_with_badges(doc, player)
   doc.css('.badge-box .card-body').each do |badge_node|
     name = badge_node.at('h4').text.strip
@@ -61,7 +63,9 @@ def fetch_player_bio(url)
       position: extract_positions(info[4]),
       height: extract_height(info[5]),
       weight: extract_weight(info[5]),
-      years_in_league: info[7].text.strip.scan(/\d+/).first.to_i
+      years_in_league: info[7].text.strip.scan(/\d+/).first.to_i,
+      age: calculate_age(extract_dob(info[8])).to_i,
+      school: extract_school(info[10])
     }
   
   rescue => e
@@ -85,10 +89,11 @@ def extract_height(element)
 end
 
 def extract_weight(element)
-  # Extract the weight from the nested span and use regex to isolate the numeric value
-  weight_text = element.css('span')[1].css('span').text.strip
-  weight_value = weight_text.match(/(\d+)lbs/)[1]
-  weight_value.to_i
+  # Extract the weight text from the second span with class `text-light`
+  weight_text = element.css('span.text-light')[1]&.text&.strip
+
+  # Match for weight pattern (e.g., 260lbs) and return the matched weight as integer
+  weight_value = weight_text&.match(/(\d+)lbs/)&.captures&.first&.to_i
 end
 
 def update_player_info(player)
@@ -98,13 +103,40 @@ def update_player_info(player)
 
     puts "Updating #{player.first_name} #{player.last_name}'s info..."
     player.update(
+      age: (player.age == 0 ? false : player.age) || info[:age],
       country: player.country || info[:country], 
       position: player.position || info[:position],
       height: player.height || info[:height],
-      years_in_league: player.years_in_league || info[:years_in_league]
+      weight: player.weight || info[:weight],
+      years_in_league: player.years_in_league || info[:years_in_league],
+      school: player.school || info[:school]
     )
 
   rescue => e
     Rails.logger.error "Error updating info for player #{player.id}: #{e.message}"
   end
+end
+
+def extract_dob(element)
+  dob_text = element.text.strip
+  dob_match = dob_text.match(/Date of Birth: ([\w\s,]+)/)
+  dob_match ? dob_match[1] : nil
+end
+
+def calculate_age(dob_string)
+  return nil unless dob_string
+
+  dob = Date.strptime(dob_string, '%B %d, %Y')
+  today = Date.today
+
+  age = today.year - dob.year
+  age -= 1 if today.month < dob.month || (today.month == dob.month && today.day < dob.day)
+  
+  age
+end
+
+def extract_school(element)
+  school_text = element.text.strip
+  school_match = school_text.match(/Prior to\s+NBA:\s*(.+)/)
+  school_match ? school_match[1].strip : nil
 end
