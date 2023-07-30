@@ -48,3 +48,27 @@ def fetch_player_rating(doc)
     return nil
   end
 end
+
+def fetch_player_bio(url)
+  doc = Nokogiri::HTML(fetch_html_content_from_url(url))
+  return {} unless doc  # Return an empty hash if the doc is nil
+
+  info = doc.css('.player-info p')
+
+  {
+    country: info[0].css('a').text.strip,
+    position: extract_positions(info[3]),
+    height: extract_height(info[4]),
+    years_in_league: info[7].text.strip.scan(/\d+/).first.to_i
+  }
+end
+
+def extract_positions(element)
+  # Extract all the positions from the links within the element
+  element.css('a').map(&:text).join('/').strip
+end
+
+def extract_height(element)
+  # Extract the height from the first span within the element
+  element.css('span').first.text.strip
+end

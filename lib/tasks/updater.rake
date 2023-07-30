@@ -48,6 +48,19 @@ namespace :update do
     end
   end
 
+  desc "Update player info"
+  task :player_Info => :environment do
+    Rails.logger.info "Updating player information..."
+
+    Player.find_each do |player|
+      info = fetch_player_bio(player.ratings_url)
+      next unless info
+
+      player.update!(country: info[:country], position: info[:position], height: info[:height],
+                    years_in_league: info[:years_in_league])
+    end
+  end
+
   # desc "Add assets to teams"
   # task :assets => :environment do
   #   Team.find_each do |team|
