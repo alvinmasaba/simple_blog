@@ -137,6 +137,6 @@ end
 
 def extract_school(element)
   school_text = element.text.strip
-  school_match = school_text.match(/Prior to\s+NBA:\s*(.+)/)
-  school_match ? school_match[1].strip : nil
+  school_match = school_text.split(":\n ")[1]
+  school_match ? school_match.strip : nil
 end
