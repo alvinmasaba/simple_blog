@@ -5,6 +5,7 @@ namespace :update do
   desc "Update database from spreadsheet"
   task :spreadsheet => :environment do
     require_relative '../assets/updater_helpers'
+    require_relative '../assets/string'
 
     Rails.logger.info "Starting updater..."
     spreadsheet = Spreadsheet.new

@@ -102,7 +102,7 @@ def update_player_info(player)
     return if info.nil?  # Skip the player if info couldn't be fetched
 
     puts "Updating #{player.first_name} #{player.last_name}'s info..."
-    player.update(
+    player.update!(
       age: (player.age == 0 ? false : player.age) || info[:age],
       country: player.country || info[:country], 
       position: player.position || info[:position],
@@ -138,5 +138,5 @@ end
 def extract_school(element)
   school_text = element.text.strip
   school_match = school_text.split(":\n ")[1]
-  school_match ? school_match.strip : nil
+  school_match
 end
