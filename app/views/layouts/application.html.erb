@@ -14,9 +14,9 @@
 
     <style>
       :root {
-        --team-color-primary:   <%= current_user ? current_user.team.primary_color : 'blue' %>;
-        --team-color-secondary: <%= current_user ? current_user.team.secondary_color : '#002D62' %>;
-        --team-color-tertiary:  <%= current_user ? current_user.team.tertiary_color : '#C8102E' %>;
+        --team-color-primary:   <%= current_user.team ? current_user.team.primary_color : 'blue' %>;
+        --team-color-secondary: <%= current_user.team ? current_user.team.secondary_color : '#002D62' %>;
+        --team-color-tertiary:  <%= current_user.team ? current_user.team.tertiary_color : '#C8102E' %>;
       }
     </style>
   </head>

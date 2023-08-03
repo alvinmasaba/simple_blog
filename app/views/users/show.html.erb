@@ -4,11 +4,26 @@
   <li><%= current_user.username %></li>
   <li><%= current_user.email %></li>
   <% if current_user.team %>
-    <li>Team: <%= link_to current_user.team.titleize_name, team_path(current_user.team)%></li>
+    <li>Team: <%= link_to current_user.team.titleize_name, team_path(current_user.team) %></li></ul>
   <% else %>
-    <li>Request a Team: <%%></li>
+    <!-- app/views/team_requests/index.html.erb -->
+    <h1>Team Requests</h1>
+
+    <% @team_requests.each do |team| %>
+      <div>
+        <strong>Team: <%= team.titleize_name %></strong><br>
+        Current GM: <%= team.user&.username || 'No GM' %><br>
+        Current Co-GM: <%= team.co_gm&.username || 'No Co-GM' %><br>
+        <%= form_with(url: approve_team_request_path(team)) do |f| %>
+          <%= f.label :role, 'Select role for the user:' %><br>
+          <%= f.radio_button :role, 'gm' %> GM<br>
+          <%= f.radio_button :role, 'co_gm' %> Co-GM<br>
+          <%= f.submit 'Approve Request' %>
+        <% end %>
+      </div>
+      <hr>
+    <% end %>
   <% end %>
-</ul>
 
 <div>
   <%= link_to "Edit Membership", edit_user_registration_path(current_user) %>

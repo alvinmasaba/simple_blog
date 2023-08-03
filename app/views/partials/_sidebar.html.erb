@@ -15,8 +15,10 @@
             <li><%= link_to "Profile", user_path(current_user)%></li>
             <%= image_tag("message-reply.svg", :alt=>"Logo") %>
             <li>Messages</li>
-            <%= image_tag("history.svg", :alt=>"Logo") %>
-            <li><%= link_to 'My Team', team_path(current_user.team) %></li>
+            <% if current_user.team %>
+                <%= image_tag("history.svg", :alt=>"Logo") %>
+                <li><%= link_to 'My Team', team_path(current_user.team) %></li>
+            <% end %>
             <%= image_tag("history.svg", :alt=>"Logo") %>
             <li><%= link_to 'Teams', (current_user.admin ? admin_teams_path : teams_path) %></li>
             <%= image_tag("file-multiple-outline.svg", :alt=>"Logo") %>
