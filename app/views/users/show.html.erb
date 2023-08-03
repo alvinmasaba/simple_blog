@@ -3,7 +3,11 @@
 <ul>
   <li><%= current_user.username %></li>
   <li><%= current_user.email %></li>
-  <li>Team: <%= link_to current_user.team.titleize_name, team_path(current_user.team) %></li>
+  <% if current_user.team %>
+    <li>Team: <%= link_to current_user.team.titleize_name, team_path(current_user.team)%></li>
+  <% else %>
+    <li>Request a Team: <%%></li>
+  <% end %>
 </ul>
 
 <div>
