@@ -3,7 +3,7 @@ class Team < ApplicationRecord
   has_many :assets
   has_many :players, -> { includes(:contract).order("contracts.waived asc").order("contracts.year_1 desc") }, dependent: :destroy
   has_many :contracts, through: :players, dependent: :destroy
-  belongs_to :user, optional: true
+  belongs_to :gm, class_name: 'User', foreign_key: 'gm_id', optional: true
   belongs_to :co_gm, class_name: 'User', foreign_key: 'co_gm_id', optional: true
   
   validates :city, presence: true

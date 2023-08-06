@@ -15,12 +15,14 @@
             <li><%= link_to "Profile", user_path(current_user)%></li>
             <%= image_tag("message-reply.svg", :alt=>"Logo") %>
             <li>Messages</li>
-            <% if current_user.team %>
+            <% if current_user&.team&.present? %>
                 <%= image_tag("history.svg", :alt=>"Logo") %>
                 <li><%= link_to 'My Team', team_path(current_user.team) %></li>
             <% end %>
             <%= image_tag("history.svg", :alt=>"Logo") %>
-            <li><%= link_to 'Teams', (current_user.admin ? admin_teams_path : teams_path) %></li>
+            <li><%= link_to 'Teams', ((current_user&.admin) ? admin_teams_path : teams_path) %></li>
+            <%= image_tag("history.svg", :alt=>"Logo") %>
+            <li><%= link_to 'GMs', teams_table_path %></li>
             <%= image_tag("file-multiple-outline.svg", :alt=>"Logo") %>
             <li><%= link_to "Spreadsheet", "https://docs.google.com/spreadsheets/d/1Tr6kYGr_T-DWWXlYs9p5Cc6EXGjUCdJQgSo1plwBklw/edit?usp=sharing", target: :_blank %></li>
             <%= image_tag("file-multiple-outline.svg", :alt=>"Logo") %>
@@ -30,6 +32,8 @@
                 <li><%= link_to "Editable Spreadsheet", "https://docs.google.com/spreadsheets/d/1qIWp0pUQTd5R86BjRYq0xipPw5Md0RFn05gvvzOEMxA/edit#gid=0", target: :_blank %></li>
                 <%= image_tag("cog-outline.svg", :alt=>"Logo") %>
                 <li><%= link_to "New Article", new_admin_article_path %></li>
+                <%= image_tag("cog-outline.svg", :alt=>"Logo") %>
+                <li><%= link_to "Requests", admin_team_requests_path %></li>
             <% end %>
 
         </ul>

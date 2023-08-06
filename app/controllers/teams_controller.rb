@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :table]
 
   def index
     @teams = Team.all
@@ -45,6 +45,10 @@ class TeamsController < ApplicationController
     @team.destroy
 
     redirect_to root_path, status: :see_other
+  end
+
+  def table
+    @teams = Team.all.order(city: :asc)
   end
 
   private

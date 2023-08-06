@@ -1,0 +1,27 @@
+<div class="players-list">
+  <h1>Teams</h1>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: left;">Team</th>
+        <th>GM</th>
+        <th>Co-GM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @teams.each do |team| %>
+        <tr>
+          <td style="text-align: left;">
+            <% if current_user.admin? %>
+              <%= link_to team.titleize_name, admin_team_path(team) %>
+            <% else %>
+              <%= link_to team.titleize_name, team_path(team) %>
+            <% end %>
+          </td>
+          <td><%= team.gm&.username %></td>
+          <td><%= team.co_gm&.username %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

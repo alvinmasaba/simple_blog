@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_03_045851) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_06_062508) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -166,6 +166,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_045851) do
     t.string "tertiary_color", default: "#C8102E"
     t.integer "tax_offender"
     t.integer "co_gm_id"
+    t.integer "gm_id"
+    t.string "division"
+    t.index ["gm_id"], name: "index_teams_on_gm_id"
     t.index ["user_id"], name: "index_teams_on_user_id"
   end
 
@@ -215,5 +218,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_045851) do
   add_foreign_key "player_badges", "players"
   add_foreign_key "players", "teams"
   add_foreign_key "teams", "users"
+  add_foreign_key "teams", "users", column: "gm_id"
   add_foreign_key "trade_exceptions", "teams"
 end

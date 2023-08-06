@@ -220,6 +220,8 @@ class Spreadsheet
       return ["colin", "castleton"]
     elsif name == ["bones", "hyland"]
       return ["nahshon", "hyland"]
+    elsif name == ["andre", "igudoala"]
+      return ["andre", "iguodala"]
     end
 
     name
