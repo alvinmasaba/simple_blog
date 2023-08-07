@@ -48,7 +48,7 @@ class TeamsController < ApplicationController
   end
 
   def table
-    @teams = Team.all.order(city: :asc)
+    @teams = Team.all.order(city: :asc).page(params[:page]).per(10)
   end
 
   private

@@ -1,6 +1,6 @@
 module Admin
   class TeamsController < ApplicationController
-    before_action :admin_only
+    before_action :admin_only, :set_divisions
 
     def index
       @teams = Team.all
@@ -79,7 +79,11 @@ module Admin
     end
 
     def team_params
-      params.require(:team).permit(:city, :name, :primary_color, :secondary_color, :tertiary_color)
+      params.require(:team).permit(:city, :name, :division, :primary_color, :secondary_color, :tertiary_color)
+    end
+
+    def set_divisions
+      @divisions = ["Atlantic", "Central", "Southeast", "Northwest", "Pacific", "Southwest"]
     end
   end
 end

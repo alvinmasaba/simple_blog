@@ -16,6 +16,14 @@
   </div>
 
   <div>
+    <%= form.label :division %><br>
+    <%= form.select :division, options_for_select(@divisions) %>
+    <% team.errors.full_messages_for(:division).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.label :primary_color %><br>
     <%= form.text_field :primary_color %>
     <%= team.errors.full_messages_for(:primary_color).each do |message| %>
